@@ -14,6 +14,7 @@ function App() {
     let x = await getSelfAddress()
     setAddress(x);
   }
+  connect();
   return (
     <div className="App">
       <button onClick={onClickConnect}>Connect MM</button>
