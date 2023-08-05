@@ -1,23 +1,25 @@
 import './App.css';
-import logo from './logo.svg';
+import { w3, connect, getSelfAddress} from './core';
+import React, { useState } from 'react';
 
 function App() {
+  const [address, setAddress] = useState('null');
+  const onClickConnect =async () => {
+    await connect();
+    if (!w3) return;
+    let myAddress = await w3.eth.getAccounts();
+    console.log(myAddress);
+  }
+  const onClickUpdateAddress =async () => {
+    let x = await getSelfAddress()
+    setAddress(x);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={onClickConnect}>Connect MM</button>
+      <button onClick={onClickUpdateAddress}>update address</button>
+      <div>Address</div>
+      <div id='address'>{address}</div>
     </div>
   );
 }
