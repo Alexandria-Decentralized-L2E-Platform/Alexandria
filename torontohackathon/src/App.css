@@ -39,7 +39,7 @@
   }
 }
 
-.alexandria-header{
+.alexandria-header {
   border-radius: 0px 0px 30px 30px;
   background-color: #232221;
   height: 97px;
@@ -50,7 +50,7 @@
 .alexandria-typography {
   display: flex;
   gap: 20px; /* Adds space between buttons */
-  color: #FFF;
+  color: #fff;
   font-family: Jost;
   font-size: 16px;
   font-weight: 500;
@@ -70,7 +70,6 @@
   text-transform: none;
 }
 
-
 .alexandria-whole-tab {
   display: flex;
   align-items: center;
@@ -79,31 +78,30 @@
   padding: 70px 25px 76px 76px; /* Adds 10px padding to the top and bottom, and 20px to the left and right */
 }
 
-
-.alexandria-logoAndName{
+.alexandria-logoAndName {
   display: flex;
-align-items: center;
-gap: 9.825px;
+  align-items: center;
+  gap: 9.825px;
 }
 
-.alexandria-rightHandSide-tab{
+.alexandria-rightHandSide-tab {
   display: flex;
   align-items: center;
   gap: 30px;
 }
 
-.alexandria-connectWallet{
+.alexandria-connectWallet {
   display: flex;
   padding: 12px 25px;
   flex-direction: row;
   align-items: center;
   gap: 10px;
   border-radius: 5px;
-  background: var(--main-brown, #9E7C5E);
+  background: var(--main-brown, #9e7c5e);
 }
 
-.alexandria-connectWallet-text{
-  color: #FFF;
+.alexandria-connectWallet-text {
+  color: #fff;
   text-align: center;
   font-family: 'Jost', sans-serif; /* Apply the Jost font */
   font-size: 16px;
