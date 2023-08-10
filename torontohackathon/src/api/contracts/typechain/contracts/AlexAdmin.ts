@@ -12,108 +12,69 @@ import type {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from "@ethersproject/abi";
-import type { Listener, Provider } from "@ethersproject/providers";
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-} from "../common";
+} from 'ethers';
+import type { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
+import type { Listener, Provider } from '@ethersproject/providers';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from '../common';
 
 export interface AlexAdminInterface extends utils.Interface {
   functions: {
-    "authorFee()": FunctionFragment;
-    "cardFee()": FunctionFragment;
-    "collectToken(address,address,uint256)": FunctionFragment;
-    "feeToken()": FunctionFragment;
-    "owner()": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
-    "updateAuthorfee(uint256)": FunctionFragment;
-    "updateCard(uint256)": FunctionFragment;
-    "updateFeeToken(address)": FunctionFragment;
+    'authorFee()': FunctionFragment;
+    'cardFee()': FunctionFragment;
+    'collectToken(address,address,uint256)': FunctionFragment;
+    'feeToken()': FunctionFragment;
+    'owner()': FunctionFragment;
+    'renounceOwnership()': FunctionFragment;
+    'transferOwnership(address)': FunctionFragment;
+    'updateAuthorfee(uint256)': FunctionFragment;
+    'updateCard(uint256)': FunctionFragment;
+    'updateFeeToken(address)': FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "authorFee"
-      | "cardFee"
-      | "collectToken"
-      | "feeToken"
-      | "owner"
-      | "renounceOwnership"
-      | "transferOwnership"
-      | "updateAuthorfee"
-      | "updateCard"
-      | "updateFeeToken"
+      | 'authorFee'
+      | 'cardFee'
+      | 'collectToken'
+      | 'feeToken'
+      | 'owner'
+      | 'renounceOwnership'
+      | 'transferOwnership'
+      | 'updateAuthorfee'
+      | 'updateCard'
+      | 'updateFeeToken',
   ): FunctionFragment;
 
-  encodeFunctionData(functionFragment: "authorFee", values?: undefined): string;
-  encodeFunctionData(functionFragment: "cardFee", values?: undefined): string;
+  encodeFunctionData(functionFragment: 'authorFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'cardFee', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "collectToken",
-    values: [string, string, BigNumberish]
+    functionFragment: 'collectToken',
+    values: [string, string, BigNumberish],
   ): string;
-  encodeFunctionData(functionFragment: "feeToken", values?: undefined): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateAuthorfee",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateCard",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateFeeToken",
-    values: [string]
-  ): string;
+  encodeFunctionData(functionFragment: 'feeToken', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string;
+  encodeFunctionData(functionFragment: 'updateAuthorfee', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'updateCard', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'updateFeeToken', values: [string]): string;
 
-  decodeFunctionResult(functionFragment: "authorFee", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "cardFee", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "collectToken",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "feeToken", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateAuthorfee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "updateCard", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "updateFeeToken",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'authorFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'cardFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'collectToken', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'feeToken', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateAuthorfee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateCard', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateFeeToken', data: BytesLike): Result;
 
   events: {
-    "OwnershipTransferred(address,address)": EventFragment;
+    'OwnershipTransferred(address,address)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment;
 }
 
 export interface OwnershipTransferredEventObject {
@@ -125,8 +86,7 @@ export type OwnershipTransferredEvent = TypedEvent<
   OwnershipTransferredEventObject
 >;
 
-export type OwnershipTransferredEventFilter =
-  TypedEventFilter<OwnershipTransferredEvent>;
+export type OwnershipTransferredEventFilter = TypedEventFilter<OwnershipTransferredEvent>;
 
 export interface AlexAdmin extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -138,16 +98,14 @@ export interface AlexAdmin extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
+    eventFilter?: TypedEventFilter<TEvent>,
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -163,7 +121,7 @@ export interface AlexAdmin extends BaseContract {
       _to: string,
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     feeToken(overrides?: CallOverrides): Promise<[string]>;
@@ -171,27 +129,27 @@ export interface AlexAdmin extends BaseContract {
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     updateAuthorfee(
       _authorFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     updateCard(
       _cardFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     updateFeeToken(
       _feeToken: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -203,7 +161,7 @@ export interface AlexAdmin extends BaseContract {
     _to: string,
     _token: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   feeToken(overrides?: CallOverrides): Promise<string>;
@@ -211,27 +169,27 @@ export interface AlexAdmin extends BaseContract {
   owner(overrides?: CallOverrides): Promise<string>;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   transferOwnership(
     newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   updateAuthorfee(
     _authorFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   updateCard(
     _cardFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   updateFeeToken(
     _feeToken: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -243,7 +201,7 @@ export interface AlexAdmin extends BaseContract {
       _to: string,
       _token: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     feeToken(overrides?: CallOverrides): Promise<string>;
@@ -252,32 +210,23 @@ export interface AlexAdmin extends BaseContract {
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    transferOwnership(newOwner: string, overrides?: CallOverrides): Promise<void>;
 
-    updateAuthorfee(
-      _authorFee: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    updateAuthorfee(_authorFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    updateCard(
-      _cardFee: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    updateCard(_cardFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     updateFeeToken(_feeToken: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    "OwnershipTransferred(address,address)"(
+    'OwnershipTransferred(address,address)'(
       previousOwner?: string | null,
-      newOwner?: string | null
+      newOwner?: string | null,
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
       previousOwner?: string | null,
-      newOwner?: string | null
+      newOwner?: string | null,
     ): OwnershipTransferredEventFilter;
   };
 
@@ -290,7 +239,7 @@ export interface AlexAdmin extends BaseContract {
       _to: string,
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     feeToken(overrides?: CallOverrides): Promise<BigNumber>;
@@ -298,27 +247,27 @@ export interface AlexAdmin extends BaseContract {
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     updateAuthorfee(
       _authorFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     updateCard(
       _cardFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     updateFeeToken(
       _feeToken: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -331,7 +280,7 @@ export interface AlexAdmin extends BaseContract {
       _to: string,
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     feeToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -339,27 +288,27 @@ export interface AlexAdmin extends BaseContract {
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     updateAuthorfee(
       _authorFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     updateCard(
       _cardFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     updateFeeToken(
       _feeToken: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }
