@@ -4,7 +4,17 @@ import alexandrialLogo from './logo/alexandriaLogo.svg';
 import alexandriaName from './logo/alexandriaName.svg';
 import iconsWallet from './logo/iconsWallet.svg';
 
+import { ethers } from 'ethers';
+import { loadProvider, isConnected, connect } from './api/blockchain/index';
+import { useEffect } from 'react';
+
 function App() {
+  let provider: ethers.providers.Web3Provider | undefined;
+  useEffect(() => {
+    isConnected();
+    provider = loadProvider();
+  });
+
   return (
     <div className="App">
       <AppBar
@@ -40,7 +50,7 @@ function App() {
               </div>
               <Button
                 onClick={() => {
-                  // Handle the click action here
+                  if (provider) connect(provider);
                 }}
                 sx={{
                   padding: 0, // Remove padding to make the div look like the actual button
