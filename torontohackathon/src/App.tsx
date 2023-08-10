@@ -6,6 +6,7 @@ import iconsWallet from './logo/iconsWallet.svg';
 
 import { ethers } from 'ethers';
 import { loadProvider, isConnected, connect } from './api/blockchain/index';
+import { getTokenBalance } from './api/contracts';
 import { useEffect } from 'react';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   useEffect(() => {
     isConnected();
     provider = loadProvider();
+    if (provider) getTokenBalance(provider, '0x75e11567d3AfA9650d8BA16fE58eae425B030c24');
   });
 
   return (

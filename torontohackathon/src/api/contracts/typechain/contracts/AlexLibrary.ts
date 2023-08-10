@@ -41,6 +41,7 @@ export interface AlexLibraryInterface extends utils.Interface {
     'getRatings(uint256)': FunctionFragment;
     'learnProgram(uint256,string[])': FunctionFragment;
     'newProgram(string,string,string,(address,uint256,uint256,uint256),string[])': FunctionFragment;
+    'programCounter()': FunctionFragment;
     'programs(uint256)': FunctionFragment;
     'rateProgram(uint256,uint256)': FunctionFragment;
     'ratings(uint256,uint256)': FunctionFragment;
@@ -54,6 +55,7 @@ export interface AlexLibraryInterface extends utils.Interface {
       | 'getRatings'
       | 'learnProgram'
       | 'newProgram'
+      | 'programCounter'
       | 'programs'
       | 'rateProgram'
       | 'ratings',
@@ -68,6 +70,7 @@ export interface AlexLibraryInterface extends utils.Interface {
     functionFragment: 'newProgram',
     values: [string, string, string, AlexLibrary.RewardStruct, string[]],
   ): string;
+  encodeFunctionData(functionFragment: 'programCounter', values?: undefined): string;
   encodeFunctionData(functionFragment: 'programs', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'rateProgram', values: [BigNumberish, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'ratings', values: [BigNumberish, BigNumberish]): string;
@@ -78,6 +81,7 @@ export interface AlexLibraryInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getRatings', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'learnProgram', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'newProgram', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'programCounter', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'programs', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'rateProgram', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'ratings', data: BytesLike): Result;
@@ -133,6 +137,8 @@ export interface AlexLibrary extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    programCounter(overrides?: CallOverrides): Promise<[BigNumber] & { _value: BigNumber }>;
+
     programs(
       arg0: BigNumberish,
       overrides?: CallOverrides,
@@ -184,6 +190,8 @@ export interface AlexLibrary extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  programCounter(overrides?: CallOverrides): Promise<BigNumber>;
+
   programs(
     arg0: BigNumberish,
     overrides?: CallOverrides,
@@ -226,6 +234,8 @@ export interface AlexLibrary extends BaseContract {
       _answers: string[],
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    programCounter(overrides?: CallOverrides): Promise<BigNumber>;
 
     programs(
       arg0: BigNumberish,
@@ -273,6 +283,8 @@ export interface AlexLibrary extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    programCounter(overrides?: CallOverrides): Promise<BigNumber>;
+
     programs(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     rateProgram(
@@ -311,6 +323,8 @@ export interface AlexLibrary extends BaseContract {
       _answers: string[],
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    programCounter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     programs(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
