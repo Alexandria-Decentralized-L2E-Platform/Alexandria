@@ -33,6 +33,7 @@ export interface AlexAuthorInterface extends utils.Interface {
     'setApprovalForAll(address,bool)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
     'symbol()': FunctionFragment;
+    'tokenIdCounter()': FunctionFragment;
     'tokenURI(uint256)': FunctionFragment;
     'transferFrom(address,address,uint256)': FunctionFragment;
   };
@@ -53,6 +54,7 @@ export interface AlexAuthorInterface extends utils.Interface {
       | 'setApprovalForAll'
       | 'supportsInterface'
       | 'symbol'
+      | 'tokenIdCounter'
       | 'tokenURI'
       | 'transferFrom',
   ): FunctionFragment;
@@ -77,6 +79,7 @@ export interface AlexAuthorInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setApprovalForAll', values: [string, boolean]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'tokenIdCounter', values?: undefined): string;
   encodeFunctionData(functionFragment: 'tokenURI', values: [BigNumberish]): string;
   encodeFunctionData(
     functionFragment: 'transferFrom',
@@ -103,6 +106,7 @@ export interface AlexAuthorInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'tokenIdCounter', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'tokenURI', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
 
@@ -226,6 +230,8 @@ export interface AlexAuthor extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
 
+    tokenIdCounter(overrides?: CallOverrides): Promise<[BigNumber] & { _value: BigNumber }>;
+
     tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     transferFrom(
@@ -289,6 +295,8 @@ export interface AlexAuthor extends BaseContract {
 
   symbol(overrides?: CallOverrides): Promise<string>;
 
+  tokenIdCounter(overrides?: CallOverrides): Promise<BigNumber>;
+
   tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   transferFrom(
@@ -341,6 +349,8 @@ export interface AlexAuthor extends BaseContract {
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
+
+    tokenIdCounter(overrides?: CallOverrides): Promise<BigNumber>;
 
     tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
@@ -445,6 +455,8 @@ export interface AlexAuthor extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
 
+    tokenIdCounter(overrides?: CallOverrides): Promise<BigNumber>;
+
     tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     transferFrom(
@@ -515,6 +527,8 @@ export interface AlexAuthor extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tokenIdCounter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
