@@ -91,31 +91,44 @@ export const mintLibraryCard = async (
 };
 
 // Library
+
+export interface Program {
+  id: ethers.BigNumber;
+  owner: string;
+  title: string;
+  contentURI: string;
+  questionCID: string;
+  certificate: string;
+  reward: AlexLibrary.RewardStructOutput;
+}
+
 export const getProgram = async (
   provider: ethers.providers.Web3Provider,
   id: number,
-): Promise<any> => {
+): Promise<Program> => {
   const lib = new ethers.Contract(
     alexAddresses.admin,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;
-  const program = await lib.programs(id);
+  const program: Program = await lib.programs(id);
   return program;
 };
 
-export const getAllPrograms = async (provider: ethers.providers.Web3Provider): Promise<any> => {
+export const getAllPrograms = async (
+  provider: ethers.providers.Web3Provider,
+): Promise<Program[]> => {
   const lib = new ethers.Contract(
     alexAddresses.admin,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;
   const counter = await lib.programCounter();
-  let programs = [];
+  const programs: Program[] = [];
   for (let i = 0; i < counter.toNumber(); i++) {
     programs.push(await getProgram(provider, i));
   }
-  const result = Promise.all(programs);
+  const result = await Promise.all(programs);
 
   return result;
 };
