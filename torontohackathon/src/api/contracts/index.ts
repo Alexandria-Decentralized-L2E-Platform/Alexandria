@@ -92,39 +92,71 @@ export const mintLibraryCard = async (
 
 // Library
 
-export interface Program {
+export interface IProgram {
   id: ethers.BigNumber;
   owner: string;
   title: string;
   contentURI: string;
   questionCID: string;
   certificate: string;
-  reward: AlexLibrary.RewardStructOutput;
+  reward: {
+    rewardToken: string;
+    rewardAddressCap: string;
+    rewardPerAddress: string;
+    rewardDistributed: string;
+  };
 }
 
 export const getProgram = async (
   provider: ethers.providers.Web3Provider,
   id: number,
-): Promise<Program> => {
+): Promise<IProgram> => {
   const lib = new ethers.Contract(
     alexAddresses.admin,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;
-  const program: Program = await lib.programs(id);
+  const response = await lib.programs(id);
+  const token = new ethers.Contract(
+    response.reward.rewardToken,
+    ERC20__factory.abi,
+    provider,
+  ) as ERC20;
+  const decimals = await token.decimals();
+  const program: IProgram = {
+    ...response,
+    reward: {
+      rewardToken: response.reward.rewardToken,
+      rewardAddressCap: ethers.utils.formatUnits(response.reward.rewardAddressCap, decimals),
+      rewardDistributed: ethers.utils.formatUnits(response.reward.rewardDistributed, decimals),
+      rewardPerAddress: ethers.utils.formatUnits(response.reward.rewardPerAddress, decimals),
+    },
+  };
   return program;
 };
 
-export const getAllPrograms = async (
+export const getNumberOfPrograms = async (
   provider: ethers.providers.Web3Provider,
-): Promise<Program[]> => {
+): Promise<number> => {
   const lib = new ethers.Contract(
     alexAddresses.admin,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;
   const counter = await lib.programCounter();
-  const programs: Program[] = [];
+  return counter.toNumber();
+};
+
+export const getAllProgramsOnContract = async (
+  provider: ethers.providers.Web3Provider,
+): Promise<IProgram[]> => {
+  const lib = new ethers.Contract(
+    alexAddresses.admin,
+    AlexLibrary__factory.abi,
+    provider,
+  ) as AlexLibrary;
+  const counter = await lib.programCounter();
+  const programs: IProgram[] = [];
   for (let i = 0; i < counter.toNumber(); i++) {
     programs.push(await getProgram(provider, i));
   }

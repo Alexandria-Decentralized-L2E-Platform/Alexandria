@@ -2,13 +2,22 @@
 
 const JWT = process.env.REACT_APP_IPFS_JWT;
 
-interface IpinJSONtoIPFSResponseData {
+export interface IpinJSONtoIPFSResponseData {
   IpfsHash: string;
   PinSize: number;
   Timestamp: string;
 }
 
-export const pinJSONtoIPFS = async (obj: object): Promise<IpinJSONtoIPFSResponseData> => {
+export interface IProgramObjectIPFS {
+  duration: number;
+  link: string;
+  type: string;
+  questions: string[];
+}
+
+export const pinProgramToIPFS = async (
+  obj: IProgramObjectIPFS,
+): Promise<IpinJSONtoIPFSResponseData> => {
   const options = {
     method: 'POST',
     headers: {
@@ -25,7 +34,7 @@ export const pinJSONtoIPFS = async (obj: object): Promise<IpinJSONtoIPFSResponse
   return response.json();
 };
 
-export const readJSONFromIPFS = async (cid: string): Promise<any> => {
+export const readProgramFromIPFS = async (cid: string): Promise<IProgramObjectIPFS> => {
   const request = await fetch('https://gateway.pinata.cloud/ipfs/' + cid);
-  return request;
+  return await request.json();
 };
