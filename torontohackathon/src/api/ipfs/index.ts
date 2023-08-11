@@ -1,6 +1,6 @@
 // IPFS Pinata API Gateway
 
-import { config } from './config';
+const JWT = process.env.REACT_APP_IPFS_JWT;
 
 interface IpinJSONtoIPFSResponseData {
   IpfsHash: string;
@@ -14,7 +14,7 @@ export const pinJSONtoIPFS = async (obj: object): Promise<IpinJSONtoIPFSResponse
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      authorization: 'Bearer ' + config.JWT,
+      authorization: 'Bearer ' + JWT,
     },
     body: JSON.stringify({
       pinataContent: obj,
