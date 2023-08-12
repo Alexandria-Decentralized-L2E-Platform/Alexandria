@@ -17,6 +17,11 @@ function App() {
   function onConnect() {
     updateUserAddress();
   }
+  function shortenAddress(address: string) {
+    if (!address || address.length < 10) return '';
+    return address.substring(0, 6) + '...' + address.substring(address.length - 4);
+  }
+
   useEffect(() => {
     isConnected();
     provider = loadProvider();
@@ -36,8 +41,8 @@ function App() {
 
   async function updateUserAddress() {
     const x = provider ? (await provider.listAccounts())[0] : '';
-    setUserAddress(x);
-    console.log('address', x);
+    setUserAddress(shortenAddress(x));
+    console.log('address', x, shortenAddress(x));
   }
 
   return (
