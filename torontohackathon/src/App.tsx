@@ -1,5 +1,5 @@
 import { AppBar, Button, Toolbar } from '@mui/material';
-import CourseCatelogue from './components/CourseCatalogue/CourseCatalogue';
+import CourseDetail from './components/CourseDetail/CourseDetail';
 import './App.css';
 import alexandrialLogo from './logo/alexandriaLogo.svg';
 import alexandriaName from './logo/alexandriaName.svg';
@@ -46,6 +46,11 @@ function App() {
     }
   }
 
+  async function connectWallet() {
+    await connect();
+    updateUserAddress();
+  }
+
   useEffect(() => {
     setupPage();
   });
@@ -53,6 +58,7 @@ function App() {
   const [userAddress, setUserAddress] = useState('null');
 
   function updateUserAddress() {
+    if (!walletAddress) return;
     const x = walletAddress;
     setUserAddress(shortenAddress(x));
     console.log('address', x);
@@ -93,7 +99,7 @@ function App() {
               </div>
               <Button
                 onClick={() => {
-                  if (walletProvider) connect();
+                  if (walletProvider) connectWallet();
                 }}
                 sx={{
                   padding: 0, // Remove padding to make the div look like the actual button
@@ -123,7 +129,7 @@ function App() {
           </div>
         </Toolbar>
       </AppBar>
-      <CourseCatelogue></CourseCatelogue>
+      {/* <CourseDetail></CourseDetail> */}
     </div>
   );
 }
