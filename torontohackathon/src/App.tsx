@@ -129,7 +129,7 @@ function App() {
           </div>
         </Toolbar>
       </AppBar>
-      {/* <CourseDetail></CourseDetail> */}
+      <CourseDetail></CourseDetail>
     </div>
   );
 }

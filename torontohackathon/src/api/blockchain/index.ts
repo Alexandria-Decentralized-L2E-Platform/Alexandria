@@ -38,11 +38,11 @@ export const isConnected = (): boolean => {
 
 // Connect wallet to metamask
 export const connect = async (): Promise<string> => {
-  setupWallet();
-  const account = await getAccount();
-  if (await isSupportedChain()) return account;
+  const accounts = await walletProvider.send('eth_requestAccounts', []);
+  await setupWallet();
+  if (await isSupportedChain()) return accounts[0];
   await addNetwork(DEFAULT_NETWORK);
-  return account;
+  return accounts[0];
 };
 
 // Return true if the chain is supported
@@ -57,7 +57,6 @@ export const addNetwork = async (chainId: number): Promise<Network | undefined> 
   const network = networkList.find((n) => n.chainId == chainId);
   if (!network) return undefined;
   const id = chainId.toString(16);
-  console.log(id);
   await walletProvider.send('wallet_addEthereumChain', [
     {
       chainId: '0x' + id,

@@ -138,6 +138,7 @@ export const getProgram = async (
 export const getNumberOfPrograms = async (
   provider: ethers.providers.Web3Provider,
 ): Promise<number> => {
+  if (!provider) return 0;
   const lib = new ethers.Contract(
     alexAddresses.library,
     AlexLibrary__factory.abi,
