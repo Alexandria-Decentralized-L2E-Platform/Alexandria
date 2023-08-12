@@ -25,6 +25,7 @@ export interface AlexLibraryCardInterface extends utils.Interface {
     'burn(uint256)': FunctionFragment;
     'getApproved(uint256)': FunctionFragment;
     'isApprovedForAll(address,address)': FunctionFragment;
+    'mintedAt(uint256)': FunctionFragment;
     'name()': FunctionFragment;
     'ownerOf(uint256)': FunctionFragment;
     'safeMint(address)': FunctionFragment;
@@ -46,6 +47,7 @@ export interface AlexLibraryCardInterface extends utils.Interface {
       | 'burn'
       | 'getApproved'
       | 'isApprovedForAll'
+      | 'mintedAt'
       | 'name'
       | 'ownerOf'
       | 'safeMint'
@@ -65,6 +67,7 @@ export interface AlexLibraryCardInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'burn', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'getApproved', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'isApprovedForAll', values: [string, string]): string;
+  encodeFunctionData(functionFragment: 'mintedAt', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'name', values?: undefined): string;
   encodeFunctionData(functionFragment: 'ownerOf', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'safeMint', values: [string]): string;
@@ -92,6 +95,7 @@ export interface AlexLibraryCardInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getApproved', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'mintedAt', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'safeMint', data: BytesLike): Result;
@@ -196,6 +200,8 @@ export interface AlexLibraryCard extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<[boolean]>;
 
+    mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>;
+
     name(overrides?: CallOverrides): Promise<[string]>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
@@ -261,6 +267,8 @@ export interface AlexLibraryCard extends BaseContract {
 
   isApprovedForAll(owner: string, operator: string, overrides?: CallOverrides): Promise<boolean>;
 
+  mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
   name(overrides?: CallOverrides): Promise<string>;
 
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
@@ -318,6 +326,8 @@ export interface AlexLibraryCard extends BaseContract {
     getApproved(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     isApprovedForAll(owner: string, operator: string, overrides?: CallOverrides): Promise<boolean>;
+
+    mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
@@ -421,6 +431,8 @@ export interface AlexLibraryCard extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
+    mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
@@ -490,6 +502,8 @@ export interface AlexLibraryCard extends BaseContract {
       operator: string,
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
+
+    mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

@@ -21,13 +21,15 @@ export interface AlexAuthorInterface extends utils.Interface {
   functions: {
     'admin()': FunctionFragment;
     'approve(address,uint256)': FunctionFragment;
+    'authorList(uint256)': FunctionFragment;
     'balanceOf(address)': FunctionFragment;
     'burn(uint256)': FunctionFragment;
     'getApproved(uint256)': FunctionFragment;
     'isApprovedForAll(address,address)': FunctionFragment;
+    'mintedAt(uint256)': FunctionFragment;
     'name()': FunctionFragment;
     'ownerOf(uint256)': FunctionFragment;
-    'safeMint(address)': FunctionFragment;
+    'safeMint(address,string)': FunctionFragment;
     'safeTransferFrom(address,address,uint256)': FunctionFragment;
     'safeTransferFrom(address,address,uint256,bytes)': FunctionFragment;
     'setApprovalForAll(address,bool)': FunctionFragment;
@@ -42,10 +44,12 @@ export interface AlexAuthorInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | 'admin'
       | 'approve'
+      | 'authorList'
       | 'balanceOf'
       | 'burn'
       | 'getApproved'
       | 'isApprovedForAll'
+      | 'mintedAt'
       | 'name'
       | 'ownerOf'
       | 'safeMint'
@@ -61,13 +65,15 @@ export interface AlexAuthorInterface extends utils.Interface {
 
   encodeFunctionData(functionFragment: 'admin', values?: undefined): string;
   encodeFunctionData(functionFragment: 'approve', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'authorList', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string;
   encodeFunctionData(functionFragment: 'burn', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'getApproved', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'isApprovedForAll', values: [string, string]): string;
+  encodeFunctionData(functionFragment: 'mintedAt', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'name', values?: undefined): string;
   encodeFunctionData(functionFragment: 'ownerOf', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'safeMint', values: [string]): string;
+  encodeFunctionData(functionFragment: 'safeMint', values: [string, string]): string;
   encodeFunctionData(
     functionFragment: 'safeTransferFrom(address,address,uint256)',
     values: [string, string, BigNumberish],
@@ -88,10 +94,12 @@ export interface AlexAuthorInterface extends utils.Interface {
 
   decodeFunctionResult(functionFragment: 'admin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'authorList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getApproved', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isApprovedForAll', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'mintedAt', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'safeMint', data: BytesLike): Result;
@@ -181,6 +189,8 @@ export interface AlexAuthor extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    authorList(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     burn(
@@ -196,12 +206,15 @@ export interface AlexAuthor extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<[boolean]>;
 
+    mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>;
+
     name(overrides?: CallOverrides): Promise<[string]>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     safeMint(
       to: string,
+      name: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -250,6 +263,8 @@ export interface AlexAuthor extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  authorList(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
   balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   burn(
@@ -261,12 +276,15 @@ export interface AlexAuthor extends BaseContract {
 
   isApprovedForAll(owner: string, operator: string, overrides?: CallOverrides): Promise<boolean>;
 
+  mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
   name(overrides?: CallOverrides): Promise<string>;
 
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   safeMint(
     to: string,
+    name: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -311,6 +329,8 @@ export interface AlexAuthor extends BaseContract {
 
     approve(to: string, tokenId: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
+    authorList(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     burn(tokenId: BigNumberish, overrides?: CallOverrides): Promise<void>;
@@ -319,11 +339,13 @@ export interface AlexAuthor extends BaseContract {
 
     isApprovedForAll(owner: string, operator: string, overrides?: CallOverrides): Promise<boolean>;
 
+    mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<string>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    safeMint(to: string, overrides?: CallOverrides): Promise<void>;
+    safeMint(to: string, name: string, overrides?: CallOverrides): Promise<void>;
 
     'safeTransferFrom(address,address,uint256)'(
       from: string,
@@ -406,6 +428,8 @@ export interface AlexAuthor extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    authorList(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     burn(
@@ -421,12 +445,15 @@ export interface AlexAuthor extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
+    mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     safeMint(
       to: string,
+      name: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -476,6 +503,8 @@ export interface AlexAuthor extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    authorList(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     burn(
@@ -491,12 +520,15 @@ export interface AlexAuthor extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
+    mintedAt(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     safeMint(
       to: string,
+      name: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
