@@ -111,24 +111,25 @@ export const getProgram = async (
   id: number,
 ): Promise<IProgram> => {
   const lib = new ethers.Contract(
-    alexAddresses.admin,
+    alexAddresses.library,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;
   const response = await lib.programs(id);
-  const token = new ethers.Contract(
-    response.reward.rewardToken,
-    ERC20__factory.abi,
-    provider,
-  ) as ERC20;
-  const decimals = await token.decimals();
+  // const token = new ethers.Contract(
+  //   response.reward.rewardToken,
+  //   ERC20__factory.abi,
+  //   provider,
+  // ) as ERC20;
+  // const decimals = await token.decimals();
+  console.log(response.reward.rewardPerAddress.toNumber());
   const program: IProgram = {
     ...response,
     reward: {
       rewardToken: response.reward.rewardToken,
-      rewardAddressCap: ethers.utils.formatUnits(response.reward.rewardAddressCap, decimals),
-      rewardDistributed: ethers.utils.formatUnits(response.reward.rewardDistributed, decimals),
-      rewardPerAddress: ethers.utils.formatUnits(response.reward.rewardPerAddress, decimals),
+      rewardAddressCap: response.reward.rewardAddressCap.toString(),
+      rewardDistributed: response.reward.rewardDistributed.toString(),
+      rewardPerAddress: response.reward.rewardPerAddress.toString(),
     },
   };
   return program;
@@ -138,7 +139,7 @@ export const getNumberOfPrograms = async (
   provider: ethers.providers.Web3Provider,
 ): Promise<number> => {
   const lib = new ethers.Contract(
-    alexAddresses.admin,
+    alexAddresses.library,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;
