@@ -6,14 +6,13 @@ import iconsWallet from './logo/iconsWallet.svg';
 
 import {
   walletProvider,
-  walletChainId,
   walletAddress,
   setupWallet,
   connect,
   isConnected,
   doMint,
 } from './api/blockchain/index';
-import { getTokenBalance } from './api/contracts';
+
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -28,7 +27,7 @@ function App() {
     return address.substring(0, 6) + '...' + address.substring(address.length - 4);
   }
   async function mintNFT() {
-    let x = await doMint();
+    const x = await doMint();
     console.log('done mint', x);
   }
 
