@@ -1,4 +1,4 @@
-import { BigNumber, ethers } from 'ethers';
+import { ethers } from 'ethers';
 import { networkList, Network, DEFAULT_NETWORK } from './network';
 import {
   AlexLibraryCard,
@@ -74,22 +74,21 @@ export const addNetwork = async (chainId: number): Promise<Network | undefined> 
 };
 
 export const doMint = async () => {
-  let signer = walletProvider.getSigner();
-  let signerAddress = await signer.getAddress();
+  const signer = walletProvider.getSigner();
+  const signerAddress = await signer.getAddress();
   const card = new ethers.Contract(
     alexAddresses.card,
     AlexLibraryCard__factory.abi,
     signer,
   ) as AlexLibraryCard;
-  let mintFee = 200;
+  const mintFee = 200;
   const token = new ethers.Contract(alexAddresses.token, ERC20__factory.abi, signer) as ERC20;
   const balance = await token.balanceOf(signerAddress);
-  const allowed = await token.allowance(signerAddress,alexAddresses.token);
+  const allowed = await token.allowance(signerAddress, alexAddresses.token);
   if (allowed.lt(mintFee)) {
-    let approveReceipt = await (await token.approve(alexAddresses.card,balance)).wait();
-    console.log("approveReceipt", approveReceipt);
+    const approveReceipt = await (await token.approve(alexAddresses.card, balance)).wait();
+    console.log('approveReceipt', approveReceipt);
   }
   const trx = await card.safeMint(signerAddress);
-  let receipt = await trx.wait();
-  return receipt;
+  return await trx.wait();
 };
