@@ -1,4 +1,5 @@
 import { AppBar, Button, Toolbar } from '@mui/material';
+import CourseCatelogue from './components/CourseCatalogue/CourseCatalogue';
 import './App.css';
 import alexandrialLogo from './logo/alexandriaLogo.svg';
 import alexandriaName from './logo/alexandriaName.svg';
@@ -122,7 +123,7 @@ function App() {
           </div>
         </Toolbar>
       </AppBar>
-      <div id="txn">null</div>
+      <CourseCatelogue></CourseCatelogue>
     </div>
   );
 }

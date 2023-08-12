@@ -1,7 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap'); /* Import the Jost font */
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap'); /* Import the Jost font */
 
 .App {
   text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-family: Jost;
+}
+
+.App h1 {
+  font-weight: 700;
 }
 
 .App-logo {
