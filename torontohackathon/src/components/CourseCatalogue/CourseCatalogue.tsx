@@ -1,6 +1,38 @@
 import CourseFilter from './CourseFilter';
 import './CourseCatalogue.css';
 
+const courseFilters = [
+  {
+    title: 'Status',
+    options: ['In Progress', 'Completed', 'Earning End'],
+  },
+  {
+    title: 'Rating',
+    options: ['4.5 and up', '4.0 and up', '3.5 and up', '3.0 and up'],
+  },
+  {
+    title: 'Topics',
+    options: [
+      'DAO / Community',
+      'NFT',
+      'Deif',
+      ' Gamefi',
+      'Metaverse',
+      'X-2-Earn',
+      'Music NFT',
+      'Infra / API',
+      'Crosschain',
+    ],
+  },
+  {
+    title: 'Type',
+    options: ['Videos', 'Articles'],
+  },
+  {
+    title: 'Duration',
+    options: ['0 - 30 mins', '30 - 60 mins', '1 hr - 2 hrs', 'Above 2 hrs'],
+  },
+];
 function CourseCatalogue() {
   return (
     <div className="CourseCatalogue">
@@ -24,12 +56,11 @@ function CourseCatalogue() {
       </div>
       <div className="CourseContainer">
         <div className="CourseFilterContainer">
-          <CourseFilter></CourseFilter>
-          <CourseFilter></CourseFilter>
-          <CourseFilter></CourseFilter>
-          <CourseFilter></CourseFilter>
+          {courseFilters.map((v) => {
+            return <CourseFilter key={'filter-' + v.title} data={v}></CourseFilter>;
+          })}
         </div>
-        <div className="Courses">123</div>
+        <div className="Courses"></div>
       </div>
     </div>
   );
