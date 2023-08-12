@@ -4,13 +4,19 @@ import alexandrialLogo from './logo/alexandriaLogo.svg';
 import alexandriaName from './logo/alexandriaName.svg';
 import iconsWallet from './logo/iconsWallet.svg';
 
-import { ethers } from 'ethers';
-import { loadProvider, isConnected, connect } from './api/blockchain/index';
+import {
+  walletProvider,
+  walletChainId,
+  walletAddress,
+  setupWallet,
+  connect,
+  isConnected,
+  doMint,
+} from './api/blockchain/index';
 import { getTokenBalance } from './api/contracts';
 import { useEffect, useState } from 'react';
 
 function App() {
-  let provider: ethers.providers.Web3Provider | undefined;
   function onAccountsChanged() {
     updateUserAddress();
   }
@@ -21,28 +27,35 @@ function App() {
     if (!address || address.length < 10) return '';
     return address.substring(0, 6) + '...' + address.substring(address.length - 4);
   }
+  async function mintNFT() {
+    let x = await doMint();
+    console.log('done mint', x);
+  }
 
-  useEffect(() => {
-    isConnected();
-    provider = loadProvider();
+  async function setupPage() {
+    await setupWallet();
     updateUserAddress();
-    if (provider) {
-      provider.on('connect', onConnect);
-      provider.on('accountsChanged', onAccountsChanged);
-      getTokenBalance(provider, '0x75e11567d3AfA9650d8BA16fE58eae425B030c24');
+    if (isConnected()) {
+      walletProvider.on('connect', onConnect);
+      walletProvider.on('accountsChanged', onAccountsChanged);
+      //getTokenBalance(walletProvider, '0x75e11567d3AfA9650d8BA16fE58eae425B030c24');
 
       //provider.on('chainChanged', );
       //provider.on('connect', );
       //provider.on('disconnect', );
     }
+  }
+
+  useEffect(() => {
+    setupPage();
   });
 
   const [userAddress, setUserAddress] = useState('null');
 
-  async function updateUserAddress() {
-    const x = provider ? (await provider.listAccounts())[0] : '';
+  function updateUserAddress() {
+    const x = walletAddress;
     setUserAddress(shortenAddress(x));
-    console.log('address', x, shortenAddress(x));
+    console.log('address', x);
   }
 
   return (
@@ -80,7 +93,7 @@ function App() {
               </div>
               <Button
                 onClick={() => {
-                  if (provider) connect(provider);
+                  if (walletProvider) connect();
                 }}
                 sx={{
                   padding: 0, // Remove padding to make the div look like the actual button
@@ -98,10 +111,19 @@ function App() {
                   <div id="userAddress">{userAddress}</div>
                 </div>
               </Button>
+              <Button
+                onClick={() => {
+                  if (walletProvider) mintNFT();
+                }}
+                color="inherit"
+              >
+                <div>Mint NFT</div>
+              </Button>
             </div>
           </div>
         </Toolbar>
       </AppBar>
+      <div id="txn">null</div>
     </div>
   );
 }
