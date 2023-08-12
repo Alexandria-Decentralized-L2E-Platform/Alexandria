@@ -9,10 +9,11 @@ export interface IpinJSONtoIPFSResponseData {
 }
 
 export interface IProgramObjectIPFS {
+  description: string;
   duration: number;
   link: string;
   type: string;
-  questions: string[];
+  questions: { title: string; choices: string[] }[];
 }
 
 export const pinProgramToIPFS = async (

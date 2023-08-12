@@ -96,8 +96,7 @@ export interface IProgram {
   id: ethers.BigNumber;
   owner: string;
   title: string;
-  contentURI: string;
-  questionCID: string;
+  cid: string;
   certificate: string;
   reward: {
     rewardToken: string;
