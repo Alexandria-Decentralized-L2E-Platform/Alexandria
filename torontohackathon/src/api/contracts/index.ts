@@ -28,7 +28,7 @@ export const alexAddresses: AlexAddresses = {
   admin: '0xC53Ea44bee323662ca8ce89540473cf39e4664aD',
   author: '0x299B2f9E249706c9c7F96EC9593447219392fd42',
   card: '0x1d6775426a4A0304FC2EFa22c2A1BCc57589c0e7',
-  library: '0x4fF814ACf950bcde3E16e89CCC3aaEFd15C4D0f3',
+  library: '0xfB5394b0521c4248a009f49207834d104d66648F',
 };
 
 // Tokens

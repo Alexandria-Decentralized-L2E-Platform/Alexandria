@@ -40,7 +40,7 @@ export interface AlexLibraryInterface extends utils.Interface {
     'checkAnswer(uint256,string[])': FunctionFragment;
     'getRatings(uint256)': FunctionFragment;
     'learnProgram(uint256,string[])': FunctionFragment;
-    'newProgram(string,string,string,(address,uint256,uint256,uint256),string[])': FunctionFragment;
+    'newProgram(string,string,(address,uint256,uint256,uint256),string[])': FunctionFragment;
     'programCounter()': FunctionFragment;
     'programs(uint256)': FunctionFragment;
     'rateProgram(uint256,uint256)': FunctionFragment;
@@ -68,7 +68,7 @@ export interface AlexLibraryInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'learnProgram', values: [BigNumberish, string[]]): string;
   encodeFunctionData(
     functionFragment: 'newProgram',
-    values: [string, string, string, AlexLibrary.RewardStruct, string[]],
+    values: [string, string, AlexLibrary.RewardStruct, string[]],
   ): string;
   encodeFunctionData(functionFragment: 'programCounter', values?: undefined): string;
   encodeFunctionData(functionFragment: 'programs', values: [BigNumberish]): string;
@@ -130,8 +130,7 @@ export interface AlexLibrary extends BaseContract {
 
     newProgram(
       _title: string,
-      _contentURI: string,
-      _questionCID: string,
+      _cid: string,
       _reward: AlexLibrary.RewardStruct,
       _answers: string[],
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -143,12 +142,11 @@ export interface AlexLibrary extends BaseContract {
       arg0: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<
-      [BigNumber, string, string, string, string, string, AlexLibrary.RewardStructOutput] & {
+      [BigNumber, string, string, string, string, AlexLibrary.RewardStructOutput] & {
         id: BigNumber;
         owner: string;
         title: string;
-        contentURI: string;
-        questionCID: string;
+        cid: string;
         certificate: string;
         reward: AlexLibrary.RewardStructOutput;
       }
@@ -183,8 +181,7 @@ export interface AlexLibrary extends BaseContract {
 
   newProgram(
     _title: string,
-    _contentURI: string,
-    _questionCID: string,
+    _cid: string,
     _reward: AlexLibrary.RewardStruct,
     _answers: string[],
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -196,12 +193,11 @@ export interface AlexLibrary extends BaseContract {
     arg0: BigNumberish,
     overrides?: CallOverrides,
   ): Promise<
-    [BigNumber, string, string, string, string, string, AlexLibrary.RewardStructOutput] & {
+    [BigNumber, string, string, string, string, AlexLibrary.RewardStructOutput] & {
       id: BigNumber;
       owner: string;
       title: string;
-      contentURI: string;
-      questionCID: string;
+      cid: string;
       certificate: string;
       reward: AlexLibrary.RewardStructOutput;
     }
@@ -228,8 +224,7 @@ export interface AlexLibrary extends BaseContract {
 
     newProgram(
       _title: string,
-      _contentURI: string,
-      _questionCID: string,
+      _cid: string,
       _reward: AlexLibrary.RewardStruct,
       _answers: string[],
       overrides?: CallOverrides,
@@ -241,12 +236,11 @@ export interface AlexLibrary extends BaseContract {
       arg0: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<
-      [BigNumber, string, string, string, string, string, AlexLibrary.RewardStructOutput] & {
+      [BigNumber, string, string, string, string, AlexLibrary.RewardStructOutput] & {
         id: BigNumber;
         owner: string;
         title: string;
-        contentURI: string;
-        questionCID: string;
+        cid: string;
         certificate: string;
         reward: AlexLibrary.RewardStructOutput;
       }
@@ -276,8 +270,7 @@ export interface AlexLibrary extends BaseContract {
 
     newProgram(
       _title: string,
-      _contentURI: string,
-      _questionCID: string,
+      _cid: string,
       _reward: AlexLibrary.RewardStruct,
       _answers: string[],
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -317,8 +310,7 @@ export interface AlexLibrary extends BaseContract {
 
     newProgram(
       _title: string,
-      _contentURI: string,
-      _questionCID: string,
+      _cid: string,
       _reward: AlexLibrary.RewardStruct,
       _answers: string[],
       overrides?: Overrides & { from?: string | Promise<string> },
