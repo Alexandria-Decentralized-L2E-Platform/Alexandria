@@ -9,7 +9,7 @@ interface QuestionData {
 function Question(props: { data: QuestionData }) {
   return (
     <div className="Question">
-      <p>{props.data.number + ' ' + props.data.title}</p>
+      <p>{props.data.number + '. ' + props.data.title}</p>
       <RadioGroup
         className="Chocies"
         aria-labelledby="demo-radio-buttons-group-label"

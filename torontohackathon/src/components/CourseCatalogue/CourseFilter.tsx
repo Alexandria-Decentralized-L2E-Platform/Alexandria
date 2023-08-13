@@ -10,8 +10,8 @@ function CourseFilter(props: { data: filterData }) {
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
-    <div className="CourseFilter">
-      <div className="FilterName">
+    <div className="Course-Filter">
+      <div className="Filter-Name">
         <h2>{props.data.title}</h2>
         {isExpanded ? (
           <svg
@@ -49,7 +49,7 @@ function CourseFilter(props: { data: filterData }) {
       </div>
       {isExpanded ? (
         <RadioGroup
-          className="FilterOptions"
+          className="Filter-Options"
           aria-labelledby="demo-radio-buttons-group-label"
           name="radio-buttons-group"
         >

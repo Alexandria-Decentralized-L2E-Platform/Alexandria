@@ -1,4 +1,4 @@
-.CourseCatalogue {
+.Course-Catalogue {
   width: 90%;
   max-width: 1300px;
   display: flex;
@@ -6,7 +6,7 @@
   align-items: start;
 }
 
-.SearchBar {
+.Search-Bar {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -18,7 +18,7 @@
   box-shadow: 0px 0px 20px 0px #8d857e;
 }
 
-.SearchBar input {
+.Search-Bar input {
   width: 67%;
   font-size: 16px;
   margin-left: 3%;
@@ -26,7 +26,7 @@
   outline: none;
 }
 
-.SearchBar svg {
+.Search-Bar svg {
   margin-right: 1.5%;
 }
 
@@ -38,7 +38,7 @@
   margin-top: 50px;
 }
 
-.CourseFilterContainer {
+.Course-Filter-Container {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -48,7 +48,7 @@
   border: 1px solid #000;
 }
 
-.CourseFilter {
+.Course-Filter {
   width: 67%;
   display: flex;
   flex-flow: column nowrap;
@@ -56,7 +56,7 @@
   border-bottom: 1px solid black;
 }
 
-.FilterName {
+.Filter-Name {
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
@@ -64,11 +64,11 @@
   align-items: center;
 }
 
-.FilterName h2 {
+.Filter-Name h2 {
   font-size: 16px;
 }
 
-.FilterOptions span {
+.Filter-Options span {
   font-size: 16px;
   font-weight: 400;
 }
