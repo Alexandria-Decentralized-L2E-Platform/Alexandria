@@ -1,16 +1,17 @@
 import { AppBar, Button, Toolbar } from '@mui/material';
-import CourseDetail from './components/CourseDetail/CourseDetail';
 import './App.css';
 import alexandriaLogo from './logo/alexandriaLogo.svg';
 import alexandriaName from './logo/alexandriaName.svg';
 import iconsWallet from './logo/iconsWallet.svg';
 
-import { walletProvider, walletAddress, setupWallet, connect, isConnected } from './api/blockchain';
+import { connect, isConnected, setupWallet, walletAddress, walletProvider } from './api/blockchain';
 
-import { hasLibraryCard, getLibraryCardDetail, ICard, doMint } from './api/contracts';
+import { ICard, doMint, getLibraryCardDetail, hasLibraryCard } from './api/contracts';
 
-import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
+import { useEffect, useState } from 'react';
+import CourseDetail from './components/CourseDetail/CourseDetail';
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   const [provider, setProvider] = useState<ethers.providers.Web3Provider | undefined>(undefined);
@@ -165,6 +166,7 @@ function App() {
         </Toolbar>
       </AppBar>
       {provider && <CourseDetail provider={provider}></CourseDetail>}
+      <LandingPage />
     </div>
   );
 }
