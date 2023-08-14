@@ -6,6 +6,7 @@
   flex-flow: column nowrap;
   align-items: center;
   font-family: Jost;
+  font-weight: 500;
 }
 
 .App h1 {
