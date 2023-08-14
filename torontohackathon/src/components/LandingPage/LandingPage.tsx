@@ -1,23 +1,16 @@
-import ToggleButton from '@mui/lab/ToggleButton';
-import ToggleButtonGroup from '@mui/lab/ToggleButtonGroup';
-import { Button } from '@mui/material';
+import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
 import communityDescription from '../../logo/communityDescription.svg';
 import discord from '../../logo/discord.svg';
-import earnTokenIcon from '../../logo/earnTokenIcon.svg';
-import ellipse from '../../logo/ellipse2.svg';
 import footerAlexandria from '../../logo/footerAlexandria.svg';
 import innovationDescription from '../../logo/innovationDescription.svg';
 import learningDescripton from '../../logo/learningDescription.svg';
-import metaMaskLogo from '../../logo/metaMaskLogo.svg';
 import ourVisionBanner from '../../logo/ourVisionBanner.svg';
 import securityDescription from '../../logo/securityDescription.svg';
-import star1 from '../../logo/star1.svg';
-import star2 from '../../logo/star2.svg';
-import star3 from '../../logo/star3.svg';
 import telegram from '../../logo/telegram.svg';
 import twitter from '../../logo/twitter.svg';
 import visitAlexandriaBanner from '../../logo/visitAlexandriaBanner.svg';
+import CourseCard from '../common/CourseCard';
 import './LandingPage.css';
 // type courseCardprops = {
 //   icon: string;
@@ -33,7 +26,7 @@ import './LandingPage.css';
 // };
 
 function LandingPage() {
-  const courseCards: JSX.Element[] = [courseCard(), courseCard(), courseCard(), courseCard()];
+  const courseCards: JSX.Element[] = [<CourseCard key="1"></CourseCard>];
   return (
     <div className="landingPage">
       <div className="visitAlexandriaBanner">
@@ -102,93 +95,6 @@ function LandingPage() {
               <img src={telegram} />
             </Button>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function courseCard() {
-  const earnTokenNumber = 200;
-  const totalTokenNumber = 20000;
-  const courseName = 'MetaMask 101';
-  const courseStatus = 'In Progress';
-  const courseDescription =
-    ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex....';
-  let rating = 3.5;
-  const courseDuration = '1h 30m';
-  const coursePublisher = 'By Mouse Mouse 78';
-
-  const ratingStars: JSX.Element[] = [];
-  for (let i = 0; i < 5; i++) {
-    if (rating >= 1) {
-      ratingStars.push(<img src={star1} className="CourseRatingStar" />);
-      rating--;
-    } else if (rating >= 0.5) {
-      ratingStars.push(<img src={star2} className="CourseRatingStar" />);
-      rating -= 0.5;
-    } else {
-      ratingStars.push(<img src={star3} className="CourseRatingStar" />);
-    }
-  }
-
-  const video: JSX.Element = (
-    <div className="CourseTagVideo">
-      <div className="CourseTagText">Video</div>
-    </div>
-  );
-  const crosschainInfrastructure: JSX.Element = (
-    <div className="CourseTagCrossChain">
-      <div className="CourseTagText">Crosschain Infrastructure</div>
-    </div>
-  );
-
-  const courseTags: JSX.Element[] = [video, crosschainInfrastructure];
-  return (
-    <div className="courseCard">
-      <div className="innerCourseCard">
-        <div className="innerCourseCardLeft">
-          <div className="innerCourseCardLeftLeft">
-            <div className="innerCourseCardSvgFrame">
-              <img src={metaMaskLogo} className="innerCourseCardSvg" />
-            </div>
-          </div>
-
-          <div className="innerCourseCardLeftRight">
-            <div className="CourseDetail">
-              <div className="CourseTitle">
-                <text className="CourseName">{courseName}</text>
-                <div className="CourseStatus">
-                  <img src={ellipse} className="CourseStatusIcon" />
-                  <text className="CourseStatusText">{courseStatus}</text>
-                </div>
-              </div>
-              <div className="Course-Rating-Duration-Publisher">
-                <div className="CourseRating">{ratingStars}</div>
-                <div className="CourseDuration">{courseDuration}</div>
-                <div className="CoursePublisher">{coursePublisher}</div>
-              </div>
-              <div className="CourseTag">{courseTags}</div>
-              <div className="CourseDescription">
-                <text>{courseDescription}</text>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="innerCourseCardRight">
-          <Button
-            className="courseEarnToken"
-            color="inherit"
-            sx={{
-              textTransform: 'none',
-            }}
-          >
-            <div className="courseEarnTokenIconAndText">
-              <img src={earnTokenIcon} className="courseEarnTokenIcon" />
-              <text className="courseEarnTokenText">Earn {earnTokenNumber} Token</text>
-            </div>
-          </Button>
-          <text className="courseTotalToken">Total: {totalTokenNumber} Tokens</text>
         </div>
       </div>
     </div>

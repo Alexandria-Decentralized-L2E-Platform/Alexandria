@@ -7,6 +7,7 @@ import Question from './Question';
 import './CourseDetail.css';
 
 function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
+  const [answer, setAnswer] = useState({});
   const [program, setProgram] = useState<IProgram | undefined>(undefined);
   const [isTakingQuiz, setIsTakingQuiz] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -16,20 +17,27 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
     setProgram(programs[0]);
   };
 
+  const onSelectAnswer = async (i: number, choice: string) => {
+    const newAnswer = {
+      ...answer,
+      [i]: choice,
+    };
+    setAnswer(newAnswer);
+  };
+
   const onClickHandler = async () => {
     if (isTakingQuiz && program) {
+      // Convert answer object to answer[]
+      const answerArr: string[] = Object.values(answer);
+
       // Check Answer
-      const isCorrect = await contracts.checkAnswer(walletProvider, program.id.toNumber(), [
-        'A',
-        'B',
-        'B',
-        'C',
-        'D',
-      ]);
+      const isCorrect =
+        answerArr.length == program.questions.length &&
+        (await contracts.checkAnswer(walletProvider, program.id.toNumber(), answerArr));
 
       if (isCorrect) {
         setIsCorrect(true);
-        contracts.learnProgram(walletProvider, program.id.toNumber(), ['A', 'B']);
+        contracts.learnProgram(walletProvider, program.id.toNumber(), answerArr);
       } else {
         setIsCorrect(false);
       }
@@ -98,7 +106,9 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
             <div className="Questions">
               <p>Select the correct answer.</p>
               {program.questions.map((v, i) => {
-                return <Question key={v.title} data={{ ...v, number: i + 1 }}></Question>;
+                return (
+                  <Question key={v.title} data={{ ...v, number: i + 1, onSelectAnswer }}></Question>
+                );
               })}
             </div>
           ) : (

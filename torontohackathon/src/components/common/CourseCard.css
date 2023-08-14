@@ -1,0 +1,269 @@
+.courseCard {
+  width: 992px;
+  height: 240px;
+  border-radius: 23.524px;
+  background: var(--deactivated-light-grey, #edebe8);
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.innerCourseCard {
+  display: flex;
+  align-items: center;
+  margin: 27px 32.17px 27px 33px;
+}
+
+.innerCourseCardLeft {
+  display: flex;
+  align-items: flex-start;
+}
+
+.innerCourseCardLeftLeft {
+  width: 156.83px;
+  height: 156.83px;
+  flex-shrink: 0;
+  border-radius: 23.524px;
+  background: #fff;
+  box-shadow: 0px 3.1365935802459717px 7.841484069824219px 0px rgba(0, 0, 0, 0.25);
+  margin-right: 61px;
+}
+
+.innerCourseCardLeftRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 450px;
+}
+
+.innerCourseCardSvgFrame {
+  display: flex;
+  width: 121.543px;
+  height: 121.543px;
+  padding: 17.363px 16.249px 20.836px 16.253px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.innerCourseCardSvg {
+  width: 89.04px;
+  height: 83.344px;
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+.CourseDetail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.CourseTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.CourseName {
+  display: flex;
+  width: 200.469px;
+  height: 26.661px;
+  flex-direction: column;
+  justify-content: center;
+  color: #000;
+  font-family: Jost;
+  font-size: 26.661px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  align-items: flex-start;
+}
+
+.CourseStatus {
+  display: flex;
+  flex-direction: row;
+  width: 103.508px;
+  height: 18.82px;
+  align-items: flex-start;
+  gap: 10.978px;
+}
+
+.CourseStatusIcon {
+  width: 18.82px;
+  height: 18.82px;
+}
+
+.CourseStatusText {
+  width: 73.71px;
+  height: 18.035px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Jost;
+  font-size: 12.546px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.Course-Rating-Duration-Publisher {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.CourseRating {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.CourseRatingStar {
+  width: 15px;
+  height: 15px;
+}
+
+.CourseDuration {
+  display: flex;
+  width: 88px;
+  height: 17px;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--deactivated-dark-grey, #757575);
+  text-align: center;
+  font-family: Jost;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.CoursePublisher {
+  display: flex;
+  width: 206px;
+  height: 17px;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--main-brown, #9e7c5e);
+  font-family: Jost;
+  font-size: 15.546px;
+  font-style: normal;
+  font-weight: 500;
+  align-items: flex-start;
+  line-height: normal;
+}
+
+.CourseTag {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.CourseTagVideo {
+  display: inline-flex;
+  padding: 0px 11px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: #9e7c5e;
+}
+
+.CourseTagCrossChain {
+  display: flex;
+  padding: 0px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: #648daa;
+}
+
+.CourseTagText {
+  color: var(--white, #fff);
+  text-align: center;
+  font-family: Jost;
+  font-size: 16.546px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.CourseDescription {
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  color: #000;
+  font-family: Jost;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.innerCourseCardRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  margin-left: 67px;
+}
+
+.courseEarnToken {
+  display: flex !important;
+  padding: 12px 25px !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  border-radius: 5px !important;
+  background: var(--main-brown, #9e7c5e) !important;
+}
+
+.courseEarnTokenIconAndText {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+}
+
+.courseEarnTokenIcon {
+  width: 19px !important;
+  height: 19px !important;
+}
+
+.courseEarnTokenText {
+  color: #fff !important;
+  text-align: center !important;
+  /* Body */
+  font-family: Jost !important;
+  font-size: 15px !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  line-height: normal !important;
+}
+
+.courseEarnTokenButton {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  text-align: left !important; /* or "inherit" if you want to preserve the alignment from the parent */
+}
+
+/* Ensuring the button doesn't show any focus outline; adjust as needed for accessibility */
+
+.courseTotalToken {
+  width: 120px;
+  height: 17px;
+  color: var(--deactivated-dark-grey, #757575);
+  text-align: right;
+  font-family: Jost;
+  font-size: 12.546px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

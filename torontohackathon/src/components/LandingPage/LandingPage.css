@@ -1,72 +1,76 @@
 @keyframes moveToggle {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(10px); }
-    100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
-.landingPage{
-    padding-right: 64px;
-    padding-left: 65px;
+.landingPage {
+  padding-right: 64px;
+  padding-left: 65px;
 }
-.visitAlexandriaBanner{
-    border-radius: 50px;
-    background: #232221;
-    width: 1311px;
-    height: 654px;
-    flex-shrink: 0;
-    margin-top: 49px;
-    position: relative; /* Enables absolute positioning of child elements */
+.visitAlexandriaBanner {
+  border-radius: 50px;
+  background: #232221;
+  width: 1311px;
+  height: 654px;
+  flex-shrink: 0;
+  margin-top: 49px;
+  position: relative; /* Enables absolute positioning of child elements */
 }
 
 .visitAlexandriabannerHeading {
-    color: #FFF;
-    font-family: 'New Order', sans-serif; /* Make sure the font name is correct */
-    font-size: 70px;
-    font-weight: 700;
-    line-height: normal;
-    display: flex;
-    width: 551px;
-    height: 242px;
-    flex-direction: column;
-    justify-content: left;
-    align-items: flex-start; /* Align text to the left */
+  color: #fff;
+  font-family: 'New Order', sans-serif; /* Make sure the font name is correct */
+  font-size: 70px;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+  width: 551px;
+  height: 242px;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start; /* Align text to the left */
 }
 
 .visitAlexandriabannerSubheading {
-    color: #FFF;
-    font-family: Jost;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: normal;
-    text-align: left; /* Align text to the left */
-    width: 650px; /* Adjust as needed */
-    position: absolute; /* Positioning relative to .visitAlexandriaBanner */
-    left: 96px; /* Adjust as needed */
-    top: 370px; /* Adjust as needed */
+  color: #fff;
+  font-family: Jost;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+  text-align: left; /* Align text to the left */
+  width: 650px; /* Adjust as needed */
+  position: absolute; /* Positioning relative to .visitAlexandriaBanner */
+  left: 96px; /* Adjust as needed */
+  top: 370px; /* Adjust as needed */
 }
 
 .visitAlexandriabannerButton {
-    display: flex;
-    padding: 12px 25px;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    border-radius: 5px;
-    background: var(--main-brown, #9e7c5e);
-    /* Add some spacing between the subheading and button */
-    margin-top: 20px;
+  display: flex;
+  padding: 12px 25px;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: var(--main-brown, #9e7c5e);
+  /* Add some spacing between the subheading and button */
+  margin-top: 20px;
 }
 
-.visitAlexandriaBannerTextInButton{
-    color: #fff;
-    text-align: center;
-    font-family: 'Jost', sans-serif; /* Apply the Jost font */
-    font-size: 20px;
-    font-weight: 500;
-    line-height: normal;
-    text-transform: none;
+.visitAlexandriaBannerTextInButton {
+  color: #fff;
+  text-align: center;
+  font-family: 'Jost', sans-serif; /* Apply the Jost font */
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: none;
 }
-
-
 
 .visitAlexandriabannerHeading,
 .visitAlexandriabannerSubheading,
@@ -88,121 +92,120 @@
 }
 
 .whatIsAlexandriaContainer {
-    display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
-    margin: 129px 166px 200px 166px;
-    flex-direction: column;
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  margin: 129px 166px 200px 166px;
+  flex-direction: column;
 }
 
-.whatIsAlexandria{
-    display: flex;
-    width: 484px;
-    height: 62px;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #2A2927;
-    text-align: center;
-    font-family: Jost;
-    font-size: 50px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+.whatIsAlexandria {
+  display: flex;
+  width: 484px;
+  height: 62px;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #2a2927;
+  text-align: center;
+  font-family: Jost;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
-.AlexandriaIn-whatIsAlexandria{
-    color: #9E7C5E;
-    font-family: Jost;
-    font-size: 50px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+.AlexandriaIn-whatIsAlexandria {
+  color: #9e7c5e;
+  font-family: Jost;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
-.shortIntroAlexandria{
-    margin-top: 18px;
-    display: flex;
-    width: 540px;
-    height: 51px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--dark-brown-for-body-text, #433C38);
-    text-align: center;
+.shortIntroAlexandria {
+  margin-top: 18px;
+  display: flex;
+  width: 540px;
+  height: 51px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--dark-brown-for-body-text, #433c38);
+  text-align: center;
 
-    /* Body */
-    font-family: Jost;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+  /* Body */
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
-.ourVisionBanner{
-    width: 1308px;
-    height: 490px;
-    top: 78px;
-    left: 68px;
-    
+.ourVisionBanner {
+  width: 1308px;
+  height: 490px;
+  top: 78px;
+  left: 68px;
 }
 
-.selectSection{
-    width: 1104px !important;
-    height: 80px !important;
-    flex-shrink: 0 !important;
-    border-radius: 100px !important;
-    background: var(--deactivated-light-grey, #EDEBE8) !important;
+.selectSection {
+  width: 1104px !important;
+  height: 80px !important;
+  flex-shrink: 0 !important;
+  border-radius: 100px !important;
+  background: var(--deactivated-light-grey, #edebe8) !important;
 }
 
-.selectedSectionButton{
-    width: 277px !important;
-    height: 80px !important;
-    flex-shrink: 0 !important;
-    border-radius: 50px !important;
-    background: var(--main-brown, #9E7C5E) !important;
-    animation: moveToggle 1s ease forwards;
+.selectedSectionButton {
+  width: 277px !important;
+  height: 80px !important;
+  flex-shrink: 0 !important;
+  border-radius: 50px !important;
+  background: var(--main-brown, #9e7c5e) !important;
+  animation: moveToggle 1s ease forwards;
 }
 
-.selectedSectionButtonText{
-    display: flex;
-    width: 209px;
-    height: 60px;
-    flex-direction: column;
-    justify-content: center;
-    color: #FFF;
-    text-align: center;
+.selectedSectionButtonText {
+  display: flex;
+  width: 209px;
+  height: 60px;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
 
-    /* Title 2 */
-    font-family: Jost;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  /* Title 2 */
+  font-family: Jost;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
-.SectionButtonText{
-    display: flex;
-    width: 260px;
-    height: 60px;
-    flex-direction: column;
-    justify-content: center;
-    color: #2E2C2A;
-    text-align: center;
+.SectionButtonText {
+  display: flex;
+  width: 260px;
+  height: 60px;
+  flex-direction: column;
+  justify-content: center;
+  color: #2e2c2a;
+  text-align: center;
 
-    /* Title 2 */
-    font-family: Jost;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  /* Title 2 */
+  font-family: Jost;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
-.SectionButton{
-    width: 277px !important;
-    height: 80px !important;
-    flex-shrink: 0 !important;
-    border-radius: 50px !important;
-    border: none !important;
+.SectionButton {
+  width: 277px !important;
+  height: 80px !important;
+  flex-shrink: 0 !important;
+  border-radius: 50px !important;
+  border: none !important;
 }
 
 .SectionButton,
@@ -210,422 +213,151 @@
   transition: background 0.5s ease; /* This line */
 }
 
-.introductionContent{
-    margin-top: 93px;
-    align-items: center;
-    gap: 100px;
-    transform: translateY(50px);
-    transition: all 0.5s ease;
+.introductionContent {
+  margin-top: 93px;
+  align-items: center;
+  gap: 100px;
+  transform: translateY(50px);
+  transition: all 0.5s ease;
 }
 
 .introductionContent div.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  opacity: 1;
+  transform: translateY(0);
+}
 
-.ourCoursesSection{
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    height: 1200px;
-    gap: 45px;
+.ourCoursesSection {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  height: 1200px;
+  gap: 45px;
 }
 
 .ourCoursesHeading {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers the content horizontally */
-    justify-content: center; /* Centers the content vertically */
-    text-align: center; /* Aligns the text within the elements to center */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the content horizontally */
+  justify-content: center; /* Centers the content vertically */
+  text-align: center; /* Aligns the text within the elements to center */
 }
 
-.ourCoursesText{
-    color: #2A2927;
-    text-align: center;
-    font-family: Jost;
-    font-size: 50px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+.ourCoursesText {
+  color: #2a2927;
+  text-align: center;
+  font-family: Jost;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
-.courses-in-ourCourses{
-    color: var(--main-brown, #9E7C5E);
-    font-family: Jost;
-    font-size: 50px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+.courses-in-ourCourses {
+  color: var(--main-brown, #9e7c5e);
+  font-family: Jost;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
-.ourCoursesLongText{
-    display: flex;
-    width: 540px;
-    height: 51px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--dark-brown-for-body-text, #433C38);
-    text-align: center;
-    /* Body */
-    font-family: Jost;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-top: 18px;
+.ourCoursesLongText {
+  display: flex;
+  width: 540px;
+  height: 51px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--dark-brown-for-body-text, #433c38);
+  text-align: center;
+  /* Body */
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 18px;
 }
 
-.courseCard{
-    width: 992px;
-    height: 240px;
-    border-radius: 23.524px;
-    background: var(--deactivated-light-grey, #EDEBE8);
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
+.Footer {
+  max-width: 1440px; /* Allows it to shrink on smaller screens */
+  width: 100%; /* Takes up the full width of the container */
+  height: 358px;
+  margin-top: 50px;
+  border-radius: 30px 30px 0 0;
+  background: #232221;
+  box-sizing: border-box; /* Ensures padding and border are included in the total width and height */
+  display: flex; /* Can be used to align child elements */
+  justify-content: space-between; /* Horizontal alignment */
+  align-items: center; /* Vertical alignment */
+  padding: 20px; /* Provides some space around the content */
+  color: #ffffff; /* Sets a default text color */
 }
 
-.innerCourseCard{
-    display: flex;
-    align-items: center;
-    margin: 27px 32.17px 27px 33px;
+.takeCourse {
+  display: flex !important;
+  padding: 12px 25px !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  border-radius: 5px !important;
+  background: var(--main-brown, #9e7c5e) !important;
+  margin: 50px 639.5px 200px 639.5px !important;
 }
 
-.innerCourseCardLeft{
-    display: flex;
-    align-items: flex-start;
+.takeCourseText {
+  color: #fff;
+  text-align: center;
+  /* Headline */
+  font-family: Jost;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
-.innerCourseCardLeftLeft{
-    width: 156.83px;
-    height: 156.83px;
-    flex-shrink: 0;
-    border-radius: 23.524px;
-    background: #FFF;
-    box-shadow: 0px 3.1365935802459717px 7.841484069824219px 0px rgba(0, 0, 0, 0.25);
-    margin-right: 61px;
+.FooterRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 200px 900px;
 }
 
-.innerCourseCardLeftRight{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    width: 450px;
+.FooterAlexandria {
+  display: inline-flex;
+  align-items: center;
+  gap: 11.773px;
 }
 
-.innerCourseCardSvgFrame{
-    display: flex;
-    width: 121.543px;
-    height: 121.543px;
-    padding: 17.363px 16.249px 20.836px 16.253px;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+.FooterRightsReserved {
+  display: flex;
+  width: 427px;
+  height: 46px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  text-align: right;
+
+  /* Body */
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
-.innerCourseCardSvg{
-    width: 89.04px;
-    height: 83.344px;
-    flex-shrink: 0;
-    justify-content: center;
-
+.FooterSocialMedia {
+  width: 221px;
+  height: 66px;
+  flex-shrink: 0;
+  border-radius: 31.385px;
+  background: #d9d9d9;
 }
 
-.CourseDetail{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-}
-
-.CourseTitle{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.CourseName{
-    display: flex;
-    width: 200.469px;
-    height: 26.661px;
-    flex-direction: column;
-    justify-content: center;
-    color: #000;
-    font-family: Jost;
-    font-size: 26.661px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    align-items: flex-start;
-}
-
-.CourseStatus{
-    display: flex;
-    flex-direction: row;
-    width: 103.508px;
-    height: 18.82px;
-    align-items: flex-start;
-    gap: 10.978px;
-}
-
-.CourseStatusIcon{
-    width: 18.82px;
-    height: 18.82px;
-}
-
-.CourseStatusText{
-    width: 73.71px;
-    height: 18.035px;
-    flex-shrink: 0;
-    color: #000;
-    font-family: Jost;
-    font-size: 12.546px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.Course-Rating-Duration-Publisher{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 15px;
-}
-
-.CourseRating{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 5px;
-}
-
-.CourseRatingStar{
-    width: 15px;
-    height: 15px;
-}
-
-.CourseDuration{
-    display: flex;
-    width: 88px;
-    height: 17px;
-    flex-direction: column;
-    justify-content: center;
-    color: var(--deactivated-dark-grey, #757575);
-    text-align: center;
-    font-family: Jost;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.CoursePublisher{
-    display: flex;
-    width: 206px;
-    height: 17px;
-    flex-direction: column;
-    justify-content: center;
-    color: var(--main-brown, #9E7C5E);
-    font-family: Jost;
-    font-size: 15.546px;
-    font-style: normal;
-    font-weight: 500;
-    align-items: flex-start;
-    line-height: normal;
-}
-
-.CourseTag{
-    display: flex;
-    align-items: flex-start;
-    gap: 7px;
-}
-
-.CourseTagVideo{
-    display: inline-flex;
-    padding: 0px 11px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    background: #9E7C5E;
-}
-
-.CourseTagCrossChain{
-    display: flex;
-    padding: 0px 12px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    background: #648DAA;
-}
-
-.CourseTagText{
-    color: var(--white, #FFF);
-    text-align: center;
-    font-family: Jost;
-    font-size: 16.546px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.CourseDescription{
-    text-align: left;
-    display: flex;
-    justify-content: flex-start;
-    color: #000;
-    font-family: Jost;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.innerCourseCardRight{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
-    margin-left: 67px;
-}
-
-.courseEarnToken{
-    display: flex !important;
-    padding: 12px 25px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 10px !important;
-    border-radius: 5px !important;
-    background: var(--main-brown, #9E7C5E) !important;
-}
-
-.courseEarnTokenIconAndText{
-    display: flex !important;
-    align-items: center !important;
-    gap: 9px !important;
-}
-
-.courseEarnTokenIcon {
-    width: 19px !important;
-    height: 19px !important;
-}
-
-.courseEarnTokenText{
-    color: #FFF !important;
-    text-align: center !important;
-    /* Body */
-    font-family: Jost !important;
-    font-size: 15px !important;
-    font-style: normal !important;
-    font-weight: 500 !important;
-    line-height: normal !important;
-}
-
-.courseEarnTokenButton {
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    cursor: pointer !important;
-    text-align: left !important; /* or "inherit" if you want to preserve the alignment from the parent */
-}
-  
-  /* Ensuring the button doesn't show any focus outline; adjust as needed for accessibility */
-
-.courseTotalToken{
-    width: 120px;
-    height: 17px;
-    color: var(--deactivated-dark-grey, #757575);
-    text-align: right;
-    font-family: Jost;
-    font-size: 12.546px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.Footer{
-    max-width: 1440px; /* Allows it to shrink on smaller screens */
-    width: 100%; /* Takes up the full width of the container */
-    height: 358px;
-    margin-top: 50px;
-    border-radius: 30px 30px 0 0;
-    background: #232221;
-    box-sizing: border-box; /* Ensures padding and border are included in the total width and height */
-    display: flex; /* Can be used to align child elements */
-    justify-content: space-between; /* Horizontal alignment */
-    align-items: center; /* Vertical alignment */
-    padding: 20px; /* Provides some space around the content */
-    color: #ffffff; /* Sets a default text color */
-}
-
-.takeCourse{
-    display: flex !important;
-    padding: 12px 25px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 10px !important;
-    border-radius: 5px !important;
-    background: var(--main-brown, #9E7C5E) !important;
-    margin: 50px 639.5px 200px 639.5px !important;
-}
-
-.takeCourseText{
-    color: #FFF;
-    text-align: center;
-    /* Headline */
-    font-family: Jost;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-
-.FooterRight{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-    margin: 200px 900px;
-}
-
-.FooterAlexandria{
-    display: inline-flex;
-    align-items: center;
-    gap: 11.773px;
-}
-
-.FooterRightsReserved{
-    display: flex;
-    width: 427px;
-    height: 46px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #FFF;
-    text-align: right;
-
-    /* Body */
-    font-family: Jost;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.FooterSocialMedia{
-    width: 221px;
-    height: 66px;
-    flex-shrink: 0;
-    border-radius: 31.385px;
-    background: #D9D9D9;
-}
-
-.FooterSocialMediaIcon{
-    width: 39.556px;
-    height: 61.724px;
-    flex-shrink: 0;
+.FooterSocialMediaIcon {
+  width: 39.556px;
+  height: 61.724px;
+  flex-shrink: 0;
 }
