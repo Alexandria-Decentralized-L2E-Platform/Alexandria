@@ -100,6 +100,7 @@
 }
 
 .alexandria-connectWallet {
+  position: relative;
   display: flex;
   padding: 12px 25px;
   flex-direction: row;
@@ -117,4 +118,15 @@
   font-weight: 500;
   line-height: normal;
   text-transform: none;
+}
+
+.library-card {
+  position: absolute;
+  width: 350px;
+  height: 190px;
+  right: 0;
+  top: 60px;
+  border-radius: 23.52px;
+  background: var(--deactivated-light-grey, #edebe8);
+  box-shadow: 0px 5px 10px 0px rgba(90, 77, 68, 0.25);
 }

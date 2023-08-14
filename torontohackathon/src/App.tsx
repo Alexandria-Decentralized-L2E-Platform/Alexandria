@@ -1,7 +1,7 @@
 import { AppBar, Button, Toolbar } from '@mui/material';
 import CourseDetail from './components/CourseDetail/CourseDetail';
 import './App.css';
-import alexandrialLogo from './logo/alexandriaLogo.svg';
+import alexandriaLogo from './logo/alexandriaLogo.svg';
 import alexandriaName from './logo/alexandriaName.svg';
 import iconsWallet from './logo/iconsWallet.svg';
 
@@ -14,7 +14,7 @@ import {
   doMint,
 } from './api/blockchain';
 
-import { hasLibraryCard } from './api/contracts';
+import { hasLibraryCard, getLibraryCardDetail, ICard } from './api/contracts';
 
 import { useEffect, useState } from 'react';
 
@@ -40,6 +40,7 @@ function App() {
     if (isConnected()) {
       setIsConnect(true);
       setHasCard(await hasLibraryCard(walletProvider));
+      if (hasCard) setCard(await getLibraryCardDetail(walletProvider));
       walletProvider.on('connect', onConnect);
       walletProvider.on('accountsChanged', onAccountsChanged);
       //getTokenBalance(walletProvider, '0x75e11567d3AfA9650d8BA16fE58eae425B030c24');
@@ -63,6 +64,7 @@ function App() {
   const [hasCard, setHasCard] = useState(false);
   const [isConnect, setIsConnect] = useState(false);
   const [isCardShown, setIsCardShown] = useState(false);
+  const [card, setCard] = useState<ICard | undefined>(undefined);
 
   const onClickWalletHandler = async () => {
     if (!walletProvider) {
@@ -94,7 +96,7 @@ function App() {
         <Toolbar>
           <div className="alexandria-whole-tab">
             <div className="alexandria-logoAndName">
-              <img src={alexandrialLogo} className="alexandria-logo" />
+              <img src={alexandriaLogo} className="alexandria-logo" />
               <img src={alexandriaName} className="alexandria-name" />
             </div>
             <div className="alexandria-rightHandSide-tab">
@@ -129,24 +131,59 @@ function App() {
                   ) : (
                     <div id="userAddress">{userAddress}</div>
                   )}
-                </div>
-              </Button>
-              {isConnect && isCardShown && (
-                <div className="library-card">
-                  {hasCard ? (
-                    <div></div>
-                  ) : (
-                    <Button
+                  {isConnect && isCardShown && (
+                    <div
+                      className="library-card"
                       onClick={() => {
-                        if (walletProvider) mintNFT();
+                        mintNFT();
                       }}
-                      color="inherit"
                     >
-                      <div>Mint NFT</div>
-                    </Button>
+                      <div className="library-card-header">
+                        <img
+                          src={alexandriaLogo}
+                          className="alexandria-logo, library-card-header-logo"
+                        />
+                        <p className="library-card-header-app">ALEXANDRIA</p>
+                        <p className="library-card-header-name">LIBRARY CARD</p>
+                      </div>
+                      {hasCard && card ? (
+                        <div className="library-card-main">
+                          <div className="library-card-main-pic">
+                            <img
+                              src={alexandriaLogo}
+                              className="alexandria-logo, library-card-main-logo"
+                            />
+                          </div>
+                          <div className="library-card-main-col">
+                            <p>Card ID:</p>
+                            <p>Member:</p>
+                            <p>Member Since:</p>
+                            <p>Card Address:</p>
+                          </div>
+                          <div className="library-card-main-data">
+                            <p>{card.tokenId}</p>
+                            <p>{card.userAddress}</p>
+                            <p>{card.mintedAt}</p>
+                            <p>{card.contractAddress}</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="library-card-main">
+                          <h2> Get Your Library Card</h2>
+                          <Button
+                            onClick={doMint}
+                            sx={{
+                              padding: 0, // Remove padding to make the div look like the actual button
+                              textTransform: 'none',
+                            }}
+                            color="inherit"
+                          ></Button>
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
-              )}
+              </Button>
             </div>
           </div>
         </Toolbar>
