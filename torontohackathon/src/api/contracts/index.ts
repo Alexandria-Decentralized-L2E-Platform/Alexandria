@@ -70,7 +70,7 @@ export const approveToken = async (
 
 export const hasLibraryCard = async (provider: ethers.providers.Web3Provider): Promise<boolean> => {
   const card = new ethers.Contract(
-    alexAddresses.admin,
+    alexAddresses.card,
     AlexLibraryCard__factory.abi,
     provider,
   ) as AlexLibraryCard;
@@ -82,7 +82,7 @@ export const mintLibraryCard = async (
   provider: ethers.providers.Web3Provider,
 ): Promise<ethers.ContractTransaction> => {
   const card = new ethers.Contract(
-    alexAddresses.admin,
+    alexAddresses.card,
     AlexLibraryCard__factory.abi,
     provider,
   ) as AlexLibraryCard;
@@ -138,6 +138,7 @@ export const getProgram = async (
 export const getNumberOfPrograms = async (
   provider: ethers.providers.Web3Provider,
 ): Promise<number> => {
+  if (!provider) return 0;
   const lib = new ethers.Contract(
     alexAddresses.library,
     AlexLibrary__factory.abi,
@@ -151,7 +152,7 @@ export const getAllProgramsOnContract = async (
   provider: ethers.providers.Web3Provider,
 ): Promise<IProgram[]> => {
   const lib = new ethers.Contract(
-    alexAddresses.admin,
+    alexAddresses.library,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;
@@ -165,13 +166,27 @@ export const getAllProgramsOnContract = async (
   return result;
 };
 
+export const checkAnswer = async (
+  provider: ethers.providers.Web3Provider,
+  id: number,
+  answers: string[],
+): Promise<boolean> => {
+  const lib = new ethers.Contract(
+    alexAddresses.library,
+    AlexLibrary__factory.abi,
+    provider,
+  ) as AlexLibrary;
+  const isCorrect = await lib.checkAnswer(id, answers);
+  return isCorrect;
+};
+
 export const learnProgram = async (
   provider: ethers.providers.Web3Provider,
   id: number,
   answers: string[],
 ): Promise<ethers.ContractTransaction> => {
   const lib = new ethers.Contract(
-    alexAddresses.admin,
+    alexAddresses.library,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;
@@ -185,7 +200,7 @@ export const rateProgram = async (
   rate: number,
 ): Promise<ethers.ContractTransaction> => {
   const lib = new ethers.Contract(
-    alexAddresses.admin,
+    alexAddresses.library,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;

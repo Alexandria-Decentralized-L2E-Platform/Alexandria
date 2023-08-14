@@ -35,9 +35,9 @@ const courseFilters = [
 ];
 function CourseCatalogue() {
   return (
-    <div className="CourseCatalogue">
+    <div className="Course-Catalogue">
       <h1>Browse Courses</h1>
-      <div className="SearchBar">
+      <div className="Search-Bar">
         <input placeholder="Search by Course Name or Course Sponsor"></input>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -54,8 +54,8 @@ function CourseCatalogue() {
           />
         </svg>
       </div>
-      <div className="CourseContainer">
-        <div className="CourseFilterContainer">
+      <div className="Course-Container">
+        <div className="Course-Filter-Container">
           {courseFilters.map((v) => {
             return <CourseFilter key={'filter-' + v.title} data={v}></CourseFilter>;
           })}
