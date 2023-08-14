@@ -1,5 +1,5 @@
 import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import communityDescription from '../../logo/communityDescription.svg';
 import discord from '../../logo/discord.svg';
 import footerAlexandria from '../../logo/footerAlexandria.svg';
@@ -12,21 +12,22 @@ import twitter from '../../logo/twitter.svg';
 import visitAlexandriaBanner from '../../logo/visitAlexandriaBanner.svg';
 import CourseCard from '../common/CourseCard';
 import './LandingPage.css';
-// type courseCardprops = {
-//   icon: string;
-//   name: string;
-//   progress: string;
-//   rating: number;
-//   duration: number;
-//   publisher: string;
-//   tag: string[];
-//   description: string;
-//   earning: number;
-//   totalToken: number;
-// };
 
-function LandingPage() {
-  const courseCards: JSX.Element[] = [<CourseCard key="1"></CourseCard>];
+import { getAllPrograms, IProgram } from '../../api';
+import { ethers } from 'ethers';
+
+function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
+  const [programs, setPrograms] = useState<IProgram[]>([]);
+
+  const loadProgram = async () => {
+    const programs = await getAllPrograms(props.provider);
+    setPrograms(programs);
+  };
+
+  useEffect(() => {
+    loadProgram();
+  }, []);
+
   return (
     <div className="landingPage">
       <div className="visitAlexandriaBanner">
@@ -74,7 +75,12 @@ function LandingPage() {
             principles of accessibility and transparency
           </text>
         </div>
-        <div className="courseCard">{courseCards}</div>
+        <div className="courseCard">
+          {programs &&
+            programs.map((p) => {
+              return <CourseCard key={p.id.toNumber()} program={p} />;
+            })}
+        </div>
       </div>
       <Button className="takeCourse">
         <text className="takeCourseText">Take Course</text>

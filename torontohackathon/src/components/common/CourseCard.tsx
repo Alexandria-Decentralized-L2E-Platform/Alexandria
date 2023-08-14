@@ -9,16 +9,24 @@ import earnTokenIcon from '../../logo/earnTokenIcon.svg';
 import ellipse from '../../logo/ellipse2.svg';
 import metaMaskLogo from '../../logo/metaMaskLogo.svg';
 
-function CourseCard() {
-  const earnTokenNumber = 200;
-  const totalTokenNumber = 20000;
-  const courseName = 'MetaMask 101';
+import { IProgram } from '../../api';
+import { BigNumber } from 'ethers';
+
+// Missing attribute : courseStatus, rating, tag, Reward Token Symbol missing
+function CourseCard(props: { program: IProgram }) {
+  const program = props.program;
+  const earnTokenNumber = program.reward.rewardPerAddress;
+  const totalTokenNumber = BigNumber.from(program.reward.rewardPerAddress)
+    .mul(BigNumber.from(program.reward.rewardAddressCap))
+    .toString();
+  const courseName = program.title;
   const courseStatus = 'In Progress';
-  const courseDescription =
-    ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex....';
+  const courseDescription = program.title;
   let rating = 3.5;
-  const courseDuration = '1h 30m';
-  const coursePublisher = 'By Mouse Mouse 78';
+  const courseDuration = program.duration;
+  const coursePublisher = 'By ' + program.owner;
+  const type = program.type;
+  const tag = 'Crosschain Infrastructure';
 
   const ratingStars: JSX.Element[] = [];
   for (let i = 0; i < 5; i++) {
@@ -35,12 +43,12 @@ function CourseCard() {
 
   const video: JSX.Element = (
     <div className="CourseTagVideo">
-      <div className="CourseTagText">Video</div>
+      <div className="CourseTagText">{type}</div>
     </div>
   );
   const crosschainInfrastructure: JSX.Element = (
     <div className="CourseTagCrossChain">
-      <div className="CourseTagText">Crosschain Infrastructure</div>
+      <div className="CourseTagText">{tag}</div>
     </div>
   );
 

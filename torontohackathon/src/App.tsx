@@ -166,7 +166,7 @@ function App() {
         </Toolbar>
       </AppBar>
       {provider && <CourseDetail provider={provider}></CourseDetail>}
-      <LandingPage />
+      {provider && <LandingPage provider={provider}></LandingPage>}
     </div>
   );
 }
