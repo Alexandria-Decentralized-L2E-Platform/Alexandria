@@ -1,19 +1,19 @@
 import { getAllPrograms, IProgram, contracts } from '../../api';
 import { walletProvider } from '../../api/blockchain';
 import { useEffect, useState } from 'react';
-import { BigNumber } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 
 import Question from './Question';
 import './CourseDetail.css';
 
-function CourseDetail() {
+function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
   const [program, setProgram] = useState<IProgram | undefined>(undefined);
   const [isTakingQuiz, setIsTakingQuiz] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const loadProgram = async () => {
-    setProgram((await getAllPrograms(walletProvider))[0]);
-    console.log(program);
+    const programs = await getAllPrograms(props.provider);
+    setProgram(programs[0]);
   };
 
   const onClickHandler = async () => {
@@ -26,7 +26,7 @@ function CourseDetail() {
         'C',
         'D',
       ]);
-      console.log(isCorrect);
+
       if (isCorrect) {
         setIsCorrect(true);
         contracts.learnProgram(walletProvider, program.id.toNumber(), ['A', 'B']);
@@ -40,7 +40,6 @@ function CourseDetail() {
 
   useEffect(() => {
     loadProgram();
-    console.log(program);
   }, []);
 
   return (

@@ -7,8 +7,8 @@ import {
   AlexLibrary__factory,
   // AlexCertificate,
   // AlexCertificate__factory,
-  // AlexAdmin,
-  // AlexAdmin__factory,
+  AlexAdmin,
+  AlexAdmin__factory,
   // AlexAuthor,
   // AlexAuthor__factory,
   ERC20,
@@ -83,7 +83,7 @@ export const getLibraryCardDetail = async (
     contractAddress: alexAddresses.card,
     userAddress: '0xDe55169E415e0f6363B753B22482e45Ef47eE46a',
     mintedAt: '13 August 2023',
-    tokenId: 0,
+    tokenId: 1,
   };
   const card = new ethers.Contract(
     alexAddresses.card,
@@ -124,6 +124,30 @@ export const mintLibraryCard = async (
   return trx;
 };
 
+export const doMint = async (provider: ethers.providers.Web3Provider) => {
+  const signer = provider.getSigner();
+  const signerAddress = await signer.getAddress();
+  const card = new ethers.Contract(
+    alexAddresses.card,
+    AlexLibraryCard__factory.abi,
+    signer,
+  ) as AlexLibraryCard;
+  const admin = new ethers.Contract(
+    alexAddresses.admin,
+    AlexAdmin__factory.abi,
+    signer,
+  ) as AlexAdmin;
+  const mintFee = await admin.cardFee();
+  const token = new ethers.Contract(alexAddresses.token, ERC20__factory.abi, signer) as ERC20;
+  const balance = await token.balanceOf(signerAddress);
+  const allowed = await token.allowance(signerAddress, alexAddresses.token);
+  if (allowed.lt(mintFee)) {
+    await (await token.approve(alexAddresses.card, balance)).wait();
+  }
+  const trx = await card.safeMint(signerAddress);
+  return await trx.wait();
+};
+
 // Library
 
 export interface IProgram {
@@ -156,7 +180,6 @@ export const getProgram = async (
   //   provider,
   // ) as ERC20;
   // const decimals = await token.decimals();
-  console.log(response.reward.rewardPerAddress.toNumber());
   const program: IProgram = {
     ...response,
     reward: {

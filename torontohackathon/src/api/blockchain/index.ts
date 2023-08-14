@@ -1,12 +1,5 @@
 import { ethers } from 'ethers';
 import { networkList, Network, DEFAULT_NETWORK } from './network';
-import {
-  AlexLibraryCard,
-  AlexLibraryCard__factory,
-  ERC20,
-  ERC20__factory,
-} from '../contracts/typechain';
-import { alexAddresses } from '../contracts';
 
 export let walletProvider: ethers.providers.Web3Provider;
 export let walletChainId: number;
@@ -70,24 +63,4 @@ export const addNetwork = async (chainId: number): Promise<Network | undefined> 
     },
   ]);
   return network;
-};
-
-export const doMint = async () => {
-  const signer = walletProvider.getSigner();
-  const signerAddress = await signer.getAddress();
-  const card = new ethers.Contract(
-    alexAddresses.card,
-    AlexLibraryCard__factory.abi,
-    signer,
-  ) as AlexLibraryCard;
-  const mintFee = 200;
-  const token = new ethers.Contract(alexAddresses.token, ERC20__factory.abi, signer) as ERC20;
-  const balance = await token.balanceOf(signerAddress);
-  const allowed = await token.allowance(signerAddress, alexAddresses.token);
-  if (allowed.lt(mintFee)) {
-    const approveReceipt = await (await token.approve(alexAddresses.card, balance)).wait();
-    console.log('approveReceipt', approveReceipt);
-  }
-  const trx = await card.safeMint(signerAddress);
-  return await trx.wait();
 };
