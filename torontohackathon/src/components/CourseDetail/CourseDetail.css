@@ -62,6 +62,18 @@
   font-weight: 500;
 }
 
+.Reward-Progress {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.Reward-Progress-Title {
+  Width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
 .Progress-Bar-Container {
   height: 30px;
   width: 100%;

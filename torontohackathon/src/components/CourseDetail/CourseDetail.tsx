@@ -54,7 +54,7 @@ function CourseDetail() {
           {/*<CourseBanner></CourseBanner> */}
           <div className="Reward-Progress">
             <div className="Reward-Progress-Title">
-              <p>Reward Claimed:</p>
+              <p>Reward Distributed:</p>
               <p>
                 {program.reward.rewardDistributed +
                   '/' +
