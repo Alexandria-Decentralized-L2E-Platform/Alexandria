@@ -68,7 +68,7 @@
 }
 
 .Reward-Progress-Title {
-  Width: 100%;
+  width: 100%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
