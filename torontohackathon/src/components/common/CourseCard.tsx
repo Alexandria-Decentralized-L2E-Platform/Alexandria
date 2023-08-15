@@ -24,7 +24,11 @@ function CourseCard(props: { program: IProgram }) {
   const courseDescription = program.title;
   let rating = 3.5;
   const courseDuration = program.duration;
-  const coursePublisher = 'By ' + program.owner;
+  const coursePublisher =
+    'By ' +
+    program.owner.substring(0, 6) +
+    '...' +
+    program.owner.substring(program.owner.length - 4);
   const type = program.type;
   const tag = 'Crosschain Infrastructure';
 
@@ -62,7 +66,6 @@ function CourseCard(props: { program: IProgram }) {
               <img src={metaMaskLogo} className="innerCourseCardSvg" />
             </div>
           </div>
-
           <div className="innerCourseCardLeftRight">
             <div className="CourseDetail">
               <div className="CourseTitle">

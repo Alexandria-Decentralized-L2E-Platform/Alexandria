@@ -75,7 +75,7 @@ function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
             principles of accessibility and transparency
           </text>
         </div>
-        <div className="courseCard">
+        <div className="courseCards">
           {programs &&
             programs.map((p) => {
               return <CourseCard key={p.id.toNumber()} program={p} />;
