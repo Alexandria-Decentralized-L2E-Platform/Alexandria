@@ -1,17 +1,25 @@
+// Pacakge
 import { AppBar, Button, Toolbar } from '@mui/material';
+import { connect, isConnected, setupWallet, walletAddress, walletProvider } from './api/blockchain';
+import { ICard, doMint, getLibraryCardDetail, hasLibraryCard } from './api/contracts';
+import { ethers } from 'ethers';
+import { useEffect, useState } from 'react';
+
+// CSS
 import './App.css';
+
+// Components
+// import CourseDetail from './components/CourseDetail/CourseDetail';
+import LandingPage from './components/LandingPage/LandingPage';
+
+// Image
+import discord from './logo/discord.svg';
+import telegram from './logo/telegram.svg';
+import twitter from './logo/twitter.svg';
+import footerAlexandria from './logo/footerAlexandria.svg';
 import alexandriaLogo from './logo/alexandriaLogo.svg';
 import alexandriaName from './logo/alexandriaName.svg';
 import iconsWallet from './logo/iconsWallet.svg';
-
-import { connect, isConnected, setupWallet, walletAddress, walletProvider } from './api/blockchain';
-
-import { ICard, doMint, getLibraryCardDetail, hasLibraryCard } from './api/contracts';
-
-import { ethers } from 'ethers';
-import { useEffect, useState } from 'react';
-import CourseDetail from './components/CourseDetail/CourseDetail';
-import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   const [provider, setProvider] = useState<ethers.providers.Web3Provider | undefined>(undefined);
@@ -165,8 +173,24 @@ function App() {
           </div>
         </Toolbar>
       </AppBar>
-      {provider && <CourseDetail provider={provider}></CourseDetail>}
       {provider && <LandingPage provider={provider}></LandingPage>}
+      <div className="Footer">
+        <div className="FooterRight">
+          <img src={footerAlexandria} className="FooterAlexandria" />
+          <text className="FooterRightsReserved">@ 2023 Alexandria Team. All Rights Reserved</text>
+          <div className="FooterSocialMedia">
+            <Button className="FooterSocialMediaIcon">
+              <img src={twitter} />
+            </Button>
+            <Button className="FooterSocialMediaIcon">
+              <img src={discord} />
+            </Button>
+            <Button className="FooterSocialMediaIcon">
+              <img src={telegram} />
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

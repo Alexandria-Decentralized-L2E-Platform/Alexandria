@@ -1,14 +1,12 @@
 import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useState, useEffect } from 'react';
 import communityDescription from '../../logo/communityDescription.svg';
-import discord from '../../logo/discord.svg';
-import footerAlexandria from '../../logo/footerAlexandria.svg';
+
 import innovationDescription from '../../logo/innovationDescription.svg';
 import learningDescripton from '../../logo/learningDescription.svg';
 import ourVisionBanner from '../../logo/ourVisionBanner.svg';
 import securityDescription from '../../logo/securityDescription.svg';
-import telegram from '../../logo/telegram.svg';
-import twitter from '../../logo/twitter.svg';
+
 import visitAlexandriaBanner from '../../logo/visitAlexandriaBanner.svg';
 import CourseCard from '../common/CourseCard';
 import './LandingPage.css';
@@ -85,24 +83,6 @@ function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
       <Button className="takeCourse">
         <text className="takeCourseText">Take Course</text>
       </Button>
-
-      <div className="Footer">
-        <div className="FooterRight">
-          <img src={footerAlexandria} className="FooterAlexandria" />
-          <text className="FooterRightsReserved">@ 2023 Alexandria Team. All Rights Reserved</text>
-          <div className="FooterSocialMedia">
-            <Button className="FooterSocialMediaIcon">
-              <img src={twitter} />
-            </Button>
-            <Button className="FooterSocialMediaIcon">
-              <img src={discord} />
-            </Button>
-            <Button className="FooterSocialMediaIcon">
-              <img src={telegram} />
-            </Button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -130,3 +130,49 @@
   background: var(--deactivated-light-grey, #edebe8);
   box-shadow: 0px 5px 10px 0px rgba(90, 77, 68, 0.25);
 }
+
+.FooterRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 200px 900px;
+}
+
+.FooterAlexandria {
+  display: inline-flex;
+  align-items: center;
+  gap: 11.773px;
+}
+
+.FooterRightsReserved {
+  display: flex;
+  width: 427px;
+  height: 46px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  text-align: right;
+
+  /* Body */
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.FooterSocialMedia {
+  width: 221px;
+  height: 66px;
+  flex-shrink: 0;
+  border-radius: 31.385px;
+  background: #d9d9d9;
+}
+
+.FooterSocialMediaIcon {
+  width: 39.556px;
+  height: 61.724px;
+  flex-shrink: 0;
+}
