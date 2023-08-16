@@ -1,10 +1,13 @@
 // Pacakge
 import { AppBar, Button, Toolbar } from '@mui/material';
-import { connect, isConnected, setupWallet, walletAddress, walletProvider } from './api/blockchain';
-import { ICard, doMint, getLibraryCardDetail, hasLibraryCard } from './api/contracts';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
+import { connect, isConnected, setupWallet, walletAddress, walletProvider } from './api/blockchain';
+import { ICard, doMint, getLibraryCardDetail, hasLibraryCard } from './api/contracts';
 
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import CourseCatalogue from './components/CourseCatalogue/CourseCatalogue';
 // CSS
 import './App.css';
 
@@ -13,13 +16,13 @@ import './App.css';
 import LandingPage from './components/LandingPage/LandingPage';
 
 // Image
-import discord from './logo/discord.svg';
-import telegram from './logo/telegram.svg';
-import twitter from './logo/twitter.svg';
-import footerAlexandria from './logo/footerAlexandria.svg';
 import alexandriaLogo from './logo/alexandriaLogo.svg';
 import alexandriaName from './logo/alexandriaName.svg';
+import discord from './logo/discord.svg';
+import footerAlexandria from './logo/footerAlexandria.svg';
 import iconsWallet from './logo/iconsWallet.svg';
+import telegram from './logo/telegram.svg';
+import twitter from './logo/twitter.svg';
 
 function App() {
   const [provider, setProvider] = useState<ethers.providers.Web3Provider | undefined>(undefined);
@@ -75,123 +78,135 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <AppBar
-        position="sticky"
-        sx={{
-          borderRadius: '0px 0px 30px 30px',
-          backgroundColor: '#232221',
-          height: '97px',
-          flexShrink: 0,
-          width: '100%',
-        }}
-      >
-        <Toolbar>
-          <div className="alexandria-whole-tab">
-            <div className="alexandria-logoAndName">
-              <img src={alexandriaLogo} className="alexandria-logo" />
-              <img src={alexandriaName} className="alexandria-name" />
-            </div>
-            <div className="alexandria-rightHandSide-tab">
-              <div className="alexandria-typography">
-                <Button className="alexandria-header-tab" color="inherit">
-                  Browse Courses
-                </Button>
-                <Button className="alexandria-header-tab" color="inherit">
-                  Symposium
-                </Button>
-                <Button className="alexandria-header-tab" color="inherit">
-                  Governance
-                </Button>
-                <Button className="alexandria-header-tab" color="inherit">
-                  My Certificates
+    <Router>
+      <div className="App">
+        <AppBar
+          position="sticky"
+          sx={{
+            borderRadius: '0px 0px 30px 30px',
+            backgroundColor: '#232221',
+            height: '97px',
+            flexShrink: 0,
+            width: '100%',
+          }}
+        >
+          <Toolbar>
+            <div className="alexandria-whole-tab">
+              <div className="alexandria-logoAndName">
+                <img src={alexandriaLogo} className="alexandria-logo" />
+                <img src={alexandriaName} className="alexandria-name" />
+              </div>
+              <div className="alexandria-rightHandSide-tab">
+                <div className="alexandria-typography">
+                  <Button
+                    className="alexandria-header-tab"
+                    color="inherit"
+                    component={Link}
+                    to="/browse-courses"
+                  >
+                    Browse Courses
+                  </Button>
+                  <Button className="alexandria-header-tab" color="inherit">
+                    Symposium
+                  </Button>
+                  <Button className="alexandria-header-tab" color="inherit">
+                    Governance
+                  </Button>
+                  <Button className="alexandria-header-tab" color="inherit">
+                    My Certificates
+                  </Button>
+                </div>
+                <Button
+                  onClick={onClickWalletHandler}
+                  sx={{
+                    padding: 0, // Remove padding to make the div look like the actual button
+                    textTransform: 'none',
+                  }}
+                  color="inherit"
+                >
+                  <div className="alexandria-connectWallet">
+                    <img src={iconsWallet} />
+                    {!userAddress ? (
+                      <div id="connectWalletText" className="alexandria-connectWallet-text">
+                        Connect Wallet
+                      </div>
+                    ) : (
+                      <div id="userAddress">{userAddress}</div>
+                    )}
+                    {isConnect && isCardShown && (
+                      <div className="library-card">
+                        <div className="library-card-header">
+                          <img
+                            src={alexandriaLogo}
+                            className="alexandria-logo, library-card-header-logo"
+                          />
+                          <p className="library-card-header-app">ALEXANDRIA</p>
+                          <p className="library-card-header-name">LIBRARY CARD</p>
+                        </div>
+                        {hasCard && card ? (
+                          <div className="library-card-main">
+                            <div className="library-card-main-pic">
+                              <img
+                                src={alexandriaLogo}
+                                className="alexandria-logo, library-card-main-logo"
+                              />
+                            </div>
+                            <div className="library-card-main-col">
+                              <p>Card ID:</p>
+                              <p>Member:</p>
+                              <p>Member Since:</p>
+                              <p>Card Address:</p>
+                            </div>
+                            <div className="library-card-main-data">
+                              <p>{card.tokenId}</p>
+                              <p>{card.userAddress}</p>
+                              <p>{card.mintedAt}</p>
+                              <p>{card.contractAddress}</p>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="library-card-main">
+                            <h2> Get Your Library Card</h2>
+                            <div
+                              onClick={() => {
+                                if (provider) doMint(provider);
+                              }}
+                            ></div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </Button>
               </div>
-              <Button
-                onClick={onClickWalletHandler}
-                sx={{
-                  padding: 0, // Remove padding to make the div look like the actual button
-                  textTransform: 'none',
-                }}
-                color="inherit"
-              >
-                <div className="alexandria-connectWallet">
-                  <img src={iconsWallet} />
-                  {!userAddress ? (
-                    <div id="connectWalletText" className="alexandria-connectWallet-text">
-                      Connect Wallet
-                    </div>
-                  ) : (
-                    <div id="userAddress">{userAddress}</div>
-                  )}
-                  {isConnect && isCardShown && (
-                    <div className="library-card">
-                      <div className="library-card-header">
-                        <img
-                          src={alexandriaLogo}
-                          className="alexandria-logo, library-card-header-logo"
-                        />
-                        <p className="library-card-header-app">ALEXANDRIA</p>
-                        <p className="library-card-header-name">LIBRARY CARD</p>
-                      </div>
-                      {hasCard && card ? (
-                        <div className="library-card-main">
-                          <div className="library-card-main-pic">
-                            <img
-                              src={alexandriaLogo}
-                              className="alexandria-logo, library-card-main-logo"
-                            />
-                          </div>
-                          <div className="library-card-main-col">
-                            <p>Card ID:</p>
-                            <p>Member:</p>
-                            <p>Member Since:</p>
-                            <p>Card Address:</p>
-                          </div>
-                          <div className="library-card-main-data">
-                            <p>{card.tokenId}</p>
-                            <p>{card.userAddress}</p>
-                            <p>{card.mintedAt}</p>
-                            <p>{card.contractAddress}</p>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="library-card-main">
-                          <h2> Get Your Library Card</h2>
-                          <div
-                            onClick={() => {
-                              if (provider) doMint(provider);
-                            }}
-                          ></div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
+            </div>
+          </Toolbar>
+        </AppBar>
+        <Routes>
+          <Route path="/browse-courses" element={<CourseCatalogue />} />
+          <Route path="/" element={provider ? <LandingPage provider={provider} /> : null} />
+        </Routes>
+        <div className="Footer">
+          <div className="FooterRight">
+            <img src={footerAlexandria} className="FooterAlexandria" />
+            <text className="FooterRightsReserved">
+              @ 2023 Alexandria Team. All Rights Reserved
+            </text>
+            <div className="FooterSocialMedia">
+              <Button className="FooterSocialMediaIcon">
+                <img src={twitter} />
+              </Button>
+              <Button className="FooterSocialMediaIcon">
+                <img src={discord} />
+              </Button>
+              <Button className="FooterSocialMediaIcon">
+                <img src={telegram} />
               </Button>
             </div>
           </div>
-        </Toolbar>
-      </AppBar>
-      {provider && <LandingPage provider={provider}></LandingPage>}
-      <div className="Footer">
-        <div className="FooterRight">
-          <img src={footerAlexandria} className="FooterAlexandria" />
-          <text className="FooterRightsReserved">@ 2023 Alexandria Team. All Rights Reserved</text>
-          <div className="FooterSocialMedia">
-            <Button className="FooterSocialMediaIcon">
-              <img src={twitter} />
-            </Button>
-            <Button className="FooterSocialMediaIcon">
-              <img src={discord} />
-            </Button>
-            <Button className="FooterSocialMediaIcon">
-              <img src={telegram} />
-            </Button>
-          </div>
         </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
