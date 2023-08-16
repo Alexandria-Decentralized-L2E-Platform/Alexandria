@@ -30,7 +30,7 @@
   margin-right: 1.5%;
 }
 
-.CourseContainer {
+.Course-Container {
   width: 100%;
   display: flex;
   flex-flow: row nowrap;

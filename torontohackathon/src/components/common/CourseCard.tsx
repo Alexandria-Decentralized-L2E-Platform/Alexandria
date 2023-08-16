@@ -21,9 +21,17 @@ function CourseCard(props: { program: IProgram }) {
     .toString();
   const courseName = program.title;
   const courseStatus = 'In Progress';
-  const courseDescription = program.title;
+  const courseDescription = program.description;
   let rating = 3.5;
-  const courseDuration = program.duration;
+  // Covert duration from number (mins) to string
+  let courseDuration: string;
+  if (program.duration < 60) {
+    courseDuration = program.duration + ' min(s)';
+  } else {
+    const hour = Math.floor(program.duration / 60);
+    const min = program.duration - hour * 60;
+    courseDuration = hour + ' hr(s) ' + min + ' min(s)';
+  }
   const coursePublisher =
     'By ' +
     program.owner.substring(0, 6) +

@@ -314,18 +314,14 @@
   gap: 10px !important;
   border-radius: 5px !important;
   background: var(--main-brown, #9e7c5e) !important;
-  margin: 50px 639.5px 200px 639.5px !important;
+  margin-top: 25px !important;
 }
 
 .takeCourseText {
   color: #fff;
   text-align: center;
-  /* Headline */
-  font-family: Jost;
   font-size: 20px;
-  font-style: normal;
   font-weight: 600;
-  line-height: normal;
 }
 
 .courseCards {

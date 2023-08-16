@@ -68,15 +68,15 @@ function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
           <div className="ourCoursesText">
             Our&nbsp;<span className="courses-in-ourCourses">Courses</span>
           </div>
-          <text className="ourCoursesLongText">
-            Alexandria is a decentralized community driven, self-service platform operating on the
-            principles of accessibility and transparency
-          </text>
+          <textarea
+            className="ourCoursesLongText"
+            value="Alexandria is a decentralized community driven, self-service platform operating on the principles of accessibility and transparency"
+          ></textarea>
         </div>
         <div className="courseCards">
           {programs &&
             programs.map((p) => {
-              return <CourseCard key={p.id.toNumber()} program={p} />;
+              return <CourseCard key={'card-' + p.id.toString()} program={p} />;
             })}
         </div>
       </div>
