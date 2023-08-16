@@ -1,4 +1,8 @@
 import CourseFilter from './CourseFilter';
+import CourseCard from '../common/CourseCard';
+import { getAllPrograms, IProgram } from '../../api';
+import { useEffect, useState } from 'react';
+import { ethers } from 'ethers';
 import './CourseCatalogue.css';
 
 const courseFilters = [
@@ -33,7 +37,18 @@ const courseFilters = [
     options: ['0 - 30 mins', '30 - 60 mins', '1 hr - 2 hrs', 'Above 2 hrs'],
   },
 ];
-function CourseCatalogue() {
+function CourseCatalogue(props: { provider: ethers.providers.Web3Provider }) {
+  const [programs, setPrograms] = useState<IProgram[]>([]);
+
+  const loadProgram = async () => {
+    const programs = await getAllPrograms(props.provider);
+    setPrograms(programs);
+  };
+
+  useEffect(() => {
+    loadProgram();
+  }, []);
+
   return (
     <div className="Course-Catalogue">
       <h1>Browse Courses</h1>
@@ -60,7 +75,9 @@ function CourseCatalogue() {
             return <CourseFilter key={'filter-' + v.title} data={v}></CourseFilter>;
           })}
         </div>
-        <div className="Courses"></div>
+        <div className="Courses">
+          {programs.length !== 0 && <CourseCard program={programs[0]}></CourseCard>}
+        </div>
       </div>
     </div>
   );

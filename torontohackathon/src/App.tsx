@@ -183,15 +183,16 @@ function App() {
           </Toolbar>
         </AppBar>
         <Routes>
-          <Route path="/browse-courses" element={<CourseCatalogue />} />
+          <Route
+            path="/browse-courses"
+            element={provider ? <CourseCatalogue provider={provider} /> : null}
+          />
           <Route path="/" element={provider ? <LandingPage provider={provider} /> : null} />
         </Routes>
         <div className="Footer">
           <div className="FooterRight">
             <img src={footerAlexandria} className="FooterAlexandria" />
-            <text className="FooterRightsReserved">
-              @ 2023 Alexandria Team. All Rights Reserved
-            </text>
+            <p className="FooterRightsReserved">@ 2023 Alexandria Team. All Rights Reserved</p>
             <div className="FooterSocialMedia">
               <Button className="FooterSocialMediaIcon">
                 <img src={twitter} />
