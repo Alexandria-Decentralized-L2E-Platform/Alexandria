@@ -8,7 +8,7 @@ If you want to run the project:
 1. run 'yarn start' to start.
 
 
-Items needed:
+***Items needed:
 1. Problem
 2. Solution
 3. Vision
