@@ -92,10 +92,12 @@ function App() {
         >
           <Toolbar>
             <div className="alexandria-whole-tab">
-              <div className="alexandria-logoAndName">
-                <img src={alexandriaLogo} className="alexandria-logo" />
-                <img src={alexandriaName} className="alexandria-name" />
-              </div>
+              <Button component={Link} to="/">
+                <div className="alexandria-logoAndName">
+                  <img src={alexandriaLogo} className="alexandria-logo" />
+                  <img src={alexandriaName} className="alexandria-name" />
+                </div>
+              </Button>
               <div className="alexandria-rightHandSide-tab">
                 <div className="alexandria-typography">
                   <Button

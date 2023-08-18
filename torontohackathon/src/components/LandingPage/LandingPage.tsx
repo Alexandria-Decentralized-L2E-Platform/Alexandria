@@ -1,5 +1,5 @@
 import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import communityDescription from '../../logo/communityDescription.svg';
 
 import innovationDescription from '../../logo/innovationDescription.svg';
@@ -11,8 +11,8 @@ import visitAlexandriaBanner from '../../logo/visitAlexandriaBanner.svg';
 import CourseCard from '../common/CourseCard';
 import './LandingPage.css';
 
-import { getAllPrograms, IProgram } from '../../api';
 import { ethers } from 'ethers';
+import { getAllPrograms, IProgram } from '../../api';
 
 function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
   const [programs, setPrograms] = useState<IProgram[]>([]);
