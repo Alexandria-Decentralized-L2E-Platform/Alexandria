@@ -1,7 +1,7 @@
-# TorontoHackathon
+# Alexandria
 
 ***Every time you work on the project, please do the following steps
-1. go to 'torontohackathon' directory (e.g use cd command).
+1. go to 'dapp' directory (e.g use cd command).
 2. run 'yarn install' to install required modules.
 
 If you want to run the project:
