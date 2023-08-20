@@ -1,5 +1,4 @@
 import { IProgram, contracts, getProgramById } from '../../api';
-import { walletProvider } from '../../api/blockchain';
 import { useEffect, useState } from 'react';
 import { BigNumber, ethers } from 'ethers';
 
@@ -7,6 +6,7 @@ import Question from './Question';
 import CourseCard from '../common/CourseCard';
 import './CourseDetail.css';
 import { useParams } from 'react-router-dom';
+import { doMint, hasLibraryCard } from '../../api/contracts';
 
 function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
   const { id } = useParams();
@@ -14,11 +14,14 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
   const [program, setProgram] = useState<IProgram | undefined>(undefined);
   const [isTakingQuiz, setIsTakingQuiz] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [hasCard, setHasCaed] = useState<boolean>(false);
 
   const loadProgram = async () => {
     if (!id) return;
     const program = await getProgramById(props.provider, Number(id));
     setProgram(program);
+    const hasCard = await hasLibraryCard(props.provider);
+    setHasCaed(hasCard);
   };
 
   const onSelectAnswer = async (i: number, choice: string) => {
@@ -30,6 +33,11 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
   };
 
   const onClickHandler = async () => {
+    if (!hasCard) {
+      await doMint(props.provider);
+      const hasCard = await hasLibraryCard(props.provider);
+      setHasCaed(hasCard);
+    }
     if (isTakingQuiz && program) {
       // Convert answer object to answer[]
       const answerArr: string[] = Object.values(answer);
@@ -37,11 +45,11 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
       // Check Answer
       const isCorrect =
         answerArr.length == program.questions.length &&
-        (await contracts.checkAnswer(walletProvider, program.id.toNumber(), answerArr));
+        (await contracts.checkAnswer(props.provider, program.id.toNumber(), answerArr));
 
       if (isCorrect) {
         setIsCorrect(true);
-        contracts.learnProgram(walletProvider, program.id.toNumber(), answerArr);
+        contracts.learnProgram(props.provider, program.id.toNumber(), answerArr);
       } else {
         setIsCorrect(false);
       }
@@ -72,7 +80,8 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
                   BigNumber.from(program.reward.rewardAddressCap).mul(
                     program.reward.rewardPerAddress,
                   ) +
-                  ' Token'}
+                  ' ' +
+                  program.reward.tokenSymbol}
               </p>
             </div>
             <div className="Progress-Bar-Container">
@@ -118,17 +127,17 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
           ) : (
             <div></div>
           )}
-          <button className="Quiz-Button" onClick={onClickHandler}>
-            {isTakingQuiz ? 'Submit Quiz' : 'Take Quiz'}
-          </button>
-          <p className="Question-Reward">
-            {'Reward ' + program.reward.rewardPerAddress + ' Token'}
-          </p>
           {isCorrect == false ? (
-            <p>Submitted answer is incorrect. Please try again.</p>
+            <p className="Error-Message">Submitted answer is incorrect. Please try again.</p>
           ) : (
             <div></div>
           )}
+          <button className="Quiz-Button" onClick={onClickHandler}>
+            {hasCard ? (isTakingQuiz ? 'Submit Quiz' : 'Take Quiz') : 'Get Library Card'}
+          </button>
+          <p className="Question-Reward">
+            {'Reward ' + program.reward.rewardPerAddress + ' ' + program.reward.tokenSymbol}
+          </p>
         </div>
       ) : (
         <div className="Course-Detail-Wrapper"></div>

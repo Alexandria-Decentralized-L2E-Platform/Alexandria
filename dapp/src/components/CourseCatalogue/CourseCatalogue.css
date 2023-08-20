@@ -92,7 +92,7 @@
 }
 
 .Course-Catalogue .Course-Rating-Duration-Publisher {
-  gap: 1%;
+  gap: 0;
 }
 
 .Course-Catalogue .CourseStatusText,
@@ -100,7 +100,8 @@
 .Course-Catalogue .CoursePublisher,
 .Course-Catalogue .CourseTagText,
 .Course-Catalogue .CourseDescription,
-.Course-Catalogue .courseEarnTokenText {
+.Course-Catalogue .courseEarnTokenText,
+.Course-Catalogue .CourseRatingCount {
   font-size: 12px;
 }
 

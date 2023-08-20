@@ -289,10 +289,11 @@ export const learnProgram = async (
   id: number,
   answers: string[],
 ): Promise<ethers.ContractTransaction> => {
+  const signer = provider.getSigner();
   const lib = new ethers.Contract(
     alexAddresses.library,
     AlexLibrary__factory.abi,
-    provider,
+    signer,
   ) as AlexLibrary;
   const trx = await lib.learnProgram(id, answers);
   return trx;

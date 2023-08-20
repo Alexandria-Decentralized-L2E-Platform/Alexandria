@@ -36,11 +36,10 @@
   opacity: 0.8;
   background: var(--deactivated-light-grey, #edebe8);
   padding: 50px 5%;
-  margin-top: 50px;
+  margin: 50px 0;
 }
 
 .Quiz-Button {
-  margin-top: 50px;
   color: white;
   height: 50px;
   width: 150px;
