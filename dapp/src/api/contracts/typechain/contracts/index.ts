@@ -8,3 +8,4 @@ export type { AlexLibrary } from './AlexLibrary';
 export type { AlexLibraryCard } from './AlexLibraryCard';
 export type { AlexToken } from './AlexToken';
 export type { NFTToken } from './NFTToken';
+export type { RewardToken } from './RewardToken';

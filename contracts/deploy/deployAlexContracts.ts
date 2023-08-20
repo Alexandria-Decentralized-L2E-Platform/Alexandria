@@ -41,10 +41,12 @@ const deploy = async function (hre: HardhatRuntimeEnvironment, deployer: Signer)
     // Deploy Contracts
 
     const tokenFactory = (await hre.ethers.getContractFactory(
-        "RewardToken",
+        "AlexToken",
         deployer
     )) as AlexToken__factory;
     const tokenContract = await tokenFactory.deploy(tokenSupply);
+    await tokenContract.deployTransaction.wait();
+    console.log(tokenContract);
     contracts.token = tokenContract.address;
 
     const adminFactory = (await hre.ethers.getContractFactory(
@@ -52,6 +54,7 @@ const deploy = async function (hre: HardhatRuntimeEnvironment, deployer: Signer)
         deployer
     )) as AlexAdmin__factory;
     const adminContract = await adminFactory.deploy(tokenContract.address, sponsorStakeAmount, cardStakeAmount);
+    await adminContract.deployTransaction.wait();
     contracts.admin = adminContract.address;
 
     const authorFactory = (await hre.ethers.getContractFactory(
@@ -59,6 +62,7 @@ const deploy = async function (hre: HardhatRuntimeEnvironment, deployer: Signer)
         deployer
     )) as AlexAuthor__factory;
     const authorContract = await authorFactory.deploy(adminContract.address);
+    await authorContract.deployTransaction.wait();
     contracts.author = authorContract.address;
 
     const cardFactory = (await hre.ethers.getContractFactory(
@@ -66,6 +70,7 @@ const deploy = async function (hre: HardhatRuntimeEnvironment, deployer: Signer)
         deployer
     )) as AlexLibraryCard__factory;
     const cardContract = await cardFactory.deploy(adminContract.address);
+    await cardContract.deployTransaction.wait();
     contracts.card = cardContract.address;
 
     const libraryFactory = (await hre.ethers.getContractFactory(
@@ -73,6 +78,7 @@ const deploy = async function (hre: HardhatRuntimeEnvironment, deployer: Signer)
         deployer
     )) as AlexLibrary__factory;
     const libraryContract = await libraryFactory.deploy(authorContract.address, cardContract.address);
+    await libraryContract.deployTransaction.wait();
     contracts.library = libraryContract.address;
     return contracts;
 }
@@ -137,10 +143,10 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
 export default func;
 
-// {
-//     token: "0xd80c6860D19238C06697554e18dE4E891EC48e70",
-//     admin: "0xC53Ea44bee323662ca8ce89540473cf39e4664aD",
-//     author: "0x299B2f9E249706c9c7F96EC9593447219392fd42",
-//     card: "0x1d6775426a4A0304FC2EFa22c2A1BCc57589c0e7",
-//     library: "0xfB5394b0521c4248a009f49207834d104d66648F",
-// }
+// addresses {
+//     token: '0x5f5a8Fe2e1B3B4264B2eA5Ff9855b3D7D669F4a5',
+//     admin: '0x35BfFBcd39238243FbDAdFc2Dbf58ba623F9dab0',
+//     author: '0xFcd0694Aac059130683De850EB61723ef11810e8',
+//     card: '0xe6467cF7a2b9883E9547168bA243b7B7f988E598',
+//     library: '0xD38E4550c88B000A486289e58A3825916275895d'
+//   }

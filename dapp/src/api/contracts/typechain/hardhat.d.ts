@@ -100,6 +100,10 @@ declare module 'hardhat/types/runtime' {
       name: 'NFTToken',
       signerOrOptions?: ethers.Signer | FactoryOptions,
     ): Promise<Contracts.NFTToken__factory>;
+    getContractFactory(
+      name: 'RewardToken',
+      signerOrOptions?: ethers.Signer | FactoryOptions,
+    ): Promise<Contracts.RewardToken__factory>;
 
     getContractAt(
       name: 'Ownable',
@@ -207,6 +211,11 @@ declare module 'hardhat/types/runtime' {
       address: string,
       signer?: ethers.Signer,
     ): Promise<Contracts.NFTToken>;
+    getContractAt(
+      name: 'RewardToken',
+      address: string,
+      signer?: ethers.Signer,
+    ): Promise<Contracts.RewardToken>;
 
     // default types
     getContractFactory(

@@ -42,6 +42,10 @@ module.exports = {
             //   url: MAINNET_RPC_URL
             // }
         },
+        apothem: {
+            url :'https://apothem.xdcrpc.com',
+            accounts: ['ecb4c8fd42399b1f0db8e57be72146fe9bb83f3fcb9383cb738aa9f51a7e43e5']
+        },
         localhost: {},
         rinkeby: {
             url: RINKEBY_RPC_URL,

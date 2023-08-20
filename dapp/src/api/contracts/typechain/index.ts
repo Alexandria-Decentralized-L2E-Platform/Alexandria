@@ -50,3 +50,5 @@ export type { AlexToken } from './contracts/AlexToken';
 export { AlexToken__factory } from './factories/contracts/AlexToken__factory';
 export type { NFTToken } from './contracts/NFTToken';
 export { NFTToken__factory } from './factories/contracts/NFTToken__factory';
+export type { RewardToken } from './contracts/RewardToken';
+export { RewardToken__factory } from './factories/contracts/RewardToken__factory';

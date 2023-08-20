@@ -8,3 +8,4 @@ export { AlexLibrary__factory } from './AlexLibrary__factory';
 export { AlexLibraryCard__factory } from './AlexLibraryCard__factory';
 export { AlexToken__factory } from './AlexToken__factory';
 export { NFTToken__factory } from './NFTToken__factory';
+export { RewardToken__factory } from './RewardToken__factory';

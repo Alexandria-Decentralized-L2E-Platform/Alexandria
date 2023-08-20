@@ -117,7 +117,7 @@ contract AlexLibrary {
 
         // Mint Certificate
         AlexCertificate(program.certificate).safeMint(msg.sender);
-        programCompletedByAddress[msg.sender].push(id);
+        programCompletedByAddress[msg.sender].push(id);  
     }
 
     function rateProgram(uint256 id, uint256 rating) public onlyLearner {
