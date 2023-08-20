@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { BigNumber, ethers } from 'ethers';
 
 import Question from './Question';
+import CourseCard from '../common/CourseCard';
 import './CourseDetail.css';
 
 function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
@@ -58,7 +59,7 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
             <p className="info-bar-browse">{'Browse Courses >'}</p>
             <p className="info-bar-title">{program.title}</p>
           </div>
-          {/*<CourseBanner></CourseBanner> */}
+          <CourseCard program={program} isDetail={true}></CourseCard>
           <div className="Reward-Progress">
             <div className="Reward-Progress-Title">
               <p>Reward Distributed:</p>

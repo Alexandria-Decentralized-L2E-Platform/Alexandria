@@ -3,7 +3,7 @@
   max-width: 1300px;
   display: flex;
   flex-flow: column nowrap;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .Search-Bar {
@@ -52,7 +52,7 @@
   width: 67%;
   display: flex;
   flex-flow: column nowrap;
-  align-items: start;
+  align-items: flex-start;
   border-bottom: 1px solid black;
 }
 
@@ -75,4 +75,43 @@
 
 .Courses {
   width: 70%;
+}
+
+/* Course Card on Catalogue */
+.Course-Catalogue .CourseName {
+  font-size: 22px;
+}
+
+.Course-Catalogue .CourseStatus {
+  gap: 0;
+}
+
+.Course-Catalogue .CourseStatusIcon {
+  width: 10px;
+  height: 20px;
+}
+
+.Course-Catalogue .Course-Rating-Duration-Publisher {
+  gap: 1%;
+}
+
+.Course-Catalogue .CourseStatusText,
+.Course-Catalogue .CourseDuration,
+.Course-Catalogue .CoursePublisher,
+.Course-Catalogue .CourseTagText,
+.Course-Catalogue .CourseDescription,
+.Course-Catalogue .courseEarnTokenText {
+  font-size: 14px;
+}
+
+.Course-Catalogue .courseEarnToken {
+  padding: 12px 2.5%;
+}
+
+.Course-Catalogue .courseEarnTokenIconAndText {
+  gap: 9px;
+}
+
+.Course-Catalogue .courseTotalToken {
+  font-size: 14px;
 }

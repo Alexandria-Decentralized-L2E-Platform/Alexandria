@@ -14,6 +14,7 @@ import './App.css';
 // Components
 // import CourseDetail from './components/CourseDetail/CourseDetail';
 import LandingPage from './components/LandingPage/LandingPage';
+import CourseDetail from './components/CourseDetail/CourseDetail';
 
 // Image
 import alexandriaLogo from './logo/alexandriaLogo.svg';
@@ -188,6 +189,10 @@ function App() {
           <Route
             path="/browse-courses"
             element={provider ? <CourseCatalogue provider={provider} /> : null}
+          />
+          <Route
+            path="/browse-detail"
+            element={provider ? <CourseDetail provider={provider} /> : null}
           />
           <Route path="/" element={provider ? <LandingPage provider={provider} /> : null} />
         </Routes>

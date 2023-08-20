@@ -59,31 +59,22 @@
 }
 
 .visitAlexandriabannerButton {
-  display: flex;
-  padding: 12px 25px;
   flex-direction: row;
-  align-items: center;
   gap: 10px;
-  border-radius: 5px;
-  background: var(--main-brown, #9e7c5e);
-  /* Add some spacing between the subheading and button */
-  margin-top: 20px;
+  background: var(--main-brown, #9e7c5e) !important;
 }
 
 .visitAlexandriaBannerTextInButton {
   color: #fff;
   text-align: center;
-  font-family: 'Jost', sans-serif; /* Apply the Jost font */
   font-size: 20px;
-  font-weight: 500;
-  line-height: normal;
   text-transform: none;
 }
 
 .visitAlexandriabannerHeading,
 .visitAlexandriabannerSubheading,
 .visitAlexandriabannerButton {
-  position: absolute; /* Positioning relative to .visitAlexandriaBanner */
+  position: absolute !important; /* Positioning relative to .visitAlexandriaBanner */
   left: 96px; /* Adjust as needed */
 }
 
@@ -289,21 +280,6 @@
   font-weight: 500;
   line-height: normal;
   margin-top: 18px;
-}
-
-.Footer {
-  max-width: 1440px; /* Allows it to shrink on smaller screens */
-  width: 100%; /* Takes up the full width of the container */
-  height: 358px;
-  margin-top: 50px;
-  border-radius: 30px 30px 0 0;
-  background: #232221;
-  box-sizing: border-box; /* Ensures padding and border are included in the total width and height */
-  display: flex; /* Can be used to align child elements */
-  justify-content: space-between; /* Horizontal alignment */
-  align-items: center; /* Vertical alignment */
-  padding: 20px; /* Provides some space around the content */
-  color: #ffffff; /* Sets a default text color */
 }
 
 .takeCourse {

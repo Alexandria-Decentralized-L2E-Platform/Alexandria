@@ -1,18 +1,17 @@
 import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useEffect, useState } from 'react';
-import communityDescription from '../../logo/communityDescription.svg';
+import { Link } from 'react-router-dom';
+import { ethers } from 'ethers';
+import { getAllPrograms, IProgram } from '../../api';
 
+import communityDescription from '../../logo/communityDescription.svg';
 import innovationDescription from '../../logo/innovationDescription.svg';
 import learningDescripton from '../../logo/learningDescription.svg';
 import ourVisionBanner from '../../logo/ourVisionBanner.svg';
 import securityDescription from '../../logo/securityDescription.svg';
-
 import visitAlexandriaBanner from '../../logo/visitAlexandriaBanner.svg';
 import CourseCard from '../common/CourseCard';
 import './LandingPage.css';
-
-import { ethers } from 'ethers';
-import { getAllPrograms, IProgram } from '../../api';
 
 function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
   const [programs, setPrograms] = useState<IProgram[]>([]);
@@ -41,9 +40,14 @@ function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
             principles of accessibility and transparency
           </text>
         </div>
-        <button className="visitAlexandriabannerButton">
+        <Button
+          className="visitAlexandriabannerButton"
+          onClick={() => window.scrollTo(0, 0)}
+          component={Link}
+          to="/browse-courses"
+        >
           <div className="visitAlexandriaBannerTextInButton">Visit Alexandria</div>
-        </button>
+        </Button>
       </div>
 
       <div className="ourVisionBanner">
@@ -68,10 +72,10 @@ function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
           <div className="ourCoursesText">
             Our&nbsp;<span className="courses-in-ourCourses">Courses</span>
           </div>
-          <textarea
-            className="ourCoursesLongText"
-            value="Alexandria is a decentralized community driven, self-service platform operating on the principles of accessibility and transparency"
-          ></textarea>
+          <text className="ourCoursesLongText">
+            Alexandria is a decentralized community driven, self-service platform operating on the
+            principles of accessibility and transparency.
+          </text>
         </div>
         <div className="courseCards">
           {programs &&
@@ -80,7 +84,12 @@ function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
             })}
         </div>
       </div>
-      <Button className="takeCourse">
+      <Button
+        className="takeCourse"
+        onClick={() => window.scrollTo(0, 0)}
+        component={Link}
+        to="/browse-courses"
+      >
         <text className="takeCourseText">Take Course</text>
       </Button>
     </div>

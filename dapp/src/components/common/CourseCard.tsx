@@ -1,27 +1,32 @@
 import { Button } from '@mui/material';
-
-import './CourseCard.css';
+import { IProgram } from '../../api';
+import { BigNumber } from 'ethers';
+import { Link } from 'react-router-dom';
 
 import star1 from '../../logo/star1.svg';
 import star2 from '../../logo/star2.svg';
 import star3 from '../../logo/star3.svg';
 import earnTokenIcon from '../../logo/earnTokenIcon.svg';
 import ellipse from '../../logo/ellipse2.svg';
-import metaMaskLogo from '../../logo/metaMaskLogo.svg';
 
-import { IProgram } from '../../api';
-import { BigNumber } from 'ethers';
+import './CourseCard.css';
 
 // Missing attribute : courseStatus, rating, tag, Reward Token Symbol missing
-function CourseCard(props: { program: IProgram }) {
+function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
   const program = props.program;
   const earnTokenNumber = program.reward.rewardPerAddress;
   const totalTokenNumber = BigNumber.from(program.reward.rewardPerAddress)
     .mul(BigNumber.from(program.reward.rewardAddressCap))
     .toString();
-  const courseName = program.title;
+  const courseName =
+    program.title.length < 30 || props.isDetail
+      ? program.title
+      : program.title.substring(0, 30) + '...';
   const courseStatus = 'In Progress';
-  const courseDescription = program.description;
+  const courseDescription =
+    program.description.length < 200 || props.isDetail
+      ? program.description
+      : program.description.substring(0, 200) + '...';
   let rating = 3.5;
   // Covert duration from number (mins) to string
   let courseDuration: string;
@@ -39,6 +44,10 @@ function CourseCard(props: { program: IProgram }) {
     program.owner.substring(program.owner.length - 4);
   const type = program.type;
   const tag = 'Crosschain Infrastructure';
+  const imgLink =
+    'https://img.youtube.com/vi/' +
+    program.link.substring(program.link.indexOf('watch?v=') + 8) +
+    '/sddefault.jpg';
 
   const ratingStars: JSX.Element[] = [];
   for (let i = 0; i < 5; i++) {
@@ -69,11 +78,7 @@ function CourseCard(props: { program: IProgram }) {
     <div className="courseCard">
       <div className="innerCourseCard">
         <div className="innerCourseCardLeft">
-          <div className="innerCourseCardLeftLeft">
-            <div className="innerCourseCardSvgFrame">
-              <img src={metaMaskLogo} className="innerCourseCardSvg" />
-            </div>
-          </div>
+          {!props.isDetail && <img src={imgLink} className="innerCourseCardSvg" />}
           <div className="innerCourseCardLeftRight">
             <div className="CourseDetail">
               <div className="CourseTitle">
@@ -95,21 +100,26 @@ function CourseCard(props: { program: IProgram }) {
             </div>
           </div>
         </div>
-        <div className="innerCourseCardRight">
-          <Button
-            className="courseEarnToken"
-            color="inherit"
-            sx={{
-              textTransform: 'none',
-            }}
-          >
-            <div className="courseEarnTokenIconAndText">
-              <img src={earnTokenIcon} className="courseEarnTokenIcon" />
-              <text className="courseEarnTokenText">Earn {earnTokenNumber} Token</text>
-            </div>
-          </Button>
-          <text className="courseTotalToken">Total: {totalTokenNumber} Tokens</text>
-        </div>
+        {!props.isDetail && (
+          <div className="innerCourseCardRight">
+            <Button
+              className="courseEarnToken"
+              color="inherit"
+              sx={{
+                textTransform: 'none',
+              }}
+              onClick={() => window.scrollTo(0, 0)}
+              component={Link}
+              to="/browse-detail"
+            >
+              <div className="courseEarnTokenIconAndText">
+                <img src={earnTokenIcon} className="courseEarnTokenIcon" />
+                <text className="courseEarnTokenText">Earn {earnTokenNumber} Token</text>
+              </div>
+            </Button>
+            <text className="courseTotalToken">Total: {totalTokenNumber} Tokens</text>
+          </div>
+        )}
       </div>
     </div>
   );
