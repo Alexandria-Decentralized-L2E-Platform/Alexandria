@@ -191,7 +191,7 @@ function App() {
             element={provider ? <CourseCatalogue provider={provider} /> : null}
           />
           <Route
-            path="/browse-detail"
+            path="/browse-detail/:id"
             element={provider ? <CourseDetail provider={provider} /> : null}
           />
           <Route path="/" element={provider ? <LandingPage provider={provider} /> : null} />

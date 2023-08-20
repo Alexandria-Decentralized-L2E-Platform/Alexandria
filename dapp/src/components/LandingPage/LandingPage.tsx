@@ -80,7 +80,7 @@ function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
         <div className="courseCards">
           {programs &&
             programs.map((p) => {
-              return <CourseCard key={'card-' + p.id.toString()} program={p} />;
+              return <CourseCard key={'card-' + p.cid} program={p} />;
             })}
         </div>
       </div>

@@ -176,6 +176,7 @@ describe("Test Earn to Learn Platform", function () {
 
             // Mint
             await authorContract.connect(sponsor).safeMint(sponsorAddress, "Author1");
+            expect(await authorContract.tokenOfOwnerByIndex(sponsorAddress, 0)).to.equal(0);
             expect(await authorContract.authorList(0)).to.equal("Author1");
 
 

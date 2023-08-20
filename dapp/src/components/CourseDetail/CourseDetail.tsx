@@ -1,4 +1,4 @@
-import { getAllPrograms, IProgram, contracts } from '../../api';
+import { IProgram, contracts, getProgramById } from '../../api';
 import { walletProvider } from '../../api/blockchain';
 import { useEffect, useState } from 'react';
 import { BigNumber, ethers } from 'ethers';
@@ -6,16 +6,19 @@ import { BigNumber, ethers } from 'ethers';
 import Question from './Question';
 import CourseCard from '../common/CourseCard';
 import './CourseDetail.css';
+import { useParams } from 'react-router-dom';
 
 function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
+  const { id } = useParams();
   const [answer, setAnswer] = useState({});
   const [program, setProgram] = useState<IProgram | undefined>(undefined);
   const [isTakingQuiz, setIsTakingQuiz] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const loadProgram = async () => {
-    const programs = await getAllPrograms(props.provider);
-    setProgram(programs[0]);
+    if (!id) return;
+    const program = await getProgramById(props.provider, Number(id));
+    setProgram(program);
   };
 
   const onSelectAnswer = async (i: number, choice: string) => {

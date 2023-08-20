@@ -11,7 +11,6 @@ import ellipse from '../../logo/ellipse2.svg';
 
 import './CourseCard.css';
 
-// Missing attribute : courseStatus, rating, tag, Reward Token Symbol missing
 function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
   const program = props.program;
   const earnTokenNumber = program.reward.rewardPerAddress;
@@ -22,12 +21,15 @@ function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
     program.title.length < 30 || props.isDetail
       ? program.title
       : program.title.substring(0, 30) + '...';
-  const courseStatus = 'In Progress';
+  const courseStatus =
+    program.reward.rewardAddressCap == '0' || program.reward.rewardRemaining == '0'
+      ? ' Certificate Only'
+      : 'Rewards & Certificate';
   const courseDescription =
     program.description.length < 200 || props.isDetail
       ? program.description
       : program.description.substring(0, 200) + '...';
-  let rating = 3.5;
+  let rating = program.rating.avg;
   // Covert duration from number (mins) to string
   let courseDuration: string;
   if (program.duration < 60) {
@@ -37,13 +39,15 @@ function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
     const min = program.duration - hour * 60;
     courseDuration = hour + ' hr(s) ' + min + ' min(s)';
   }
-  const coursePublisher =
-    'By ' +
-    program.owner.substring(0, 6) +
-    '...' +
-    program.owner.substring(program.owner.length - 4);
+  const coursePublisher = props.isDetail
+    ? 'By ' + program.authorName + ' (' + program.owner + ')'
+    : 'By ' +
+      program.authorName +
+      ' (...' +
+      program.owner.substring(program.owner.length - 4) +
+      ')';
   const type = program.type;
-  const tag = 'Crosschain Infrastructure';
+  const tag = program.topic;
   const imgLink =
     'https://img.youtube.com/vi/' +
     program.link.substring(program.link.indexOf('watch?v=') + 8) +
@@ -61,6 +65,7 @@ function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
       ratingStars.push(<img src={star3} className="CourseRatingStar" />);
     }
   }
+  ratingStars.push(<p className="CourseRatingCount">{'(' + program.rating.count + ')'}</p>);
 
   const video: JSX.Element = (
     <div className="CourseTagVideo">
@@ -110,14 +115,18 @@ function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
               }}
               onClick={() => window.scrollTo(0, 0)}
               component={Link}
-              to="/browse-detail"
+              to={'/browse-detail/' + program.id}
             >
               <div className="courseEarnTokenIconAndText">
                 <img src={earnTokenIcon} className="courseEarnTokenIcon" />
-                <text className="courseEarnTokenText">Earn {earnTokenNumber} Token</text>
+                <text className="courseEarnTokenText">
+                  Earn {earnTokenNumber} {program.reward.tokenSymbol}
+                </text>
               </div>
             </Button>
-            <text className="courseTotalToken">Total: {totalTokenNumber} Tokens</text>
+            <text className="courseTotalToken">
+              Total: {totalTokenNumber} {program.reward.tokenSymbol}
+            </text>
           </div>
         )}
       </div>

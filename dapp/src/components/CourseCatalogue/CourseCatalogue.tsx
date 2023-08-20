@@ -8,7 +8,7 @@ import './CourseCatalogue.css';
 const courseFilters = [
   {
     title: 'Status',
-    options: ['In Progress', 'Completed', 'Earning End'],
+    options: ['Rewards & Certificate', 'Certificate Only'],
   },
   {
     title: 'Rating',
@@ -76,7 +76,10 @@ function CourseCatalogue(props: { provider: ethers.providers.Web3Provider }) {
           })}
         </div>
         <div className="Courses">
-          {programs.length !== 0 && <CourseCard program={programs[0]}></CourseCard>}
+          {programs.length !== 0 &&
+            programs.map((p) => {
+              return <CourseCard key={p.cid} program={p}></CourseCard>;
+            })}
         </div>
       </div>
     </div>

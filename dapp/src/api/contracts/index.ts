@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { ethers, BigNumber } from 'ethers';
 
 import {
   AlexLibraryCard,
@@ -9,8 +9,8 @@ import {
   // AlexCertificate__factory,
   AlexAdmin,
   AlexAdmin__factory,
-  // AlexAuthor,
-  // AlexAuthor__factory,
+  AlexAuthor,
+  AlexAuthor__factory,
   ERC20,
   ERC20__factory,
 } from './typechain';
@@ -24,11 +24,11 @@ export interface AlexAddresses {
 }
 
 export const alexAddresses: AlexAddresses = {
-  token: '0xa605959dAe4A5269d0099e79aA2953d43c72C3F5',
-  admin: '0x1ec5CA0bB5fA29e6D659d09ABf16a4e860d36fe9',
-  author: '0xfb7D2F8D34665779cA4922afB8F61524ED5805f1',
-  card: '0x10cC479defB24ccD0a0d2aF925Aa67d21C037b11',
-  library: '0xd9f0Fed106ea5073A4B1b73F312B0dCD6D389eC7'
+  token: '0x1ACfE3aE4bD19A0cb93BA955523F455FBd82127C',
+  admin: '0x2aa4465aF5db82AdF07795Be850e4CbC28493DEb',
+  author: '0x4c1dAD8f068203174A79dFb533B6B93e757080bb',
+  card: '0xd9ECd74F8779B6AE77b2FA715572302D82DBed2f',
+  library: '0xcFda440f35138382682120aA58989fbA4e4bf26d',
 };
 
 // Tokens
@@ -153,14 +153,21 @@ export const doMint = async (provider: ethers.providers.Web3Provider) => {
 export interface IProgram {
   id: ethers.BigNumber;
   owner: string;
+  authorName: string;
   title: string;
   cid: string;
   certificate: string;
+  rating: {
+    avg: number;
+    count: number;
+  };
   reward: {
     rewardToken: string;
     rewardAddressCap: string;
     rewardPerAddress: string;
     rewardDistributed: string;
+    rewardRemaining: string;
+    tokenSymbol: string;
   };
 }
 
@@ -174,19 +181,59 @@ export const getProgram = async (
     provider,
   ) as AlexLibrary;
   const response = await lib.programs(id);
-  // const token = new ethers.Contract(
-  //   response.reward.rewardToken,
-  //   ERC20__factory.abi,
-  //   provider,
-  // ) as ERC20;
-  // const decimals = await token.decimals();
+
+  // Get Ratings
+  const ratings = await lib.getRatings(id);
+  let sum = 0;
+  ratings.forEach((r) => {
+    sum += r.toNumber();
+  });
+  const rating = {
+    avg: ratings.length !== 0 ? Math.round((sum / ratings.length) * 10) / 10 : 0,
+    count: ratings.length,
+  };
+
+  const token = new ethers.Contract(
+    response.reward.rewardToken,
+    ERC20__factory.abi,
+    provider,
+  ) as ERC20;
+  const decimalsTrx = token.decimals();
+  const tokenSymbolTrx = token.symbol();
+
+  // Get Author Name
+  const author = new ethers.Contract(
+    alexAddresses.author,
+    AlexAuthor__factory.abi,
+    provider,
+  ) as AlexAuthor;
+  const authorIdTrx = author.tokenOfOwnerByIndex(response.owner, 0);
+  const [decimals, tokenSymbol, authorId] = await Promise.all([
+    decimalsTrx,
+    tokenSymbolTrx,
+    authorIdTrx,
+  ]);
+
+  const authorName = await author.authorList(authorId);
+
   const program: IProgram = {
     ...response,
+    authorName,
+    rating,
     reward: {
       rewardToken: response.reward.rewardToken,
       rewardAddressCap: response.reward.rewardAddressCap.toString(),
-      rewardDistributed: response.reward.rewardDistributed.toString(),
-      rewardPerAddress: response.reward.rewardPerAddress.toString(),
+      rewardDistributed: response.reward.rewardDistributed
+        .div(BigNumber.from(10).pow(decimals))
+        .toString(),
+      rewardPerAddress: response.reward.rewardPerAddress
+        .div(BigNumber.from(10).pow(decimals))
+        .toString(),
+      rewardRemaining: response.reward.rewardDistributed
+        .sub(response.reward.rewardAddressCap.mul(response.reward.rewardPerAddress))
+        .div(BigNumber.from(10).pow(decimals))
+        .toString(),
+      tokenSymbol,
     },
   };
   return program;

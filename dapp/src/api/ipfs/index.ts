@@ -12,6 +12,7 @@ export interface IProgramObjectIPFS {
   description: string;
   duration: number;
   link: string;
+  topic: string;
   type: string;
   questions: { title: string; choices: string[] }[];
 }

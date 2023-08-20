@@ -19,6 +19,7 @@ const getProgramById = async (
     ...programFromContracts,
     ...programFromIPFS,
   };
+  console.log(program, provider);
   return program;
 };
 

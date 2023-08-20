@@ -106,14 +106,14 @@ const createProgram = async function (hre:HardhatRuntimeEnvironment, cid: string
     let reward: AlexLibrary.RewardStruct = {
         rewardToken: rewardContract.address ,
         rewardAddressCap: BigNumber.from(1000),
-        rewardPerAddress: BigNumber.from(10).mul(10^18),
+        rewardPerAddress: BigNumber.from(10).mul(BigNumber.from(10).pow(18)),
         rewardDistributed: BigNumber.from(0)
     }
 
     let program: any = {
         title: "An Introduction to Xin Fin",
         answers: ["D", "A", "D", "D", "B"],
-        cid: "QmTWPeaRwLRQtVUwqYJ6jS7B6QMh3sx7nDzShdKWW5qxsm"
+        cid
     }
 
     const lib = new ethers.Contract(addresses.library, AlexLibrary__factory.abi, sponsor) as AlexLibrary;
@@ -145,9 +145,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 export default func;
 
 // addresses {
-    // token: '0xa605959dAe4A5269d0099e79aA2953d43c72C3F5',
-    // admin: '0x1ec5CA0bB5fA29e6D659d09ABf16a4e860d36fe9',
-    // author: '0xfb7D2F8D34665779cA4922afB8F61524ED5805f1',
-    // card: '0x10cC479defB24ccD0a0d2aF925Aa67d21C037b11',
-    // library: '0xd9f0Fed106ea5073A4B1b73F312B0dCD6D389eC7'
+    // token: '0x1ACfE3aE4bD19A0cb93BA955523F455FBd82127C',
+    // admin: '0x2aa4465aF5db82AdF07795Be850e4CbC28493DEb',
+    // author: '0x4c1dAD8f068203174A79dFb533B6B93e757080bb',
+    // card: '0xd9ECd74F8779B6AE77b2FA715572302D82DBed2f',
+    // library: '0xcFda440f35138382682120aA58989fbA4e4bf26d'
 //   }
