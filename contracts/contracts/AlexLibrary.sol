@@ -37,6 +37,7 @@ contract AlexLibrary {
     mapping(uint256 => Program) public programs;
     mapping(uint256 => string[]) private answers;
     mapping(uint256 => uint256[]) public ratings;
+    mapping(address => uint256[]) public programCompletedByAddress;
 
     constructor(AlexAuthor _author, AlexLibraryCard _card) {
         author = _author;
@@ -116,6 +117,7 @@ contract AlexLibrary {
 
         // Mint Certificate
         AlexCertificate(program.certificate).safeMint(msg.sender);
+        programCompletedByAddress[msg.sender].push(id);
     }
 
     function rateProgram(uint256 id, uint256 rating) public onlyLearner {
@@ -126,5 +128,9 @@ contract AlexLibrary {
     // Helper functions
     function getRatings(uint256 id) public view returns(uint256[] memory) {
         return ratings[id];
+    }
+
+    function getCerts(address learner) public view returns(uint256[] memory){
+        return programCompletedByAddress[learner];
     }
 }

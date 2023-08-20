@@ -8,7 +8,7 @@ import {
     AlexLibrary, AlexLibrary__factory,
     AlexCertificate, AlexCertificate__factory,
     AlexAdmin, AlexAdmin__factory,
-    AlexAuthor, AlexAuthor__factory
+    AlexAuthor, AlexAuthor__factory, RewardToken, RewardToken__factory
 } from "../typechain";
 
 describe("Test Earn to Learn Platform", function () {
@@ -28,8 +28,8 @@ describe("Test Earn to Learn Platform", function () {
     let rewardContract: AlexToken;
     let libraryContract: AlexLibrary;
     let tokenSupply: BigNumber = BigNumber.from(1000).mul(BigNumber.from(10).pow(18));
-    let learnerStakeAmount: BigNumber = BigNumber.from(5).mul(BigNumber.from(10).pow(18));
-    let sponsorStakeAmount: BigNumber = BigNumber.from(70).mul(BigNumber.from(10).pow(18));
+    let learnerStakeAmount: BigNumber = BigNumber.from(0).mul(BigNumber.from(10).pow(18));
+    let sponsorStakeAmount: BigNumber = BigNumber.from(0).mul(BigNumber.from(10).pow(18));
     
     
 
@@ -50,7 +50,12 @@ describe("Test Earn to Learn Platform", function () {
         )) as AlexToken__factory;
 
         tokenContract = await tokenFactory.deploy(tokenSupply);
-        rewardContract = await tokenFactory.deploy(tokenSupply);
+
+        const rewardFactory = (await ethers.getContractFactory(
+            "RewardToken",
+            deployer
+        )) as RewardToken__factory;
+        rewardContract = await rewardFactory.deploy("Wrapped XDC","WXDC",tokenSupply);
 
         const adminFactory = (await ethers.getContractFactory(
             "AlexAdmin",
@@ -231,8 +236,8 @@ describe("Test Earn to Learn Platform", function () {
             expect(await certificate.balanceOf(learnerAddress)).to.equal(1);
             expect(await rewardContract.balanceOf(learnerAddress)).to.equal(response.reward.rewardPerAddress);
             expect(response.reward.rewardDistributed).to.equal(rewardPerAddress);
+            expect((await libraryContract.getCerts(learnerAddress))[0]).to.equal(BigNumber.from(1));
 
-            let response2 = await libraryContract.programCompletedByCard(0,0);
         });
 
         it("Should Not Learn a Program for second time", async function() {

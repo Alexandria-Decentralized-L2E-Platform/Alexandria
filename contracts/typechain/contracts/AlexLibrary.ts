@@ -43,9 +43,11 @@ export interface AlexLibraryInterface extends utils.Interface {
     "author()": FunctionFragment;
     "card()": FunctionFragment;
     "checkAnswer(uint256,string[])": FunctionFragment;
+    "getCerts(address)": FunctionFragment;
     "getRatings(uint256)": FunctionFragment;
     "learnProgram(uint256,string[])": FunctionFragment;
     "newProgram(string,string,(address,uint256,uint256,uint256),string[])": FunctionFragment;
+    "programCompletedByAddress(address,uint256)": FunctionFragment;
     "programCounter()": FunctionFragment;
     "programs(uint256)": FunctionFragment;
     "rateProgram(uint256,uint256)": FunctionFragment;
@@ -57,9 +59,11 @@ export interface AlexLibraryInterface extends utils.Interface {
       | "author"
       | "card"
       | "checkAnswer"
+      | "getCerts"
       | "getRatings"
       | "learnProgram"
       | "newProgram"
+      | "programCompletedByAddress"
       | "programCounter"
       | "programs"
       | "rateProgram"
@@ -72,6 +76,7 @@ export interface AlexLibraryInterface extends utils.Interface {
     functionFragment: "checkAnswer",
     values: [BigNumberish, string[]]
   ): string;
+  encodeFunctionData(functionFragment: "getCerts", values: [string]): string;
   encodeFunctionData(
     functionFragment: "getRatings",
     values: [BigNumberish]
@@ -83,6 +88,10 @@ export interface AlexLibraryInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "newProgram",
     values: [string, string, AlexLibrary.RewardStruct, string[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "programCompletedByAddress",
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "programCounter",
@@ -107,12 +116,17 @@ export interface AlexLibraryInterface extends utils.Interface {
     functionFragment: "checkAnswer",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "getCerts", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getRatings", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "learnProgram",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "newProgram", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "programCompletedByAddress",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "programCounter",
     data: BytesLike
@@ -164,6 +178,11 @@ export interface AlexLibrary extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    getCerts(
+      learner: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
+
     getRatings(
       id: BigNumberish,
       overrides?: CallOverrides
@@ -182,6 +201,12 @@ export interface AlexLibrary extends BaseContract {
       _answers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    programCompletedByAddress(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     programCounter(
       overrides?: CallOverrides
@@ -231,6 +256,8 @@ export interface AlexLibrary extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  getCerts(learner: string, overrides?: CallOverrides): Promise<BigNumber[]>;
+
   getRatings(id: BigNumberish, overrides?: CallOverrides): Promise<BigNumber[]>;
 
   learnProgram(
@@ -246,6 +273,12 @@ export interface AlexLibrary extends BaseContract {
     _answers: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  programCompletedByAddress(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   programCounter(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -293,6 +326,8 @@ export interface AlexLibrary extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    getCerts(learner: string, overrides?: CallOverrides): Promise<BigNumber[]>;
+
     getRatings(
       id: BigNumberish,
       overrides?: CallOverrides
@@ -311,6 +346,12 @@ export interface AlexLibrary extends BaseContract {
       _answers: string[],
       overrides?: CallOverrides
     ): Promise<void>;
+
+    programCompletedByAddress(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     programCounter(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -361,6 +402,8 @@ export interface AlexLibrary extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getCerts(learner: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     getRatings(id: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     learnProgram(
@@ -375,6 +418,12 @@ export interface AlexLibrary extends BaseContract {
       _reward: AlexLibrary.RewardStruct,
       _answers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    programCompletedByAddress(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     programCounter(overrides?: CallOverrides): Promise<BigNumber>;
@@ -405,6 +454,11 @@ export interface AlexLibrary extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getCerts(
+      learner: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getRatings(
       id: BigNumberish,
       overrides?: CallOverrides
@@ -422,6 +476,12 @@ export interface AlexLibrary extends BaseContract {
       _reward: AlexLibrary.RewardStruct,
       _answers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    programCompletedByAddress(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     programCounter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
