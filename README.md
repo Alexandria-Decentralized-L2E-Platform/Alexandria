@@ -18,3 +18,10 @@ If you want to run the project:
 7. Github
 8. User journey
 9. Use case 
+
+**Team:
+1. Name
+2. Intro
+3. Role
+4. Responsibility
+5. Link
