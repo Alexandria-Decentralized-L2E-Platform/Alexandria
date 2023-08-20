@@ -25,8 +25,8 @@ interface IAddresses {
 }
 
 let tokenSupply: BigNumber = BigNumber.from(1000000).mul(BigNumber.from(10).pow(18));
-let cardStakeAmount: BigNumber = BigNumber.from(5).mul(BigNumber.from(10).pow(18));
-let sponsorStakeAmount: BigNumber = BigNumber.from(70).mul(BigNumber.from(10).pow(18));
+let cardStakeAmount: BigNumber = BigNumber.from(0).mul(BigNumber.from(10).pow(18));
+let sponsorStakeAmount: BigNumber = BigNumber.from(0).mul(BigNumber.from(10).pow(18));
 let tokenTotal: BigNumber = BigNumber.from(100).mul(BigNumber.from(10).pow(18)).mul(1000);
 
 const deploy = async function (hre: HardhatRuntimeEnvironment, deployer: Signer): Promise<IAddresses> {
@@ -46,7 +46,6 @@ const deploy = async function (hre: HardhatRuntimeEnvironment, deployer: Signer)
     )) as AlexToken__factory;
     const tokenContract = await tokenFactory.deploy(tokenSupply);
     await tokenContract.deployTransaction.wait();
-    console.log(tokenContract);
     contracts.token = tokenContract.address;
 
     const adminFactory = (await hre.ethers.getContractFactory(
@@ -83,7 +82,7 @@ const deploy = async function (hre: HardhatRuntimeEnvironment, deployer: Signer)
     return contracts;
 }
 
-const createProgram = async function (hre:HardhatRuntimeEnvironment, cid: string, addresses: IAddresses, deployer: Signer, sponsor: Signer) {
+const createProgram = async function (hre:HardhatRuntimeEnvironment, cid: string, addresses: IAddresses, sponsor: Signer) {
     //Create Program
     
     // Deploy Reward Token
@@ -93,16 +92,16 @@ const createProgram = async function (hre:HardhatRuntimeEnvironment, cid: string
     )) as RewardToken__factory;
 
     const rewardContract = await rewardFactory.deploy("Wrapped XDC", "WXDC", tokenSupply);
+    await rewardContract.deployTransaction.wait();
 
     // card approve token spending
-    const token = new ethers.Contract(addresses.token, ERC20__factory.abi, deployer) as ERC20;
-    await token.approve(addresses.author, sponsorStakeAmount);
-
-    await rewardContract.approve(addresses.library, tokenTotal);
+    const token = new ethers.Contract(addresses.token, ERC20__factory.abi, sponsor) as ERC20;
+    await(await token.approve(addresses.author, sponsorStakeAmount)).wait();
+    await(await rewardContract.approve(addresses.library, tokenTotal)).wait();
 
     // Mint
-    const author = new ethers.Contract(addresses.author, AlexAuthor__factory.abi, deployer) as AlexAuthor;
-    await author.safeMint(await deployer.getAddress(), "Author 1");
+    const author = new ethers.Contract(addresses.author, AlexAuthor__factory.abi, sponsor) as AlexAuthor;
+    await(await author.safeMint(await sponsor.getAddress(), "Handsome Bear")).wait();
 
     let reward: AlexLibrary.RewardStruct = {
         rewardToken: rewardContract.address ,
@@ -117,7 +116,7 @@ const createProgram = async function (hre:HardhatRuntimeEnvironment, cid: string
         cid: "QmTWPeaRwLRQtVUwqYJ6jS7B6QMh3sx7nDzShdKWW5qxsm"
     }
 
-    const lib = new ethers.Contract(addresses.library, AlexLibrary__factory.abi, deployer) as AlexLibrary;
+    const lib = new ethers.Contract(addresses.library, AlexLibrary__factory.abi, sponsor) as AlexLibrary;
 
     await lib.newProgram(
         program.title,
@@ -135,8 +134,10 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const deployer = accounts[0];
 
     const addresses = await deploy(hre, deployer);
-    console.log('addresses', addresses);
+    console.log(addresses)
 
+    const sponsor = accounts[1];
+    await createProgram(hre, "QmSdcaVEKU35n4jkXjzSH9NFMf8LeoYLv4gbuuN6y3yww8", addresses, sponsor);
 
     return;
 };
@@ -144,9 +145,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 export default func;
 
 // addresses {
-//     token: '0x5f5a8Fe2e1B3B4264B2eA5Ff9855b3D7D669F4a5',
-//     admin: '0x35BfFBcd39238243FbDAdFc2Dbf58ba623F9dab0',
-//     author: '0xFcd0694Aac059130683De850EB61723ef11810e8',
-//     card: '0xe6467cF7a2b9883E9547168bA243b7B7f988E598',
-//     library: '0xD38E4550c88B000A486289e58A3825916275895d'
+    // token: '0xa605959dAe4A5269d0099e79aA2953d43c72C3F5',
+    // admin: '0x1ec5CA0bB5fA29e6D659d09ABf16a4e860d36fe9',
+    // author: '0xfb7D2F8D34665779cA4922afB8F61524ED5805f1',
+    // card: '0x10cC479defB24ccD0a0d2aF925Aa67d21C037b11',
+    // library: '0xd9f0Fed106ea5073A4B1b73F312B0dCD6D389eC7'
 //   }

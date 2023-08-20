@@ -30,6 +30,7 @@ const ETHERSCAN_API_KEY =
     process.env.ETHERSCAN_API_KEY || "Your etherscan API key";
 // optional
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "your private key";
+const PRIVATE_KEY_2 = process.env.PRIVATE_KEY_2 || "your private key";
 const PINATA_API_KEY = process.env.PINATA_API_KEY;
 const PINATA_API_SECRET = process.env.PINATA_API_SECRET;
 
@@ -44,7 +45,7 @@ module.exports = {
         },
         apothem: {
             url :'https://apothem.xdcrpc.com',
-            accounts: ['ecb4c8fd42399b1f0db8e57be72146fe9bb83f3fcb9383cb738aa9f51a7e43e5']
+            accounts: [PRIVATE_KEY, PRIVATE_KEY_2]
         },
         localhost: {},
         rinkeby: {

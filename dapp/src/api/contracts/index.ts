@@ -24,11 +24,11 @@ export interface AlexAddresses {
 }
 
 export const alexAddresses: AlexAddresses = {
-  token: '0x5f5a8Fe2e1B3B4264B2eA5Ff9855b3D7D669F4a5',
-  admin: '0x35BfFBcd39238243FbDAdFc2Dbf58ba623F9dab0',
-  author: '0xFcd0694Aac059130683De850EB61723ef11810e8',
-  card: '0xe6467cF7a2b9883E9547168bA243b7B7f988E598',
-  library: '0xD38E4550c88B000A486289e58A3825916275895d',
+  token: '0xa605959dAe4A5269d0099e79aA2953d43c72C3F5',
+  admin: '0x1ec5CA0bB5fA29e6D659d09ABf16a4e860d36fe9',
+  author: '0xfb7D2F8D34665779cA4922afB8F61524ED5805f1',
+  card: '0x10cC479defB24ccD0a0d2aF925Aa67d21C037b11',
+  library: '0xd9f0Fed106ea5073A4B1b73F312B0dCD6D389eC7'
 };
 
 // Tokens
