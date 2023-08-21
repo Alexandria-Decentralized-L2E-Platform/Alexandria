@@ -29,14 +29,13 @@ function LandingPage() {
       <div className="visitAlexandriaBanner">
         <img src={visitAlexandriaBanner} />
         <div className="visitAlexandriabannerHeading">
+          <text>Rewarding.</text>
           <text>Accessible.</text>
-          <text>Transparent.</text>
-          <text>Decentralized.</text>
+          <text>Decentralised.</text>
         </div>
         <div className="visitAlexandriabannerSubheading">
           <text>
-            Alexandria is a decentralized community driven, self-service platform operation on the
-            principles of accessibility and transparency
+            Alexandria, where knowledge knows no bounds
           </text>
         </div>
         {/* <Button
@@ -187,28 +186,28 @@ function FunctionIntroductionBar() {
     </div>
   );
 
-  const innovationSection = (
-    <div className="functionContainer">
-      <img src={nftLogo} />
-      <div className="functionContentContainer">
-        <div className="functionTitle">
-          Embracing <text className="brownColor">Innovation</text>
-        </div>
-        <div className="functionContent">
-          The world of cryptocurrencies is constantly evolving, and we are committed to staying at
-          the forefront of innovation. As new trends emerge, Alexandria will adapt and integrate
-          novel features to provide an unparalleled learning experience for our community.
-        </div>
-      </div>
-    </div>
-  );
+  // const innovationSection = (
+  //   <div className="functionContainer">
+  //     <img src={nftLogo} />
+  //     <div className="functionContentContainer">
+  //       <div className="functionTitle">
+  //         Embracing <text className="brownColor">Innovation</text>
+  //       </div>
+  //       <div className="functionContent">
+  //         The world of cryptocurrencies is constantly evolving, and we are committed to staying at
+  //         the forefront of innovation. As new trends emerge, Alexandria will adapt and integrate
+  //         novel features to provide an unparalleled learning experience for our community.
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
   const renderSection = () => {
     const sections = {
       [FunctionIntroductionBarType.learning]: learningSection,
       [FunctionIntroductionBarType.community]: communitySection,
       [FunctionIntroductionBarType.security]: securitySection,
-      [FunctionIntroductionBarType.innovation]: innovationSection,
+      // [FunctionIntroductionBarType.innovation]: innovationSection,
     };
 
     return <div className="active">{sections[selectedSection]}</div>;
@@ -276,7 +275,7 @@ function FunctionIntroductionBar() {
             Security
           </div>{' '}
         </ToggleButton>
-        <ToggleButton
+        {/* <ToggleButton
           value={FunctionIntroductionBarType.innovation}
           className={
             selectedSection === FunctionIntroductionBarType.innovation
@@ -293,7 +292,7 @@ function FunctionIntroductionBar() {
           >
             Innovation
           </div>{' '}
-        </ToggleButton>
+        </ToggleButton> */}
       </ToggleButtonGroup>
       <div className="introductionContent">{renderSection()}</div>
     </div>
