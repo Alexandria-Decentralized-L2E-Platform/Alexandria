@@ -59,6 +59,7 @@
 }
 
 .visitAlexandriabannerButton {
+  margin-top: 1% !important;
   flex-direction: row;
   gap: 10px;
   background: var(--main-brown, #9e7c5e) !important;
