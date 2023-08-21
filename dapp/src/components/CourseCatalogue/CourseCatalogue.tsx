@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IProgram, getAllPrograms } from '../../api';
+import { IProgram, getAllPrograms, topic, type } from '../../api';
 import CourseCard from '../common/CourseCard';
 import './CourseCatalogue.css';
 import CourseFilter from './CourseFilter';
@@ -30,22 +30,6 @@ enum rating {
   Above3 = '3.0 and up',
 }
 
-enum type {
-  Video = 'Video',
-  Article = 'Article',
-}
-
-enum topic {
-  DAOCommunity = 'DAO / Community',
-  NFT = 'NFT',
-  Deif = 'Deif',
-  Gamefi = 'Gamefi',
-  Metaverse = 'Metaverse',
-  X2Earn = 'X-2-Earn',
-  MusicNFT = 'Music NFT',
-  InfraAPI = 'Infra / API',
-  Crosschain = 'Crosschain',
-}
 const courseFilters = [
   {
     title: 'Status',
@@ -57,21 +41,11 @@ const courseFilters = [
   },
   {
     title: 'Topics',
-    options: [
-      topic.DAOCommunity,
-      topic.NFT,
-      topic.Deif,
-      topic.Gamefi,
-      topic.Metaverse,
-      topic.X2Earn,
-      topic.MusicNFT,
-      topic.InfraAPI,
-      topic.Crosschain,
-    ],
+    options: Object.values(topic),
   },
   {
     title: 'Type',
-    options: [type.Video, type.Article],
+    options: Object.values(type),
   },
   {
     title: 'Duration',

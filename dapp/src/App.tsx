@@ -14,6 +14,7 @@ import './App.css';
 import CourseDetail from './components/CourseDetail/CourseDetail';
 import LandingPage from './components/LandingPage/LandingPage';
 import CourseCompleted from './components/CourseDetail/CourseCompleted';
+import CourseCreation from './components/CourseCreation/CourseCreation';
 
 // Image
 import alexandriaLogo from './logo/alexandriaLogo.svg';
@@ -24,6 +25,7 @@ import iconsWallet from './logo/iconsWallet.svg';
 import libraryCardAlexandria from './logo/libraryCardAlexandria.svg';
 import telegram from './logo/telegram.svg';
 import twitter from './logo/twitter.svg';
+
 function App() {
   const [provider] = useState<ethers.providers.Web3Provider | undefined>(
     window.ethereum ? new ethers.providers.Web3Provider(window.ethereum) : undefined,
@@ -233,6 +235,7 @@ function App() {
             }
           />
           <Route path="/course-completed/:id" element={<CourseCompleted provider={provider} />} />
+          <Route path="/course-creation" element={<CourseCreation />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>
         <div className="Footer">

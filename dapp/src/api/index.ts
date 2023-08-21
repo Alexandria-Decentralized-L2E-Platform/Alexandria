@@ -30,4 +30,23 @@ const getAllPrograms = async (): Promise<IProgram[]> => {
   return result;
 };
 
-export { ipfs, contracts, blockchain, getProgramById, getAllPrograms };
+enum topic {
+  Layer1Blockchain = 'Layer1 Blockchain',
+  Layer2Blockchain = 'Layer2 Blockchain',
+  DAOCommunity = 'DAO / Community',
+  NFT = 'NFT',
+  Deif = 'Deif',
+  Gamefi = 'Gamefi',
+  Metaverse = 'Metaverse',
+  X2Earn = 'X-2-Earn',
+  MusicNFT = 'Music NFT',
+  InfraAPI = 'Infra / API',
+  Crosschain = 'Crosschain',
+}
+
+enum type {
+  Video = 'Video',
+  Article = 'Article',
+}
+
+export { ipfs, contracts, blockchain, getProgramById, getAllPrograms, topic, type };
