@@ -34,9 +34,7 @@ function LandingPage() {
           <text>Decentralised.</text>
         </div>
         <div className="visitAlexandriabannerSubheading">
-          <text>
-            Alexandria, where knowledge knows no bounds
-          </text>
+          <text>Alexandria, where knowledge knows no bounds</text>
         </div>
         {/* <Button
           className="visitAlexandriabannerButton"
