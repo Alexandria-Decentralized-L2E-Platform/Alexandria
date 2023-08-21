@@ -88,7 +88,7 @@ function LandingPage() {
         component={Link}
         to="/browse-courses"
       >
-        <text className="takeCourseText">Take Course</text>
+        <div className="takeCourseText">Take Course</div>
       </Button>
     </div>
   );

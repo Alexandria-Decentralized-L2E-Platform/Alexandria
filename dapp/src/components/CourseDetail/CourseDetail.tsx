@@ -4,9 +4,8 @@ import { BigNumber, ethers } from 'ethers';
 
 import Question from './Question';
 import CourseCard from '../common/CourseCard';
-import CourseCompleted from './CourseCompleted';
 import './CourseDetail.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { doMint, hasLibraryCard, completedProgramByAddress } from '../../api/contracts';
 
 function CourseDetail(props: {
@@ -16,6 +15,7 @@ function CourseDetail(props: {
   setHasCard(hasCard: boolean): void;
   connectWallet(): void;
 }) {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [answer, setAnswer] = useState({});
   const [program, setProgram] = useState<IProgram | undefined>(undefined);
@@ -42,6 +42,7 @@ function CourseDetail(props: {
   };
 
   const onClickHandler = async () => {
+    navigate('../course-completed/' + id);
     if (!window.ethereum) return;
     if (!props.provider) return;
     if (isTaken) return;
@@ -68,6 +69,7 @@ function CourseDetail(props: {
         setIsCorrect(true);
         const trx = await contracts.learnProgram(props.provider, program.id.toNumber(), answerArr);
         await trx.wait();
+        navigate('../course-completed/' + id);
       } else {
         setIsCorrect(false);
       }

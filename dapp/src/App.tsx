@@ -13,6 +13,7 @@ import './App.css';
 // Components
 import CourseDetail from './components/CourseDetail/CourseDetail';
 import LandingPage from './components/LandingPage/LandingPage';
+import CourseCompleted from './components/CourseDetail/CourseCompleted';
 
 // Image
 import alexandriaLogo from './logo/alexandriaLogo.svg';
@@ -231,6 +232,7 @@ function App() {
               />
             }
           />
+          <Route path="/course-completed/:id" element={<CourseCompleted provider={provider} />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>
         <div className="Footer">
