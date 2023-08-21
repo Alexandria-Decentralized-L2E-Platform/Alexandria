@@ -26,7 +26,7 @@ A decentralized community driven, self-service platform operation on the princip
    ```sh
    git clone https://github.com/Alexandria-Decentralized-L2E-Platform/Alexandria.git
    ```
-2. Checkout dapp directory
+2. Change dapp directory
    ```sh
    cd Alexandria/dapp
    ```
@@ -37,7 +37,7 @@ A decentralized community driven, self-service platform operation on the princip
 
 ### Development
 
-1. Checkout dapp directory
+1. Change dapp directory
    ```sh
    cd Alexandria/dapp
    ```
