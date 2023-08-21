@@ -48,7 +48,6 @@ function App() {
     } else {
       setIsConnect(true);
     }
-    console.log(await provider.listAccounts());
     setChainId((await provider.getNetwork()).chainId);
     if (isConnect) {
       setUserAddress(accounts[0]);
@@ -78,15 +77,12 @@ function App() {
 
   useEffect(() => {
     setupPage();
-  }, [isConnect]);
+  }, [isConnect, hasCard]);
 
   const onClickWalletHandler = async () => {
     if (!userAddress) {
       connectWallet();
     } else {
-      console.log('Is card shown', isCardShown);
-      console.log('has card', hasCard);
-      console.log('card:', card);
       setIsCardShown((prevState) => !prevState);
     }
   };
