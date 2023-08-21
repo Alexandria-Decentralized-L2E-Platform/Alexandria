@@ -1,7 +1,6 @@
 import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ethers } from 'ethers';
 import { getAllPrograms, IProgram } from '../../api';
 
 import communityDescription from '../../logo/communityDescription.svg';
@@ -13,11 +12,10 @@ import visitAlexandriaBanner from '../../logo/visitAlexandriaBanner.svg';
 import CourseCard from '../common/CourseCard';
 import './LandingPage.css';
 
-function LandingPage(props: { provider: ethers.providers.Web3Provider }) {
+function LandingPage() {
   const [programs, setPrograms] = useState<IProgram[]>([]);
-
   const loadProgram = async () => {
-    const programs = await getAllPrograms(props.provider);
+    const programs = await getAllPrograms();
     setPrograms(programs);
   };
 
@@ -109,7 +107,6 @@ function FunctionIntroductionBar() {
   );
 
   const handleSection = (e, newSection) => {
-    console.log('newSection', e, newSection);
     if (newSection !== null) {
       // Only update the selected section if a new section was selected
       setSelectedSection(newSection);

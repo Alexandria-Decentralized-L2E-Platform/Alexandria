@@ -9,7 +9,7 @@ export interface Network {
 export const networkList: Network[] = [
   {
     name: 'Apothem',
-    rpc: 'https://rpc.apothem.network',
+    rpc: 'https://apothem.xdcrpc.com',
     chainId: 51,
     symbol: 'TXDC',
     explorer: 'https://explorer.apothem.network/',

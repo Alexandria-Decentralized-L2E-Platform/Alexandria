@@ -1,4 +1,5 @@
 import { ethers, BigNumber } from 'ethers';
+import { ReadProvider } from '../blockchain';
 
 import {
   AlexLibraryCard,
@@ -171,14 +172,11 @@ export interface IProgram {
   };
 }
 
-export const getProgram = async (
-  provider: ethers.providers.Web3Provider,
-  id: number,
-): Promise<IProgram> => {
+export const getProgram = async (id: number): Promise<IProgram> => {
   const lib = new ethers.Contract(
     alexAddresses.library,
     AlexLibrary__factory.abi,
-    provider,
+    ReadProvider,
   ) as AlexLibrary;
   const response = await lib.programs(id);
 
@@ -196,7 +194,7 @@ export const getProgram = async (
   const token = new ethers.Contract(
     response.reward.rewardToken,
     ERC20__factory.abi,
-    provider,
+    ReadProvider,
   ) as ERC20;
   const decimalsTrx = token.decimals();
   const tokenSymbolTrx = token.symbol();
@@ -205,7 +203,7 @@ export const getProgram = async (
   const author = new ethers.Contract(
     alexAddresses.author,
     AlexAuthor__factory.abi,
-    provider,
+    ReadProvider,
   ) as AlexAuthor;
   const authorIdTrx = author.tokenOfOwnerByIndex(response.owner, 0);
   const [decimals, tokenSymbol, authorId] = await Promise.all([
@@ -239,35 +237,14 @@ export const getProgram = async (
   return program;
 };
 
-export const getNumberOfPrograms = async (
-  provider: ethers.providers.Web3Provider,
-): Promise<number> => {
-  if (!provider) return 0;
+export const getNumberOfPrograms = async (): Promise<number> => {
   const lib = new ethers.Contract(
     alexAddresses.library,
     AlexLibrary__factory.abi,
-    provider,
+    ReadProvider,
   ) as AlexLibrary;
   const counter = await lib.programCounter();
   return counter.toNumber();
-};
-
-export const getAllProgramsOnContract = async (
-  provider: ethers.providers.Web3Provider,
-): Promise<IProgram[]> => {
-  const lib = new ethers.Contract(
-    alexAddresses.library,
-    AlexLibrary__factory.abi,
-    provider,
-  ) as AlexLibrary;
-  const counter = await lib.programCounter();
-  const programs: IProgram[] = [];
-  for (let i = 0; i < counter.toNumber(); i++) {
-    programs.push(await getProgram(provider, i));
-  }
-  const result = await Promise.all(programs);
-
-  return result;
 };
 
 export const checkAnswer = async (
@@ -311,4 +288,16 @@ export const rateProgram = async (
   ) as AlexLibrary;
   const trx = await lib.rateProgram(id, rate);
   return trx;
+};
+
+export const completedProgramByAddress = async (
+  provider: ethers.providers.Web3Provider,
+): Promise<BigNumber[]> => {
+  const lib = new ethers.Contract(
+    alexAddresses.library,
+    AlexLibrary__factory.abi,
+    provider,
+  ) as AlexLibrary;
+  const certs = await lib.getCerts(await provider.getSigner().getAddress());
+  return certs;
 };

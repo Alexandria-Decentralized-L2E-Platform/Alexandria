@@ -6,22 +6,31 @@ import Question from './Question';
 import CourseCard from '../common/CourseCard';
 import './CourseDetail.css';
 import { useParams } from 'react-router-dom';
-import { doMint, hasLibraryCard } from '../../api/contracts';
+import { doMint, hasLibraryCard, completedProgramByAddress } from '../../api/contracts';
+import { connect } from '../../api/blockchain';
 
-function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
+function CourseDetail(props: {
+  provider: ethers.providers.Web3Provider | undefined;
+  isConnect: boolean;
+  hasCard: boolean;
+  setHasCard(hasCard: boolean): void;
+}) {
   const { id } = useParams();
   const [answer, setAnswer] = useState({});
   const [program, setProgram] = useState<IProgram | undefined>(undefined);
   const [isTakingQuiz, setIsTakingQuiz] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [hasCard, setHasCaed] = useState<boolean>(false);
+  const [isTaken, setIsTaken] = useState<boolean>(false);
 
-  const loadProgram = async () => {
+  const setupPage = async () => {
     if (!id) return;
-    const program = await getProgramById(props.provider, Number(id));
+    const program = await getProgramById(Number(id));
     setProgram(program);
-    const hasCard = await hasLibraryCard(props.provider);
-    setHasCaed(hasCard);
+    if (props.isConnect && props.provider) {
+      const certs = await completedProgramByAddress(props.provider);
+      setIsTaken(certs.includes(program.id));
+      console.log(isTaken);
+    }
   };
 
   const onSelectAnswer = async (i: number, choice: string) => {
@@ -33,10 +42,14 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
   };
 
   const onClickHandler = async () => {
-    if (!hasCard) {
+    if (!props.isConnect || !props.provider) {
+      await connect();
+      return;
+    }
+    if (!props.hasCard) {
       await doMint(props.provider);
       const hasCard = await hasLibraryCard(props.provider);
-      setHasCaed(hasCard);
+      props.setHasCard(hasCard);
     }
     if (isTakingQuiz && program) {
       // Convert answer object to answer[]
@@ -59,8 +72,8 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
   };
 
   useEffect(() => {
-    loadProgram();
-  }, []);
+    setupPage();
+  }, [props.isConnect]);
 
   return (
     <div className="Coures-Detail">
@@ -70,7 +83,7 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
             <p className="info-bar-browse">{'Browse Courses >'}</p>
             <p className="info-bar-title">{program.title}</p>
           </div>
-          <CourseCard program={program} isDetail={true}></CourseCard>
+          <CourseCard key={'detail-' + program.cid} program={program} isDetail={true}></CourseCard>
           <div className="Reward-Progress">
             <div className="Reward-Progress-Title">
               <p>Reward Distributed:</p>
@@ -133,7 +146,15 @@ function CourseDetail(props: { provider: ethers.providers.Web3Provider }) {
             <div></div>
           )}
           <button className="Quiz-Button" onClick={onClickHandler}>
-            {hasCard ? (isTakingQuiz ? 'Submit Quiz' : 'Take Quiz') : 'Get Library Card'}
+            {props.isConnect
+              ? props.hasCard
+                ? !isTaken
+                  ? isTakingQuiz
+                    ? 'Submit Quiz'
+                    : 'Take Quiz'
+                  : 'Completed'
+                : 'Get Library Card'
+              : 'Connect Wallet'}
           </button>
           <p className="Question-Reward">
             {'Reward ' + program.reward.rewardPerAddress + ' ' + program.reward.tokenSymbol}

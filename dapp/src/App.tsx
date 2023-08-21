@@ -62,7 +62,7 @@ function App() {
 
   useEffect(() => {
     setupPage();
-  }, [userAddress]);
+  }, []);
 
   const onClickWalletHandler = async () => {
     if (!userAddress) {
@@ -186,15 +186,19 @@ function App() {
           </Toolbar>
         </AppBar>
         <Routes>
-          <Route
-            path="/browse-courses"
-            element={provider ? <CourseCatalogue provider={provider} /> : null}
-          />
+          <Route path="/browse-courses" element={<CourseCatalogue />} />
           <Route
             path="/browse-detail/:id"
-            element={provider ? <CourseDetail provider={provider} /> : null}
+            element={
+              <CourseDetail
+                provider={provider}
+                isConnect={isConnect}
+                hasCard={hasCard}
+                setHasCard={setHasCard}
+              />
+            }
           />
-          <Route path="/" element={provider ? <LandingPage provider={provider} /> : null} />
+          <Route path="/" element={<LandingPage />} />
         </Routes>
         <div className="Footer">
           <div className="FooterRight">

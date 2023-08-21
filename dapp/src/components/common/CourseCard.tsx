@@ -56,16 +56,26 @@ function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
   const ratingStars: JSX.Element[] = [];
   for (let i = 0; i < 5; i++) {
     if (rating >= 1) {
-      ratingStars.push(<img src={star1} className="CourseRatingStar" />);
+      ratingStars.push(
+        <img key={'star-' + program.cid + '-' + i} src={star1} className="CourseRatingStar" />,
+      );
       rating--;
     } else if (rating >= 0.5) {
-      ratingStars.push(<img src={star2} className="CourseRatingStar" />);
+      ratingStars.push(
+        <img key={'star-' + program.cid + '-' + i} src={star2} className="CourseRatingStar" />,
+      );
       rating -= 0.5;
     } else {
-      ratingStars.push(<img src={star3} className="CourseRatingStar" />);
+      ratingStars.push(
+        <img key={'star-' + program.cid + '-' + i} src={star3} className="CourseRatingStar" />,
+      );
     }
   }
-  ratingStars.push(<p className="CourseRatingCount">{'(' + program.rating.count + ')'}</p>);
+  ratingStars.push(
+    <p key={'text-' + program.cid} className="CourseRatingCount">
+      {'(' + program.rating.count + ')'}
+    </p>,
+  );
 
   const video: JSX.Element = (
     <div className="CourseTagVideo">

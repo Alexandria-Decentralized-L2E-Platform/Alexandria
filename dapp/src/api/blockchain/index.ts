@@ -4,6 +4,9 @@ import { networkList, Network, DEFAULT_NETWORK } from './network';
 export let walletProvider: ethers.providers.Web3Provider;
 export let walletChainId: number;
 export let walletAddress: string = '';
+export const ReadProvider = new ethers.providers.JsonRpcProvider(
+  networkList.find((n) => n.chainId == DEFAULT_NETWORK)?.rpc,
+);
 
 export const setupWallet = async () => {
   if (!window.ethereum) return;
@@ -31,9 +34,11 @@ export const isConnected = (): boolean => {
 
 // Connect wallet to metamask
 export const connect = async (): Promise<string> => {
+  console.log('connect');
   const accounts = await walletProvider.send('eth_requestAccounts', []);
+  console.log('accounts', accounts);
   await setupWallet();
-  if (await isSupportedChain()) return accounts[0];
+  // if (await isSupportedChain()) return accounts[0];
   await addNetwork(DEFAULT_NETWORK);
   return accounts[0];
 };
@@ -50,6 +55,7 @@ export const addNetwork = async (chainId: number): Promise<Network | undefined> 
   const network = networkList.find((n) => n.chainId == chainId);
   if (!network) return undefined;
   const id = chainId.toString(16);
+  console.log(id);
   await walletProvider.send('wallet_addEthereumChain', [
     {
       chainId: '0x' + id,
