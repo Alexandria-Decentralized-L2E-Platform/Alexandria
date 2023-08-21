@@ -1,13 +1,13 @@
-import { IProgram, contracts, getProgramById } from '../../api';
-import { useEffect, useState } from 'react';
 import { BigNumber, ethers } from 'ethers';
+import { useEffect, useState } from 'react';
+import { IProgram, contracts, getProgramById } from '../../api';
 
-import Question from './Question';
 import CourseCard from '../common/CourseCard';
-import CourseCompleted from './CourseCompleted';
-import './CourseDetail.css';
+import Question from './Question';
+// import CourseCompleted from './CourseCompleted';
 import { useParams } from 'react-router-dom';
-import { doMint, hasLibraryCard, completedProgramByAddress } from '../../api/contracts';
+import { completedProgramByAddress, doMint, hasLibraryCard } from '../../api/contracts';
+import './CourseDetail.css';
 
 function CourseDetail(props: {
   provider: ethers.providers.Web3Provider | undefined;
