@@ -2,9 +2,8 @@
 import { AppBar, Button, Toolbar } from '@mui/material';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
-import { connect, isConnected, setupWallet, walletAddress, walletProvider } from './api/blockchain';
+import { connect } from './api/blockchain';
 import { ICard, doMint, getLibraryCardDetail, hasLibraryCard } from './api/contracts';
-
 import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 import CourseCatalogue from './components/CourseCatalogue/CourseCatalogue';
@@ -12,7 +11,6 @@ import CourseCatalogue from './components/CourseCatalogue/CourseCatalogue';
 import './App.css';
 
 // Components
-// import CourseDetail from './components/CourseDetail/CourseDetail';
 import LandingPage from './components/LandingPage/LandingPage';
 import CourseDetail from './components/CourseDetail/CourseDetail';
 
@@ -26,7 +24,10 @@ import telegram from './logo/telegram.svg';
 import twitter from './logo/twitter.svg';
 
 function App() {
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider | undefined>(undefined);
+  const [provider] = useState<ethers.providers.Web3Provider | undefined>(
+    window.ethereum ? new ethers.providers.Web3Provider(window.ethereum) : undefined,
+  );
+  const [, setChainId] = useState<number>(0);
   const [userAddress, setUserAddress] = useState('');
   const [hasCard, setHasCard] = useState(false);
   const [isConnect, setIsConnect] = useState(false);
@@ -38,31 +39,46 @@ function App() {
   }
 
   async function setupPage() {
-    await setupWallet();
-    setProvider(walletProvider);
-    updateUserAddress();
-    if (isConnected() && provider) {
+    // Setup wallet
+    if (!window.ethereum) return;
+    if (!provider) return;
+    const accounts = await provider.listAccounts();
+    if (accounts.length == 0) {
+      setIsConnect(false);
+    } else {
       setIsConnect(true);
+    }
+    console.log(await provider.listAccounts());
+    setChainId((await provider.getNetwork()).chainId);
+    if (isConnect) {
+      setUserAddress(accounts[0]);
       const hasLibCard = await hasLibraryCard(provider);
       setHasCard(hasLibCard);
       if (hasCard) setCard(await getLibraryCardDetail(provider));
-      // walletProvider.on('connect', () => {
-      //   console.log('connect');
-      // });
-      // walletProvider.on('accountsChanged', () => {
-      //   console.log('account changed');
-      // });
     }
   }
 
   async function connectWallet() {
-    await connect();
-    updateUserAddress();
+    if (provider) {
+      setUserAddress(await connect(provider));
+      const accounts = await provider.listAccounts();
+      if (accounts.length == 0) {
+        setIsConnect(false);
+      } else {
+        setIsConnect(true);
+      }
+      if (isConnect) {
+        setUserAddress(accounts[0]);
+        const hasLibCard = await hasLibraryCard(provider);
+        setHasCard(hasLibCard);
+        if (hasCard) setCard(await getLibraryCardDetail(provider));
+      }
+    }
   }
 
   useEffect(() => {
     setupPage();
-  }, []);
+  }, [isConnect]);
 
   const onClickWalletHandler = async () => {
     if (!userAddress) {
@@ -71,12 +87,6 @@ function App() {
       setIsCardShown(!isCardShown);
     }
   };
-
-  function updateUserAddress() {
-    if (!walletAddress) return;
-    const x = walletAddress;
-    setUserAddress(shortenAddress(x));
-  }
 
   return (
     <Router>
@@ -134,7 +144,7 @@ function App() {
                         Connect Wallet
                       </div>
                     ) : (
-                      <div id="userAddress">{userAddress}</div>
+                      <div id="userAddress">{shortenAddress(userAddress)}</div>
                     )}
                     {isConnect && isCardShown && (
                       <div className="library-card">
@@ -191,10 +201,12 @@ function App() {
             path="/browse-detail/:id"
             element={
               <CourseDetail
+                key={'CourseDetail'}
                 provider={provider}
                 isConnect={isConnect}
                 hasCard={hasCard}
                 setHasCard={setHasCard}
+                connectWallet={connectWallet}
               />
             }
           />

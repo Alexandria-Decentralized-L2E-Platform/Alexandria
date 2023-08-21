@@ -7,13 +7,13 @@ import CourseCard from '../common/CourseCard';
 import './CourseDetail.css';
 import { useParams } from 'react-router-dom';
 import { doMint, hasLibraryCard, completedProgramByAddress } from '../../api/contracts';
-import { connect } from '../../api/blockchain';
 
 function CourseDetail(props: {
   provider: ethers.providers.Web3Provider | undefined;
   isConnect: boolean;
   hasCard: boolean;
   setHasCard(hasCard: boolean): void;
+  connectWallet(): void;
 }) {
   const { id } = useParams();
   const [answer, setAnswer] = useState({});
@@ -29,7 +29,6 @@ function CourseDetail(props: {
     if (props.isConnect && props.provider) {
       const certs = await completedProgramByAddress(props.provider);
       setIsTaken(certs.includes(program.id));
-      console.log(isTaken);
     }
   };
 
@@ -42,8 +41,11 @@ function CourseDetail(props: {
   };
 
   const onClickHandler = async () => {
-    if (!props.isConnect || !props.provider) {
-      await connect();
+    if (!window.ethereum) return;
+    if (!props.provider) return;
+
+    if (!props.isConnect) {
+      props.connectWallet();
       return;
     }
     if (!props.hasCard) {
@@ -73,7 +75,7 @@ function CourseDetail(props: {
 
   useEffect(() => {
     setupPage();
-  }, [props.isConnect]);
+  }, [props]);
 
   return (
     <div className="Coures-Detail">
@@ -152,8 +154,8 @@ function CourseDetail(props: {
                   ? isTakingQuiz
                     ? 'Submit Quiz'
                     : 'Take Quiz'
-                  : 'Completed'
-                : 'Get Library Card'
+                  : 'Get Library Card'
+                : 'Completed'
               : 'Connect Wallet'}
           </button>
           <p className="Question-Reward">

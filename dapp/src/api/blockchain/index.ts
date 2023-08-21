@@ -1,62 +1,42 @@
 import { ethers } from 'ethers';
 import { networkList, Network, DEFAULT_NETWORK } from './network';
 
-export let walletProvider: ethers.providers.Web3Provider;
-export let walletChainId: number;
-export let walletAddress: string = '';
 export const ReadProvider = new ethers.providers.JsonRpcProvider(
   networkList.find((n) => n.chainId == DEFAULT_NETWORK)?.rpc,
 );
 
-export const setupWallet = async () => {
-  if (!window.ethereum) return;
-  walletProvider = new ethers.providers.Web3Provider(window.ethereum);
-  walletChainId = (await walletProvider.getNetwork()).chainId;
-  walletAddress = await getAccount();
-};
-
-export const loadNetwork = async () => {
-  const { chainId } = await walletProvider.getNetwork();
+export const loadNetwork = async (provider: ethers.providers.Web3Provider) => {
+  const { chainId } = await provider.getNetwork();
   return chainId;
 };
 
-export const getAccount = async () => {
-  if (!walletProvider) return '';
-  const accounts = await walletProvider.listAccounts();
-  const account = accounts[0];
-  walletAddress = account;
-  return account;
-};
-
-export const isConnected = (): boolean => {
-  return !!walletProvider;
-};
-
 // Connect wallet to metamask
-export const connect = async (): Promise<string> => {
-  console.log('connect');
-  const accounts = await walletProvider.send('eth_requestAccounts', []);
-  console.log('accounts', accounts);
-  await setupWallet();
+export const connect = async (provider: ethers.providers.Web3Provider): Promise<string> => {
+  const accounts = await provider.send('eth_requestAccounts', []);
   // if (await isSupportedChain()) return accounts[0];
-  await addNetwork(DEFAULT_NETWORK);
+  await addNetwork(provider, DEFAULT_NETWORK);
   return accounts[0];
 };
 
 // Return true if the chain is supported
-export const isSupportedChain = async (): Promise<boolean> => {
-  if (!walletProvider) return false;
-  const currentChain = await loadNetwork();
+export const isSupportedChain = async (
+  provider: ethers.providers.Web3Provider,
+): Promise<boolean> => {
+  if (!provider) return false;
+  const currentChain = await loadNetwork(provider);
   return networkList.map((n) => n.chainId).includes(currentChain);
 };
 
 // Add network
-export const addNetwork = async (chainId: number): Promise<Network | undefined> => {
+export const addNetwork = async (
+  provider: ethers.providers.Web3Provider,
+  chainId: number,
+): Promise<Network | undefined> => {
   const network = networkList.find((n) => n.chainId == chainId);
   if (!network) return undefined;
   const id = chainId.toString(16);
   console.log(id);
-  await walletProvider.send('wallet_addEthereumChain', [
+  await provider.send('wallet_addEthereumChain', [
     {
       chainId: '0x' + id,
       chainName: network.name,

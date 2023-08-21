@@ -78,12 +78,12 @@ function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
   );
 
   const video: JSX.Element = (
-    <div className="CourseTagVideo">
+    <div key="type" className="CourseTagVideo">
       <div className="CourseTagText">{type}</div>
     </div>
   );
   const crosschainInfrastructure: JSX.Element = (
-    <div className="CourseTagCrossChain">
+    <div key="topic" className="CourseTagCrossChain">
       <div className="CourseTagText">{tag}</div>
     </div>
   );
