@@ -1,6 +1,7 @@
 import * as blockchain from './blockchain';
 import * as contracts from './contracts';
 import * as ipfs from './ipfs';
+import { ethers } from 'ethers';
 
 // Program interface
 export interface IProgram extends contracts.IProgram, ipfs.IProgramObjectIPFS {}
@@ -30,6 +31,23 @@ const getAllPrograms = async (): Promise<IProgram[]> => {
   return result;
 };
 
+interface ICert extends IProgram {
+  completionDate: string;
+}
+
+const getCertsByOwner = async (provider: ethers.providers.Web3Provider): Promise<ICert[]> => {
+  const certs = await contracts.completedProgramByAddress(provider);
+  const programs: ICert[] = [];
+  await Promise.all(
+    certs.map(async (c) => {
+      const program = await getProgramById(c);
+      const completionDate = await contracts.getCertCompletionDate(provider, program.certificate);
+      programs.push({ ...program, completionDate });
+    }),
+  );
+  return programs;
+};
+
 enum topic {
   Blockchain = 'Blockchain',
   DAOCommunity = 'DAO / Community',
@@ -44,4 +62,13 @@ enum type {
   Article = 'Article',
 }
 
-export { blockchain, contracts, getAllPrograms, getProgramById, ipfs, topic, type };
+export {
+  blockchain,
+  contracts,
+  ipfs,
+  getAllPrograms,
+  getCertsByOwner,
+  getProgramById,
+  topic,
+  type,
+};

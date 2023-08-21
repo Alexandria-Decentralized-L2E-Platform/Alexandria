@@ -14,6 +14,8 @@ import {
   AlexAuthor__factory,
   ERC20,
   ERC20__factory,
+  AlexCertificate__factory,
+  AlexCertificate,
 } from './typechain';
 
 export interface AlexAddresses {
@@ -292,4 +294,19 @@ export const completedProgramByAddress = async (
   ) as AlexLibrary;
   const certs = await lib.getCerts(await provider.getSigner().getAddress());
   return certs.map((n) => n.toNumber());
+};
+
+export const getCertCompletionDate = async (
+  provider: ethers.providers.Web3Provider,
+  certAddress: string,
+): Promise<string> => {
+  const cert = new ethers.Contract(
+    certAddress,
+    AlexCertificate__factory.abi,
+    provider,
+  ) as AlexCertificate;
+  const completionDate = (
+    await cert.certifiedAt(await provider.getSigner().getAddress())
+  ).toString();
+  return completionDate;
 };
