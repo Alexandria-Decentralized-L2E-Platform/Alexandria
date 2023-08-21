@@ -83,8 +83,10 @@ function CourseCatalogue() {
   };
 
   const applyFilters = (program) => {
+    console.log(program);
     if (filters.status && program.status !== filters.status) return false;
-    if (filters.rating && program.rating < parseFloat(filters.rating.split(' ')[0])) return false;
+    if (filters.rating && program.rating.avg < parseFloat(filters.rating.split(' ')[0]))
+      return false;
     if (filters.topic && program.topic !== filters.topic) return false;
     if (
       filters.searchBy &&
