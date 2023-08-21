@@ -9,8 +9,9 @@
     transform: translateX(0);
   }
 }
+
 .landingPage {
-  width: 100%;
+  width: 75%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -18,19 +19,14 @@
 }
 .visitAlexandriaBanner {
   border-radius: 50px;
-  background: #232221;
-  width: 90%;
-  height: 650px;
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
   margin-top: 40px;
   position: relative; /* Enables absolute positioning of child elements */
   overflow: hidden;
 }
 
 .visitAlexandriaBanner img {
-  border-radius: 50px;
   width: 100%;
-  height: 105%;
 }
 
 .visitAlexandriabannerHeading {
@@ -40,7 +36,7 @@
   font-weight: 700;
   line-height: normal;
   display: flex;
-  width: 50%;
+  width: 45%;
   height: 240px;
   flex-direction: column;
   justify-content: left;
@@ -49,13 +45,11 @@
 
 .visitAlexandriabannerSubheading {
   color: #fff;
-  font-size: 20px;
+  /* font-size: 20px; */
   line-height: normal;
   text-align: left; /* Align text to the left */
-  width: 55%; /* Adjust as needed */
-  position: absolute; /* Positioning relative to .visitAlexandriaBanner */
+  width: 40%; /* Adjust as needed */
   left: 0; /* Adjust as needed */
-  top: 370px; /* Adjust as needed */
 }
 
 .visitAlexandriabannerButton {
@@ -64,8 +58,8 @@
   gap: 10px;
   background: var(--main-brown, #9e7c5e) !important;
 }
-
-.visitAlexandriaBannerTextInButton {
+*/ .visitAlexandriaBannerTextInButton {
+  padding: 0px 12px;
   color: #fff;
   text-align: center;
   font-size: 20px;
@@ -74,21 +68,26 @@
 
 .visitAlexandriabannerHeading,
 .visitAlexandriabannerSubheading,
-.visitAlexandriabannerButton {
+.visitAlexandriabannerScroll {
   position: absolute !important; /* Positioning relative to .visitAlexandriaBanner */
   left: 96px; /* Adjust as needed */
 }
 
 .visitAlexandriabannerHeading {
-  top: 84px; /* Adjust as needed */
+  top: 100px; /* Adjust as needed */
 }
 
 .visitAlexandriabannerSubheading {
   top: 370px; /* Adjust as needed */
 }
 
-.visitAlexandriabannerButton {
-  top: 450px; /* Adjust as needed */
+.visitAlexandriabannerScroll {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  top: 600px; /* Adjust as needed */
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .whatIsAlexandriaContainer {
@@ -144,13 +143,35 @@
 
 .ourVisionBanner {
   padding-top: 50px;
-  width: 90%;
   overflow: hidden;
+  text-align: left;
+  position: relative;
 }
 
 .ourVisionBanner img {
   width: 100%;
-  height: 100%;
+}
+
+.ourVisionContainer {
+  position: absolute !important;
+  left: 96px;
+  top: 9em;
+  width: 50%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.ourVisionTitle {
+  color: #fff;
+  font-size: 70px;
+  font-weight: 700;
+}
+
+.ourVisionContent {
+  color: #fff;
+  margin-bottom: 13px;
 }
 
 .selectSection {
@@ -218,7 +239,7 @@
 }
 
 .introductionContent {
-  margin-top: 93px;
+  margin-top: 20px;
   align-items: center;
   gap: 100px;
   transform: translateY(50px);
@@ -307,4 +328,27 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+}
+
+.functionContainer {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.functionTitle {
+  color: #2a2927;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.functionContentContainer {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.brownColor {
+  color: #9e7c5e;
 }

@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllPrograms, IProgram } from '../../api';
 
-import communityDescription from '../../logo/communityDescription.svg';
-import innovationDescription from '../../logo/innovationDescription.svg';
-import learningDescripton from '../../logo/learningDescription.svg';
+// import communityDescription from '../../logo/communityDescription.svg';
+// import innovationDescription from '../../logo/innovationDescription.svg';
+// import learningDescripton from '../../logo/learningDescription.svg';
 import ourVisionBanner from '../../logo/ourVisionBanner.svg';
-import securityDescription from '../../logo/securityDescription.svg';
+// import securityDescription from '../../logo/securityDescription.svg';
 import visitAlexandriaBanner from '../../logo/visitAlexandriaBanner.svg';
+import nftLogo from '../../logo/nft.svg';
 import CourseCard from '../common/CourseCard';
 import './LandingPage.css';
 
@@ -38,18 +39,36 @@ function LandingPage() {
             principles of accessibility and transparency
           </text>
         </div>
-        <Button
+        {/* <Button
           className="visitAlexandriabannerButton"
           onClick={() => window.scrollTo(0, 0)}
           component={Link}
           to="/browse-courses"
         >
           <div className="visitAlexandriaBannerTextInButton">Visit Alexandria</div>
-        </Button>
+        </Button> */}
+        <div className="visitAlexandriabannerScroll">Scroll Down</div>
       </div>
 
       <div className="ourVisionBanner">
         <img src={ourVisionBanner} />
+        <div className="ourVisionContainer">
+          <div className="ourVisionTitle">
+            Our <text className="brownColor">Vision</text>
+          </div>
+          <div>
+            <div className="ourVisionContent">
+              Our vision for Alexandria is to empower individuals by providing them with a platform
+              to learn about cryptocurrencies, blockchain technology, and other related subjects,
+              while also offering them a practical way to earn digital assets.
+            </div>
+            <div className="ourVisionContent">
+              Education is the foundation of progress, and we believe that by merging education and
+              cryptocurrency rewards, we can foster a more inclusive and prosperous global
+              community.
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="whatIsAlexandriaContainer">
@@ -87,6 +106,7 @@ function LandingPage() {
         onClick={() => window.scrollTo(0, 0)}
         component={Link}
         to="/browse-courses"
+        style={{ textTransform: 'none' }}
       >
         <div className="takeCourseText">Take Course</div>
       </Button>
@@ -114,26 +134,72 @@ function FunctionIntroductionBar() {
   };
 
   const learningSection = (
-    <div>
-      <img src={learningDescripton} />
+    <div className="functionContainer">
+      <img src={nftLogo} />
+      <div className="functionContentContainer">
+        <div className="functionTitle">
+          Learning Made <text className="brownColor">Rewarding</text>
+        </div>
+        <div className="functionContent">
+          Unlike traditional education platforms, Alexandria goes beyond merely providing knowledge;
+          we make learning rewarding. Students who complete courses and pass associated quizzes will
+          receive tokens or non-fungible tokens (NFTs) as a token of appreciation for their
+          dedication to expanding their understanding of the crypto landscape. These tokens and NFTs
+          can be utilized within the platform or traded on various supported exchanges.
+        </div>
+      </div>
     </div>
   );
 
   const communitySection = (
-    <div>
-      <img src={communityDescription} />
+    <div className="functionContainer">
+      <img src={nftLogo} />
+      <div className="functionContentContainer">
+        <div className="functionTitle">
+          Fostering Community <text className="brownColor">Collaboration</text>
+        </div>
+        <div className="functionContent">
+          At Alexandria, community collaboration is at the core of our ethos. We encourage
+          interaction and engagement among students, knowledge providers, and other platform
+          participants through discussion forums, interactive Q&A sessions, and live webinars with
+          industry experts. Our aim is to create a vibrant and dynamic ecosystem where learning
+          becomes a shared experience.
+        </div>
+      </div>
     </div>
   );
 
   const securitySection = (
-    <div>
-      <img src={securityDescription} />
+    <div className="functionContainer">
+      <img src={nftLogo} />
+      <div className="functionContentContainer">
+        <div className="functionTitle">
+          Security and <text className="brownColor">Trust</text>
+        </div>
+        <div className="functionContent">
+          We understand that security is paramount in the crypto space. Therefore, we employ
+          cutting-edge blockchain technology to ensure the integrity of student achievements and
+          token rewards. By leveraging the immutability of distributed ledger technology, Alexandria
+          guarantees that each earned token or NFT is verifiable and owned solely by the rightful
+          recipient.
+        </div>
+      </div>
     </div>
   );
 
   const innovationSection = (
-    <div>
-      <img src={innovationDescription} />
+    <div className="functionContainer">
+      <img src={nftLogo} />
+      <div className="functionContentContainer">
+        <div className="functionTitle">
+          Embracing <text className="brownColor">Innovation</text>
+        </div>
+        <div className="functionContent">
+          The world of cryptocurrencies is constantly evolving, and we are committed to staying at
+          the forefront of innovation. As new trends emerge, Alexandria will adapt and integrate
+          novel features to provide an unparalleled learning experience for our community.
+        </div>
+      </div>
     </div>
   );
 
