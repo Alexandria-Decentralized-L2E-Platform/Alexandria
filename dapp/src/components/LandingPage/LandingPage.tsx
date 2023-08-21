@@ -29,14 +29,13 @@ function LandingPage() {
       <div className="visitAlexandriaBanner">
         <img src={visitAlexandriaBanner} />
         <div className="visitAlexandriabannerHeading">
+          <text>Rewarding.</text>
           <text>Accessible.</text>
-          <text>Transparent.</text>
-          <text>Decentralized.</text>
+          <text>Decentralised.</text>
         </div>
         <div className="visitAlexandriabannerSubheading">
           <text>
-            Alexandria is a decentralized community driven, self-service platform operation on the
-            principles of accessibility and transparency
+            Alexandria, where knowledge knows no bounds
           </text>
         </div>
         {/* <Button
