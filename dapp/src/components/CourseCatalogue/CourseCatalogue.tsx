@@ -1,39 +1,81 @@
-import CourseFilter from './CourseFilter';
-import CourseCard from '../common/CourseCard';
-import { getAllPrograms, IProgram } from '../../api';
 import { useEffect, useState } from 'react';
+import { IProgram, getAllPrograms } from '../../api';
+import CourseCard from '../common/CourseCard';
 import './CourseCatalogue.css';
+import CourseFilter from './CourseFilter';
 
+enum duration {
+  From0To30 = '0 - 30 mins',
+  From30To60 = '30 - 60 mins',
+  From60To120 = '1 - 2 hrs',
+  Above120 = 'Above 2 hrs',
+}
+
+const durationMin = {
+  [duration.From0To30]: 0,
+  [duration.From30To60]: 30,
+  [duration.From60To120]: 60,
+  [duration.Above120]: 120,
+};
+
+enum status {
+  RewardsCertificate = 'Rewards & Certificate',
+  CertificateOnly = 'Certificate Only',
+}
+
+enum rating {
+  Above4p5 = '4.5 and up',
+  Above4 = '4.0 and up',
+  Above3p5 = '3.5 and up',
+  Above3 = '3.0 and up',
+}
+
+enum type {
+  Video = 'Video',
+  Article = 'Article',
+}
+
+enum topic {
+  DAOCommunity = 'DAO / Community',
+  NFT = 'NFT',
+  Deif = 'Deif',
+  Gamefi = 'Gamefi',
+  Metaverse = 'Metaverse',
+  X2Earn = 'X-2-Earn',
+  MusicNFT = 'Music NFT',
+  InfraAPI = 'Infra / API',
+  Crosschain = 'Crosschain',
+}
 const courseFilters = [
   {
     title: 'Status',
-    options: ['Rewards & Certificate', 'Certificate Only'],
+    options: [status.RewardsCertificate, status.CertificateOnly],
   },
   {
     title: 'Rating',
-    options: ['4.5 and up', '4.0 and up', '3.5 and up', '3.0 and up'],
+    options: [rating.Above4p5, rating.Above4, rating.Above3p5, rating.Above3],
   },
   {
     title: 'Topics',
     options: [
-      'DAO / Community',
-      'NFT',
-      'Deif',
-      ' Gamefi',
-      'Metaverse',
-      'X-2-Earn',
-      'Music NFT',
-      'Infra / API',
-      'Crosschain',
+      topic.DAOCommunity,
+      topic.NFT,
+      topic.Deif,
+      topic.Gamefi,
+      topic.Metaverse,
+      topic.X2Earn,
+      topic.MusicNFT,
+      topic.InfraAPI,
+      topic.Crosschain,
     ],
   },
   {
     title: 'Type',
-    options: ['Videos', 'Articles'],
+    options: [type.Video, type.Article],
   },
   {
     title: 'Duration',
-    options: ['0 - 30 mins', '30 - 60 mins', '1 hr - 2 hrs', 'Above 2 hrs'],
+    options: [duration.From0To30, duration.From30To60, duration.From60To120, duration.Above120],
   },
 ];
 function CourseCatalogue() {
@@ -42,16 +84,52 @@ function CourseCatalogue() {
     const programs = await getAllPrograms();
     setPrograms(programs);
   };
+  const [filters, setFilters] = useState({
+    searchBy: '',
+    Status: '',
+    Rating: '',
+    Topics: '',
+    Type: '',
+    Duration: '',
+  });
 
   useEffect(() => {
     loadProgram();
   }, []);
 
+  const handleFilterChange = async (filterType, value) => {
+    setFilters((prev) => ({ ...prev, [filterType]: value }));
+  };
+
+  const applyFilters = (program) => {
+    console.log(program);
+    // if (filters.Status && program.status !== filters.Status) return false; // Update this check based on program properties
+    // if (filters.Rating && program.rating < parseFloat(filters.Rating.split(' ')[0])) return false;
+    // if (filters.Topics && !filters.Topics.includes(program.topic)) return false;
+    if (
+      filters.searchBy &&
+      !program[2].includes(filters.searchBy) &&
+      !program.authorName.includes(filters.searchBy)
+    )
+      return false;
+    if (filters.Type && program.type !== filters.Type) return false;
+    if (filters.Duration) {
+      const durationMinValue = durationMin[filters.Duration];
+      if (program.duration < durationMinValue) return false;
+    }
+    return true;
+  };
+
   return (
     <div className="Course-Catalogue">
       <h1>Browse Courses</h1>
       <div className="Search-Bar">
-        <input placeholder="Search by Course Name or Course Sponsor"></input>
+        <input
+          onChange={(searchText) => {
+            setFilters((prev) => ({ ...prev, searchBy: searchText.target.value }));
+          }}
+          placeholder="Search by Course Name or Course Sponsor"
+        ></input>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="25"
@@ -70,12 +148,18 @@ function CourseCatalogue() {
       <div className="Course-Container">
         <div className="Course-Filter-Container">
           {courseFilters.map((v) => {
-            return <CourseFilter key={'filter-' + v.title} data={v}></CourseFilter>;
+            return (
+              <CourseFilter
+                key={'filter-' + v.title}
+                data={v}
+                onChange={handleFilterChange}
+              ></CourseFilter>
+            );
           })}
         </div>
         <div className="Courses">
           {programs.length !== 0 &&
-            programs.map((p) => {
+            programs.filter(applyFilters).map((p) => {
               return <CourseCard key={'catalogue-' + p.cid} program={p}></CourseCard>;
             })}
         </div>

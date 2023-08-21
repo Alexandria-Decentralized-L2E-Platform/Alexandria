@@ -1,4 +1,4 @@
-import { RadioGroup, Radio, FormControlLabel } from '@mui/material';
+import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { useState } from 'react';
 
 interface filterData {
@@ -6,8 +6,14 @@ interface filterData {
   options: string[];
 }
 
-function CourseFilter(props: { data: filterData }) {
+function CourseFilter(props: {
+  data: filterData;
+  onChange: (filterType: string, value: string) => void;
+}) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const handleOptionChange = (event) => {
+    props.onChange(props.data.title, event.target.value);
+  };
 
   return (
     <div className="Course-Filter">
@@ -52,6 +58,7 @@ function CourseFilter(props: { data: filterData }) {
           className="Filter-Options"
           aria-labelledby="demo-radio-buttons-group-label"
           name="radio-buttons-group"
+          onChange={handleOptionChange}
         >
           {props.data.options.map((v) => {
             return <FormControlLabel key={v} value={v} control={<Radio />} label={v} />;
