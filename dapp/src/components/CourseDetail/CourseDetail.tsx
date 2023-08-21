@@ -5,7 +5,7 @@ import { IProgram, contracts, getProgramById } from '../../api';
 import CourseCard from '../common/CourseCard';
 import Question from './Question';
 // import CourseCompleted from './CourseCompleted';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { completedProgramByAddress, doMint, hasLibraryCard } from '../../api/contracts';
 import './CourseDetail.css';
 
@@ -16,6 +16,7 @@ function CourseDetail(props: {
   setHasCard(hasCard: boolean): void;
   connectWallet(): void;
 }) {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [answer, setAnswer] = useState({});
   const [program, setProgram] = useState<IProgram | undefined>(undefined);
@@ -68,6 +69,7 @@ function CourseDetail(props: {
         setIsCorrect(true);
         const trx = await contracts.learnProgram(props.provider, program.id.toNumber(), answerArr);
         await trx.wait();
+        navigate('../course-completed/' + id);
       } else {
         setIsCorrect(false);
       }
