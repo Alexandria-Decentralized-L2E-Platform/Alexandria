@@ -292,12 +292,12 @@ export const rateProgram = async (
 
 export const completedProgramByAddress = async (
   provider: ethers.providers.Web3Provider,
-): Promise<BigNumber[]> => {
+): Promise<number[]> => {
   const lib = new ethers.Contract(
     alexAddresses.library,
     AlexLibrary__factory.abi,
     provider,
   ) as AlexLibrary;
   const certs = await lib.getCerts(await provider.getSigner().getAddress());
-  return certs;
+  return certs.map((n) => n.toNumber());
 };

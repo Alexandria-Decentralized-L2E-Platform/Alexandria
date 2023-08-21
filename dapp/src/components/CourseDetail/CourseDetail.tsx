@@ -28,7 +28,7 @@ function CourseDetail(props: {
     setProgram(program);
     if (props.isConnect && props.provider) {
       const certs = await completedProgramByAddress(props.provider);
-      setIsTaken(certs.includes(program.id));
+      setIsTaken(certs.includes(program.id.toNumber()));
     }
   };
 
@@ -43,6 +43,7 @@ function CourseDetail(props: {
   const onClickHandler = async () => {
     if (!window.ethereum) return;
     if (!props.provider) return;
+    if (isTaken) return;
 
     if (!props.isConnect) {
       props.connectWallet();
@@ -111,7 +112,7 @@ function CourseDetail(props: {
                             program.reward.rewardPerAddress,
                           ),
                         )
-                        .toNumber(),
+                        .toNumber() * 100,
                     ) + '%',
                 }}
               ></div>
@@ -147,15 +148,15 @@ function CourseDetail(props: {
           ) : (
             <div></div>
           )}
-          <button className="Quiz-Button" onClick={onClickHandler}>
+          <button className="Quiz-Button" disabled={isTaken} onClick={onClickHandler}>
             {props.isConnect
               ? props.hasCard
                 ? !isTaken
                   ? isTakingQuiz
                     ? 'Submit Quiz'
                     : 'Take Quiz'
-                  : 'Get Library Card'
-                : 'Completed'
+                  : 'Completed'
+                : 'Get Library Card'
               : 'Connect Wallet'}
           </button>
           <p className="Question-Reward">

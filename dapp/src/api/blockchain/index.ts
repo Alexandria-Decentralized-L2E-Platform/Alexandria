@@ -35,7 +35,6 @@ export const addNetwork = async (
   const network = networkList.find((n) => n.chainId == chainId);
   if (!network) return undefined;
   const id = chainId.toString(16);
-  console.log(id);
   await provider.send('wallet_addEthereumChain', [
     {
       chainId: '0x' + id,
