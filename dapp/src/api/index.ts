@@ -31,17 +31,12 @@ const getAllPrograms = async (): Promise<IProgram[]> => {
 };
 
 enum topic {
-  Layer1Blockchain = 'Layer1 Blockchain',
-  Layer2Blockchain = 'Layer2 Blockchain',
+  Blockchain = 'Blockchain',
   DAOCommunity = 'DAO / Community',
-  NFT = 'NFT',
-  Deif = 'Deif',
-  Gamefi = 'Gamefi',
+  Defi = 'Defi',
   Metaverse = 'Metaverse',
-  X2Earn = 'X-2-Earn',
-  MusicNFT = 'Music NFT',
-  InfraAPI = 'Infra / API',
-  Crosschain = 'Crosschain',
+  Infrastructure = 'Infrastructure',
+  Other = 'Other',
 }
 
 enum type {
