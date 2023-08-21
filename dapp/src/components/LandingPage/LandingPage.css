@@ -58,7 +58,7 @@
   gap: 10px;
   background: var(--main-brown, #9e7c5e) !important;
 }
-*/ .visitAlexandriaBannerTextInButton {
+.visitAlexandriaBannerTextInButton {
   padding: 0px 12px;
   color: #fff;
   text-align: center;
