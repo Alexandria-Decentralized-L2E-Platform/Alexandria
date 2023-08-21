@@ -28,7 +28,7 @@ A decentralized community driven, self-service platform operation on the princip
    ```
 2. Checkout dapp directory
    ```sh
-   cd Alexandria-Decentralized-L2E-Platform/dapp
+   cd Alexandria/dapp
    ```
 3. Install YARN packages
    ```sh
@@ -39,7 +39,7 @@ A decentralized community driven, self-service platform operation on the princip
 
 1. Checkout dapp directory
    ```sh
-   cd Alexandria-Decentralized-L2E-Platform/dapp
+   cd Alexandria/dapp
    ```
 2. Run yarn start command
    ```sh
