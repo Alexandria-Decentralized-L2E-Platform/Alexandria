@@ -2,17 +2,17 @@
 import { AppBar, Button, Toolbar } from '@mui/material';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { connect } from './api/blockchain';
 import { ICard, doMint, getLibraryCardDetail, hasLibraryCard } from './api/contracts';
-import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 import CourseCatalogue from './components/CourseCatalogue/CourseCatalogue';
 // CSS
 import './App.css';
 
 // Components
-import LandingPage from './components/LandingPage/LandingPage';
 import CourseDetail from './components/CourseDetail/CourseDetail';
+import LandingPage from './components/LandingPage/LandingPage';
 
 // Image
 import alexandriaLogo from './logo/alexandriaLogo.svg';
@@ -20,9 +20,9 @@ import alexandriaName from './logo/alexandriaName.svg';
 import discord from './logo/discord.svg';
 import footerAlexandria from './logo/footerAlexandria.svg';
 import iconsWallet from './logo/iconsWallet.svg';
+import libraryCardAlexandria from './logo/libraryCardAlexandria.svg';
 import telegram from './logo/telegram.svg';
 import twitter from './logo/twitter.svg';
-
 function App() {
   const [provider] = useState<ethers.providers.Web3Provider | undefined>(
     window.ethereum ? new ethers.providers.Web3Provider(window.ethereum) : undefined,
@@ -84,7 +84,10 @@ function App() {
     if (!userAddress) {
       connectWallet();
     } else {
-      setIsCardShown(!isCardShown);
+      console.log('Is card shown', isCardShown);
+      console.log('has card', hasCard);
+      console.log('card:', card);
+      setIsCardShown((prevState) => !prevState);
     }
   };
 
@@ -149,42 +152,60 @@ function App() {
                     {isConnect && isCardShown && (
                       <div className="library-card">
                         <div className="library-card-header">
+                          <img src={alexandriaLogo} className="library-card-header-logo" />
                           <img
-                            src={alexandriaLogo}
-                            className="alexandria-logo, library-card-header-logo"
-                          />
-                          <p className="library-card-header-app">ALEXANDRIA</p>
+                            src={libraryCardAlexandria}
+                            className="library-card-header-app"
+                          ></img>
                           <p className="library-card-header-name">LIBRARY CARD</p>
                         </div>
                         {hasCard && card ? (
-                          <div className="library-card-main">
-                            <div className="library-card-main-pic">
-                              <img
-                                src={alexandriaLogo}
-                                className="alexandria-logo, library-card-main-logo"
-                              />
+                          <div className="library-card-main-hasCard">
+                            <div className="library-card-main-left">
+                              <div className="library-card-main-pic">
+                                <img src={alexandriaLogo} className="library-card-main-logo" />
+                              </div>
                             </div>
-                            <div className="library-card-main-col">
-                              <p>Card ID:</p>
-                              <p>Member:</p>
-                              <p>Member Since:</p>
-                              <p>Card Address:</p>
-                            </div>
-                            <div className="library-card-main-data">
-                              <p>{card.tokenId}</p>
-                              <p>{card.userAddress}</p>
-                              <p>{card.mintedAt}</p>
-                              <p>{card.contractAddress}</p>
+                            <div className="library-card-main-right">
+                              <div className="library-card-main-right-data">
+                                <p className="library-card-main-right-data-title">Card ID:</p>
+                                <p className="library-card-main-right-data-entity">sdfsdf</p>
+                              </div>
+
+                              <div className="library-card-main-right-data">
+                                <p className="library-card-main-right-data-title">Address:</p>
+                                <p className="library-card-main-right-data-entity">dsfefdosfho</p>
+                              </div>
+
+                              <div className="library-card-main-right-data">
+                                <p className="library-card-main-right-data-title">Member Since:</p>
+                                <p className="library-card-main-right-data-entity">
+                                  13 August 2023
+                                </p>
+                              </div>
+
+                              <div className="library-card-main-right-data">
+                                <p className="library-card-main-right-data-title">Card Address:</p>
+                                <p className="library-card-main-right-data-entity">
+                                  0xy1i3u1237sdfsdafdsafdsafsdfdsfsdf13123123213
+                                </p>
+                              </div>
                             </div>
                           </div>
                         ) : (
                           <div className="library-card-main">
-                            <h2> Get Your Library Card</h2>
+                            <h2 className="library-card-main-text"> Get Your Library Card</h2>
                             <div
                               onClick={() => {
                                 if (provider) doMint(provider);
                               }}
-                            ></div>
+                              className="library-card-main-button"
+                            >
+                              <img src={iconsWallet}></img>
+                              <text className="library-card-main-button-text">
+                                Mint Your Library Card
+                              </text>
+                            </div>
                           </div>
                         )}
                       </div>

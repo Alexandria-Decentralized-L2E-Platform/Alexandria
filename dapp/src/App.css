@@ -122,13 +122,153 @@
 
 .library-card {
   position: absolute;
-  width: 350px;
-  height: 190px;
-  right: 0;
-  top: 60px;
-  border-radius: 23.52px;
+  width: 642px;
+  height: 352px;
+  right: 0%;
+  top: 110%;
+  border-radius: 23px;
   background: var(--deactivated-light-grey, #edebe8);
   box-shadow: 0px 5px 10px 0px rgba(90, 77, 68, 0.25);
+}
+
+.library-card-header{
+  height:20%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 23px 23px 0px 0px;
+  background: var(--white, #FFF);
+  gap: 1.5%;
+  align-items: center;
+}
+
+.library-card-header-app{
+  width: 200px;
+}
+
+.library-card-header-logo{
+  margin-left: 4%;
+  width: 41px;
+}
+
+.library-card-header-name{
+  width: 200px;
+  color: var(--main-brown, #9E7C5E);
+  font-family: Jost;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 2.64px;
+  margin-top: 25px;
+}
+
+.library-card-main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  gap:10px;
+}
+
+.library-card-main-text{
+  color: var(--dark-brown-for-body-text, #433C38);
+  text-align: center;
+  font-family: Jost;
+  font-size: 26.661px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.library-card-main-button{
+  display: inline-flex;
+  padding: 12px 25px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: var(--main-brown, #9E7C5E);
+}
+
+.library-card-main-button-text{
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.library-card-main-hasCard{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  gap:10px; 
+}
+
+.library-card-main-left{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 30%;
+}
+
+.library-card-main-right{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.library-card-main-right-data{
+  display: flex;
+  flex-direction: row;
+  color: var(--dark-brown-for-body-text, #433C38);
+  /* Body */
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  height: 60px;
+}
+
+.library-card-main-right-data-title{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 140px
+}
+
+.library-card-main-right-data-entity {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex: 1;
+  white-space: nowrap; /* Ensure content doesn't wrap to the next line */
+  overflow: hidden; /* Hide overflow content */
+  overflow-wrap: break-word; /* Ensure content wraps to the next line if needed */
+  white-space: normal;
+}
+
+
+.library-card-main-pic{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 182px;
+  height: 182px;
+  border-radius: 23px;
+  background: var(--white, #FFF);
+}
+
+.library-card-main-logo{
+  width: 103px;
+  height: 94px; 
 }
 
 .FooterRight {
