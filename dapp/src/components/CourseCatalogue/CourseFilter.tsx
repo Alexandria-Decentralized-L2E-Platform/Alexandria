@@ -10,9 +10,17 @@ function CourseFilter(props: {
   data: filterData;
   onChange: (filterType: string, value: string) => void;
 }) {
+  const [selectedOption, setSelectedOption] = useState('');
   const [isExpanded, setIsExpanded] = useState(true);
   const handleOptionChange = (event) => {
-    props.onChange(props.data.title, event.target.value);
+    const value = event.target.value;
+    if (selectedOption === value) {
+      setSelectedOption(''); //
+      props.onChange(props.data.title, '');
+    } else {
+      setSelectedOption(value);
+      props.onChange(props.data.title, value);
+    }
   };
 
   return (
@@ -58,10 +66,18 @@ function CourseFilter(props: {
           className="Filter-Options"
           aria-labelledby="demo-radio-buttons-group-label"
           name="radio-buttons-group"
-          onChange={handleOptionChange}
         >
           {props.data.options.map((v) => {
-            return <FormControlLabel key={v} value={v} control={<Radio />} label={v} />;
+            return (
+              <FormControlLabel
+                key={v}
+                value={v}
+                control={
+                  <Radio checked={selectedOption === v} onClick={(e) => handleOptionChange(e)} />
+                }
+                label={v}
+              />
+            );
           })}
         </RadioGroup>
       ) : (

@@ -32,23 +32,30 @@ enum rating {
 
 const courseFilters = [
   {
-    title: 'Status',
+    title: 'status',
     options: [status.RewardsCertificate, status.CertificateOnly],
   },
   {
-    title: 'Rating',
+    title: 'rating',
     options: [rating.Above4p5, rating.Above4, rating.Above3p5, rating.Above3],
   },
   {
-    title: 'Topics',
-    options: Object.values(topic),
+    title: 'topic',
+    options: [
+      topic.DAOCommunity,
+      topic.Metaverse,
+      topic.Defi,
+      topic.Infrastructure,
+      topic.Blockchain,
+      topic.Other,
+    ],
   },
   {
-    title: 'Type',
-    options: Object.values(type),
+    title: 'type',
+    options: [type.Video, type.Article],
   },
   {
-    title: 'Duration',
+    title: 'duration',
     options: [duration.From0To30, duration.From30To60, duration.From60To120, duration.Above120],
   },
 ];
@@ -60,11 +67,11 @@ function CourseCatalogue() {
   };
   const [filters, setFilters] = useState({
     searchBy: '',
-    Status: '',
-    Rating: '',
-    Topics: '',
-    Type: '',
-    Duration: '',
+    status: '',
+    rating: '',
+    topic: '',
+    type: '',
+    duration: '',
   });
 
   useEffect(() => {
@@ -77,18 +84,19 @@ function CourseCatalogue() {
 
   const applyFilters = (program) => {
     console.log(program);
-    // if (filters.Status && program.status !== filters.Status) return false; // Update this check based on program properties
-    // if (filters.Rating && program.rating < parseFloat(filters.Rating.split(' ')[0])) return false;
-    // if (filters.Topics && !filters.Topics.includes(program.topic)) return false;
+    if (filters.status && program.status !== filters.status) return false;
+    if (filters.rating && program.rating.avg < parseFloat(filters.rating.split(' ')[0]))
+      return false;
+    if (filters.topic && program.topic !== filters.topic) return false;
     if (
       filters.searchBy &&
       !program[2].includes(filters.searchBy) &&
       !program.authorName.includes(filters.searchBy)
     )
       return false;
-    if (filters.Type && program.type !== filters.Type) return false;
-    if (filters.Duration) {
-      const durationMinValue = durationMin[filters.Duration];
+    if (filters.type && program.type !== filters.type) return false;
+    if (filters.duration) {
+      const durationMinValue = durationMin[filters.duration];
       if (program.duration < durationMinValue) return false;
     }
     return true;

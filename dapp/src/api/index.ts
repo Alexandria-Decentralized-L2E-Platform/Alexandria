@@ -1,6 +1,6 @@
-import * as ipfs from './ipfs';
-import * as contracts from './contracts';
 import * as blockchain from './blockchain';
+import * as contracts from './contracts';
+import * as ipfs from './ipfs';
 
 // Program interface
 export interface IProgram extends contracts.IProgram, ipfs.IProgramObjectIPFS {}
@@ -44,4 +44,4 @@ enum type {
   Article = 'Article',
 }
 
-export { ipfs, contracts, blockchain, getProgramById, getAllPrograms, topic, type };
+export { blockchain, contracts, getAllPrograms, getProgramById, ipfs, topic, type };
