@@ -187,28 +187,28 @@ function FunctionIntroductionBar() {
     </div>
   );
 
-  const innovationSection = (
-    <div className="functionContainer">
-      <img src={nftLogo} />
-      <div className="functionContentContainer">
-        <div className="functionTitle">
-          Embracing <text className="brownColor">Innovation</text>
-        </div>
-        <div className="functionContent">
-          The world of cryptocurrencies is constantly evolving, and we are committed to staying at
-          the forefront of innovation. As new trends emerge, Alexandria will adapt and integrate
-          novel features to provide an unparalleled learning experience for our community.
-        </div>
-      </div>
-    </div>
-  );
+  // const innovationSection = (
+  //   <div className="functionContainer">
+  //     <img src={nftLogo} />
+  //     <div className="functionContentContainer">
+  //       <div className="functionTitle">
+  //         Embracing <text className="brownColor">Innovation</text>
+  //       </div>
+  //       <div className="functionContent">
+  //         The world of cryptocurrencies is constantly evolving, and we are committed to staying at
+  //         the forefront of innovation. As new trends emerge, Alexandria will adapt and integrate
+  //         novel features to provide an unparalleled learning experience for our community.
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
   const renderSection = () => {
     const sections = {
       [FunctionIntroductionBarType.learning]: learningSection,
       [FunctionIntroductionBarType.community]: communitySection,
       [FunctionIntroductionBarType.security]: securitySection,
-      [FunctionIntroductionBarType.innovation]: innovationSection,
+      // [FunctionIntroductionBarType.innovation]: innovationSection,
     };
 
     return <div className="active">{sections[selectedSection]}</div>;
@@ -276,7 +276,7 @@ function FunctionIntroductionBar() {
             Security
           </div>{' '}
         </ToggleButton>
-        <ToggleButton
+        {/* <ToggleButton
           value={FunctionIntroductionBarType.innovation}
           className={
             selectedSection === FunctionIntroductionBarType.innovation
@@ -293,7 +293,7 @@ function FunctionIntroductionBar() {
           >
             Innovation
           </div>{' '}
-        </ToggleButton>
+        </ToggleButton> */}
       </ToggleButtonGroup>
       <div className="introductionContent">{renderSection()}</div>
     </div>
