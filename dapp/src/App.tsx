@@ -165,25 +165,29 @@ function App() {
                             <div className="library-card-main-right">
                               <div className="library-card-main-right-data">
                                 <p className="library-card-main-right-data-title">Card ID:</p>
-                                <p className="library-card-main-right-data-entity">sdfsdf</p>
+                                <p className="library-card-main-right-data-entity">
+                                  {card.tokenId}
+                                </p>
                               </div>
 
                               <div className="library-card-main-right-data">
                                 <p className="library-card-main-right-data-title">Address:</p>
-                                <p className="library-card-main-right-data-entity">dsfefdosfho</p>
+                                <p className="library-card-main-right-data-entity">
+                                  {card.userAddress}
+                                </p>
                               </div>
 
                               <div className="library-card-main-right-data">
                                 <p className="library-card-main-right-data-title">Member Since:</p>
                                 <p className="library-card-main-right-data-entity">
-                                  13 August 2023
+                                  {card.mintedAt}
                                 </p>
                               </div>
 
                               <div className="library-card-main-right-data">
                                 <p className="library-card-main-right-data-title">Card Address:</p>
                                 <p className="library-card-main-right-data-entity">
-                                  0xy1i3u1237sdfsdafdsafdsafsdfdsfsdf13123123213
+                                  {card.contractAddress}
                                 </p>
                               </div>
                             </div>

@@ -79,26 +79,18 @@ export interface ICard {
 export const getLibraryCardDetail = async (
   provider: ethers.providers.Web3Provider,
 ): Promise<ICard> => {
-  // Sample Data
-  return {
-    contractAddress: alexAddresses.card,
-    userAddress: '0xDe55169E415e0f6363B753B22482e45Ef47eE46a',
-    mintedAt: '13 August 2023',
-    tokenId: 1,
-  };
   const card = new ethers.Contract(
     alexAddresses.card,
     AlexLibraryCard__factory.abi,
     provider,
   ) as AlexLibraryCard;
   const userAddress = await provider.getSigner().getAddress();
-  // const balance = await card.balanceOf(userAddress);
-  // const tokenId = getToek
-  const mintedAt = (await card.mintedAt(0)).toString();
+  const tokenId = await card.tokenOfOwnerByIndex(userAddress, 0);
+  const mintedAt = (await card.mintedAt(tokenId)).toString();
   return {
     contractAddress: alexAddresses.card,
     userAddress,
-    mintedAt,
+    mintedAt: new Date(Number(mintedAt) * 1000).toLocaleDateString(),
     tokenId: 0,
   };
 };

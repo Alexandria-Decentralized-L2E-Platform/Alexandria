@@ -4,6 +4,7 @@ import { BigNumber, ethers } from 'ethers';
 
 import Question from './Question';
 import CourseCard from '../common/CourseCard';
+import CourseCompleted from './CourseCompleted';
 import './CourseDetail.css';
 import { useParams } from 'react-router-dom';
 import { doMint, hasLibraryCard, completedProgramByAddress } from '../../api/contracts';
@@ -65,7 +66,8 @@ function CourseDetail(props: {
 
       if (isCorrect) {
         setIsCorrect(true);
-        contracts.learnProgram(props.provider, program.id.toNumber(), answerArr);
+        const trx = await contracts.learnProgram(props.provider, program.id.toNumber(), answerArr);
+        await trx.wait();
       } else {
         setIsCorrect(false);
       }
