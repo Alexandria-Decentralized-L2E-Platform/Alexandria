@@ -305,10 +305,7 @@
 }
 
 .takeCourse {
-  display: flex !important;
   padding: 12px 25px !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
   gap: 10px !important;
   border-radius: 5px !important;
   background: var(--main-brown, #9e7c5e) !important;
@@ -320,6 +317,7 @@
   text-align: center;
   font-size: 14px;
   font-weight: 600;
+  text-transform: none;
 }
 
 .courseCards {

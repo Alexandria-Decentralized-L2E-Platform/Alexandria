@@ -10,6 +10,7 @@ import earnTokenIcon from '../../logo/earnTokenIcon.svg';
 import ellipse from '../../logo/ellipse2.svg';
 
 import './CourseCard.css';
+import React from 'react';
 
 function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
   const program = props.program;

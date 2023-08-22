@@ -1,0 +1,45 @@
+.Container {
+  width: 90%;
+  max-width: 1300px;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  font-family: Jost;
+}
+
+.Search-Bar {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 0px 20px 0px #8d857e;
+}
+
+.Search-Bar input {
+  width: 67%;
+  font-size: 16px;
+  margin-left: 3%;
+  border: none;
+  outline: none;
+}
+
+.Search-Bar svg {
+  margin-right: 1.5%;
+}
+
+.brownBg {
+  background: #9e7c5e;
+}
+
+.blueBg {
+  background: #648daa;
+}
+
+.brownText {
+  color: #9e7c5e;
+}

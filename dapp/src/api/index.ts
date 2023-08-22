@@ -31,7 +31,7 @@ const getAllPrograms = async (): Promise<IProgram[]> => {
   return result;
 };
 
-interface ICert extends IProgram {
+export interface ICert extends IProgram {
   completionDate: string;
 }
 

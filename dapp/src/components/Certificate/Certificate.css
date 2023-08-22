@@ -1,0 +1,50 @@
+.certLogo {
+  width: 150px;
+}
+
+.certDetail {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-family: Jost;
+}
+
+.certHeading {
+  background-color: #9e7c5e;
+  border-radius: 10px;
+  padding: 5px 50px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.certTitle {
+  font-size: 26px;
+}
+
+.certContent {
+  margin-top: 15px;
+  color: black;
+  padding: 5px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.certTags {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.emptyCert {
+  text-align: center;
+  margin: 50px auto;
+}
+
+.tag {
+  font-size: 16px;
+  color: white;
+  padding: 0px 11px;
+  border-radius: 10px;
+}

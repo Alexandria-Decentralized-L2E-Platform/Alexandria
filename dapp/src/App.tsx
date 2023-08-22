@@ -21,6 +21,7 @@ import CourseDetail from './components/CourseDetail/CourseDetail';
 import LandingPage from './components/LandingPage/LandingPage';
 import CourseCompleted from './components/CourseDetail/CourseCompleted';
 import CourseCreation from './components/CourseCreation/CourseCreation';
+import Certificate from './components/Certificate/Certificate';
 
 // Image
 import alexandriaLogo from './logo/alexandriaLogo.svg';
@@ -138,7 +139,12 @@ function App() {
                   <Button className="alexandria-header-tab" color="inherit">
                     Governance
                   </Button>
-                  <Button className="alexandria-header-tab" color="inherit">
+                  <Button
+                    className="alexandria-header-tab"
+                    color="inherit"
+                    component={Link}
+                    to="/my-certificates"
+                  >
                     My Certificates
                   </Button>
                 </div>
@@ -258,6 +264,7 @@ function App() {
               />
             }
           />
+          <Route path="/my-certificates" element={<Certificate />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>
         <div className="Footer">
