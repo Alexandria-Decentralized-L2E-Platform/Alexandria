@@ -34,9 +34,7 @@ function LandingPage() {
           <text>Decentralised.</text>
         </div>
         <div className="visitAlexandriabannerSubheading">
-          <text>
-            Alexandria, where knowledge knows no bounds
-          </text>
+          <text>Earn, Learn and educate on this brand new decentralized education platform.</text>
         </div>
         {/* <Button
           className="visitAlexandriabannerButton"
@@ -57,14 +55,17 @@ function LandingPage() {
           </div>
           <div>
             <div className="ourVisionContent">
-              Our vision for Alexandria is to empower individuals by providing them with a platform
-              to learn about cryptocurrencies, blockchain technology, and other related subjects,
-              while also offering them a practical way to earn digital assets.
+              Alexandria envisions a future where education is universally accessible, empowering
+              every individual to seamlessly transition between the roles of learner and educator.
+              Through a decentralized and community-driven platform, we incentivize and elevate the
+              pursuit of knowledge, fostering a dynamic exchange that transcends barriers. Our goal
+              is to revolutionize education, making it inclusive, engaging, and rewarding, while
+              propelling learners and educators alike toward a shared journey of growth and
+              collaboration.
             </div>
             <div className="ourVisionContent">
-              Education is the foundation of progress, and we believe that by merging education and
-              cryptocurrency rewards, we can foster a more inclusive and prosperous global
-              community.
+              Our goal is to revolutionize education, making it inclusive, engaging, and rewarding,
+              while propelling learners and educators alike toward a shared journey of growth and
             </div>
           </div>
         </div>
@@ -75,8 +76,8 @@ function LandingPage() {
           What is&nbsp;<span className="AlexandriaIn-whatIsAlexandria"> Alexandria</span>
         </div>
         <div className="shortIntroAlexandria">
-          Alexandria is a decentralized community driven, self-service platform operating on the
-          principles of accessibility and transparency
+          Alexandria is a decentralized community driven, self-serviced learning platform operating
+          on the principles of accessibility, incentivzation and decentralization.
         </div>
         <div style={{ marginTop: '49px' }}>
           <FunctionIntroductionBar />
@@ -89,8 +90,8 @@ function LandingPage() {
             Our&nbsp;<span className="courses-in-ourCourses">Courses</span>
           </div>
           <text className="ourCoursesLongText">
-            Alexandria is a decentralized community driven, self-service platform operating on the
-            principles of accessibility and transparency.
+            Alexandria is a decentralized community driven, self-serviced learning platform
+            operating on the principles of accessibility, incentivzation and decentralization.
           </text>
         </div>
         <div className="courseCards">
@@ -107,7 +108,7 @@ function LandingPage() {
         to="/browse-courses"
         style={{ textTransform: 'none' }}
       >
-        <div className="takeCourseText">Take Course</div>
+        <div className="takeCourseText">Browse Course</div>
       </Button>
     </div>
   );
@@ -137,14 +138,15 @@ function FunctionIntroductionBar() {
       <img src={nftLogo} />
       <div className="functionContentContainer">
         <div className="functionTitle">
-          Learning Made <text className="brownColor">Rewarding</text>
+          New <text className="brownColor">Paradigm</text>
         </div>
         <div className="functionContent">
-          Unlike traditional education platforms, Alexandria goes beyond merely providing knowledge;
-          we make learning rewarding. Students who complete courses and pass associated quizzes will
-          receive tokens or non-fungible tokens (NFTs) as a token of appreciation for their
-          dedication to expanding their understanding of the crypto landscape. These tokens and NFTs
-          can be utilized within the platform or traded on various supported exchanges.
+          Bridging the Gap Between Learners and Educators, Propelling Education into an Era of
+          Universal Accessibility. At Alexandria, we empower each individual to seamlessly
+          transition between the roles of both learner and educator, creating a dynamic ecosystem
+          where knowledge flows freely. This unique approach ensures that education transcends
+          barriers, welcoming all to partake in a transformative journey that fosters growth,
+          collaboration, and equal opportunity for everyone
         </div>
       </div>
     </div>
@@ -155,7 +157,7 @@ function FunctionIntroductionBar() {
       <img src={nftLogo} />
       <div className="functionContentContainer">
         <div className="functionTitle">
-          Fostering Community <text className="brownColor">Collaboration</text>
+          Catalyzing <text className="brownColor">Progress</text>
         </div>
         <div className="functionContent">
           At Alexandria, community collaboration is at the core of our ethos. We encourage
@@ -173,14 +175,16 @@ function FunctionIntroductionBar() {
       <img src={nftLogo} />
       <div className="functionContentContainer">
         <div className="functionTitle">
-          Security and <text className="brownColor">Trust</text>
+          Decentralizing <text className="brownColor">Education</text>
         </div>
         <div className="functionContent">
-          We understand that security is paramount in the crypto space. Therefore, we employ
-          cutting-edge blockchain technology to ensure the integrity of student achievements and
-          token rewards. By leveraging the immutability of distributed ledger technology, Alexandria
-          guarantees that each earned token or NFT is verifiable and owned solely by the rightful
-          recipient.
+          Empowering Minds Through Distributed Learning. Alexandria reimagines education by
+          decentralizing the process, granting individuals the autonomy to both learn and teach.
+          Through a network that transcends traditional structures, learners become educators and
+          educators become learners, fostering a community-driven exchange of knowledge. This
+          decentralization democratizes education, eliminating gatekeepers and fostering a dynamic
+          ecosystem where information is freely shared, creating an inclusive and collaborative
+          learning environment.
         </div>
       </div>
     </div>
@@ -236,7 +240,7 @@ function FunctionIntroductionBar() {
                 : 'SectionButtonText'
             }
           >
-            Learning
+            Accessibility
           </div>{' '}
         </ToggleButton>
         <ToggleButton
@@ -254,7 +258,7 @@ function FunctionIntroductionBar() {
                 : 'SectionButtonText'
             }
           >
-            Community
+            Incentivzation
           </div>{' '}
         </ToggleButton>
         <ToggleButton
@@ -272,7 +276,7 @@ function FunctionIntroductionBar() {
                 : 'SectionButtonText'
             }
           >
-            Security
+            Decentralization
           </div>{' '}
         </ToggleButton>
         {/* <ToggleButton

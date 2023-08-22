@@ -197,8 +197,8 @@
   flex-direction: column;
   justify-content: center;
   color: #fff;
-  text-align: center;
-
+  text-align: ceter;
+  text-transform: none;
   /* Title 2 */
   font-family: Jost;
   font-size: 22px;
@@ -215,6 +215,7 @@
   justify-content: center;
   color: #2e2c2a;
   text-align: center;
+  text-transform: none;
 
   /* Title 2 */
   font-family: Jost;
