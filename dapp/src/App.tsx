@@ -32,6 +32,8 @@ import iconsWallet from './logo/iconsWallet.svg';
 import libraryCardAlexandria from './logo/libraryCardAlexandria.svg';
 import telegram from './logo/telegram.svg';
 import twitter from './logo/twitter.svg';
+import Governance from './components/Governance/Governance';
+import Symposium from './components/Symposium/Symposium';
 
 function App() {
   const [provider] = useState<ethers.providers.Web3Provider | undefined>(
@@ -133,10 +135,20 @@ function App() {
                   >
                     Browse Courses
                   </Button>
-                  <Button className="alexandria-header-tab" color="inherit">
+                  <Button
+                    className="alexandria-header-tab"
+                    color="inherit"
+                    component={Link}
+                    to="/symposium"
+                  >
                     Symposium
                   </Button>
-                  <Button className="alexandria-header-tab" color="inherit">
+                  <Button
+                    className="alexandria-header-tab"
+                    color="inherit"
+                    component={Link}
+                    to="/governance"
+                  >
                     Governance
                   </Button>
                   <Button
@@ -265,6 +277,8 @@ function App() {
             }
           />
           <Route path="/my-certificates" element={<Certificate />} />
+          <Route path="/governance" element={<Governance />} />
+          <Route path="/symposium" element={<Symposium />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>
         <div className="Footer">
