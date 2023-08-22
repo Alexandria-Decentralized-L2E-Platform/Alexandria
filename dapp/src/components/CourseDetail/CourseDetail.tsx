@@ -72,10 +72,18 @@ function CourseDetail(props: {
       if (isCorrect) {
         setIsProcessingTrx(true);
         setIsCorrect(true);
-        const trx = await contracts.learnProgram(props.provider, program.id.toNumber(), answerArr);
-        await trx.wait();
-        setIsProcessingTrx(false);
-        navigate('../course-completed/' + id);
+        try {
+          const trx = await contracts.learnProgram(
+            props.provider,
+            program.id.toNumber(),
+            answerArr,
+          );
+          await trx.wait();
+          setIsProcessingTrx(false);
+          navigate('../course-completed/' + id);
+        } catch (err) {
+          setupPage();
+        }
       } else {
         setIsCorrect(false);
       }

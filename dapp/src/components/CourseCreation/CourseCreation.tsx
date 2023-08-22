@@ -203,10 +203,15 @@ function CourseCreation(props: {
       setErrorMsg(err);
       if (!props.provider) return;
       setIsProcessingTrx(true);
-      await createProgram(props.provider, ipfsProgram, contractProgram);
-      const id = await getNumberOfPrograms();
-      setIsProcessingTrx(false);
-      navigate('../course-detail/' + id);
+      try {
+        await createProgram(props.provider, ipfsProgram, contractProgram);
+        const id = await getNumberOfPrograms();
+        setIsProcessingTrx(false);
+        navigate('../course-detail/' + id);
+      } catch (error) {
+        setErrorMsg(error as string);
+        setIsProcessingTrx(false);
+      }
     }
   };
 
