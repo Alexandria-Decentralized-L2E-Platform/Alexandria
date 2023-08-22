@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IProgram, getAllPrograms, topic, type, duration } from '../../api';
+import { IProgram, duration, getAllPrograms, topic, type } from '../../api';
 import CourseCard from '../common/CourseCard';
 import './CourseCatalogue.css';
 import CourseFilter from './CourseFilter';
@@ -19,11 +19,11 @@ enum rating {
 const courseFilters = [
   {
     title: 'status',
-    options: [status.RewardsCertificate, status.CertificateOnly],
+    options: Object.values(status),
   },
   {
     title: 'rating',
-    options: [rating.Above4p5, rating.Above4, rating.Above3p5, rating.Above3],
+    options: Object.values(rating),
   },
   {
     title: 'topic',
