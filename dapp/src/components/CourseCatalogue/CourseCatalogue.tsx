@@ -1,9 +1,9 @@
+import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { IProgram, duration, getAllPrograms, topic, type } from '../../api';
 import CourseCard from '../common/CourseCard';
 import './CourseCatalogue.css';
 import CourseFilter from './CourseFilter';
-
 enum status {
   RewardsCertificate = 'Rewards & Certificate',
   CertificateOnly = 'Certificate Only',
@@ -15,6 +15,13 @@ enum rating {
   Above3p5 = '3.5 and up',
   Above3 = '3.0 and up',
 }
+
+const durationMin = {
+  [duration.From0To30]: 0,
+  [duration.From30To60]: 30,
+  [duration.From60To120]: 60,
+  [duration.Above120]: 120,
+};
 
 const courseFilters = [
   {
@@ -41,8 +48,10 @@ const courseFilters = [
 function CourseCatalogue() {
   const [programs, setPrograms] = useState<IProgram[]>([]);
   const loadProgram = async () => {
+    setCourseCardsLoading(true);
     const programs = await getAllPrograms();
     setPrograms(programs);
+    setCourseCardsLoading(false);
   };
   const [filters, setFilters] = useState({
     searchBy: '',
@@ -61,6 +70,8 @@ function CourseCatalogue() {
     setFilters((prev) => ({ ...prev, [filterType]: value }));
   };
 
+  const [courseCardsLoading, setCourseCardsLoading] = useState(true);
+
   const applyFilters = (program) => {
     console.log(program);
     if (filters.status && program.status !== filters.status) return false;
@@ -69,14 +80,16 @@ function CourseCatalogue() {
     if (filters.topic && program.topic !== filters.topic) return false;
     if (
       filters.searchBy &&
-      !program[2].includes(filters.searchBy) &&
-      !program.authorName.includes(filters.searchBy)
+      !program[2].toLowerCase().includes(filters.searchBy.toLowerCase()) &&
+      !program.authorName.toLowerCase().includes(filters.searchBy.toLowerCase())
     )
       return false;
     if (filters.type && program.type !== filters.type) return false;
-    if (filters.duration && program.duration !== filters.duration) return false;
+    if (filters.duration && program.duration < durationMin[filters.duration]) return false;
     return true;
   };
+
+  const courseList = programs.filter(applyFilters);
 
   return (
     <div className="Course-Catalogue">
@@ -116,10 +129,20 @@ function CourseCatalogue() {
           })}
         </div>
         <div className="Courses">
-          {programs.length !== 0 &&
-            programs.filter(applyFilters).map((p) => {
+          {courseCardsLoading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+              <CircularProgress />
+            </div>
+          ) : courseList.length === 0 ? (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+              No courses found
+            </div>
+          ) : (
+            courseList.length !== 0 &&
+            courseList.map((p) => {
               return <CourseCard key={'catalogue-' + p.cid} program={p}></CourseCard>;
-            })}
+            })
+          )}
         </div>
       </div>
     </div>
