@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { topic, type, duration, ipfs, contracts, validateData } from '../../api';
+import { topic, type, duration, ipfs, contracts, validateData, createProgram } from '../../api';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { ethers } from 'ethers';
 import './CourseCreation.css';
@@ -187,16 +187,19 @@ function CourseCreation(props: {
   });
 
   const [link, setLink] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  useEffect(() => {
-    console.log(props.isConnect, props.isAuthor);
-  }, [link]);
+  useEffect(() => {}, [link]);
 
-  const onSubmitHandler = () => {
-    console.log(ipfsProgram);
-    console.log(contractProgram);
+  const onSubmitHandler = async () => {
     const { isValid, err } = validateData(ipfsProgram, contractProgram);
-    console.log(isValid, err);
+    if (!isValid) {
+      setErrorMsg(err);
+    } else {
+      setErrorMsg(err);
+      if (!props.provider) return;
+      await createProgram(props.provider, ipfsProgram, contractProgram);
+    }
   };
 
   const onChangeIpfsTextInput = (key: string, value: string) => {
@@ -342,6 +345,7 @@ function CourseCreation(props: {
       <div className="Course-Creation-Submit" onClick={onSubmitHandler}>
         Submit
       </div>
+      {errorMsg !== '' && <p className="Error-Message">{errorMsg}</p>}
     </div>
   );
 }

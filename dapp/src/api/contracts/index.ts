@@ -1,4 +1,4 @@
-import { ethers, BigNumber } from 'ethers';
+import { ethers, BigNumber, BigNumberish } from 'ethers';
 import { ReadProvider } from '../blockchain';
 
 import {
@@ -61,12 +61,11 @@ export const approveToken = async (
   provider: ethers.providers.Web3Provider,
   tokenAddress: string,
   spenderAddress: string,
-  amount: number,
+  amount: BigNumberish,
 ): Promise<ethers.ContractTransaction> => {
   const signer = provider.getSigner();
   const token = new ethers.Contract(tokenAddress, ERC20__factory.abi, signer) as ERC20;
-  const decimals = await token.decimals();
-  const trx = await token.approve(spenderAddress, ethers.utils.formatUnits(amount, decimals));
+  const trx = await token.approve(spenderAddress, amount);
   return trx;
 };
 
@@ -333,11 +332,12 @@ export const createNewProgram = async (
   // approve reward token spending
   const amount = BigNumber.from(newProgram._reward.rewardPerAddress)
     .mul(newProgram._reward.rewardAddressCap)
-    .mul(18)
-    .toNumber();
+    .mul(BigNumber.from(10).pow(18));
+  console.log(amount.toString());
   await (
     await approveToken(provider, newProgram._reward.rewardToken, alexAddresses.library, amount)
   ).wait();
+  newProgram._reward.rewardPerAddress = amount;
   const response = await lib.newProgram(
     newProgram._title,
     newProgram._cid,

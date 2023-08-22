@@ -76,6 +76,7 @@ const createProgram = async (
 ): Promise<ethers.ContractReceipt> => {
   // Pin to IPFS
   const pinnedObject: ipfs.IpinJSONtoIPFSResponseData = await ipfs.pinProgramToIPFS(ipfsProgram);
+  if (pinnedObject.IpfsHash) console.log(pinnedObject);
   // Wrtie into Smart Contracts
   contractProgram._cid = pinnedObject.IpfsHash;
   const response: ethers.ContractReceipt = await contracts.createNewProgram(

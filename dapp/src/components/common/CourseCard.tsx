@@ -34,7 +34,10 @@ function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
   const courseDuration: string = program.duration;
   const coursePublisher = props.isDetail
     ? 'By ' + program.owner + ''
-    : 'By ...' + program.owner.substring(program.owner.length - 4);
+    : 'By ' +
+      program.owner.substring(0, 4) +
+      '...' +
+      program.owner.substring(program.owner.length - 4);
   const type = program.type;
   const tag = program.topic;
   const imgLink =
