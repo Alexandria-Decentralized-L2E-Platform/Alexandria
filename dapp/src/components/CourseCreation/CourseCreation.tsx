@@ -1,15 +1,13 @@
 // import { useEffect, useState } from 'react';
 import { topic, type } from '../../api';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
-// import './CourseCatalogue.css';
-// import iconAdd from '../../logo/iconAdd.svg';
-// import iconMinus from '../../logo/iconMinus.svg';
+import './CourseCreation.css';
 
-function TextInput(props: { name: string; placeholder: string }) {
+function TextInput(props: { name: string; placeholder: string; inputType: string }) {
   return (
     <div className="Course-Creation-txt">
       <p>{props.name + ':'}</p>
-      <input type="text" placeholder={props.placeholder} />
+      <input type={props.inputType} placeholder={props.placeholder} />
     </div>
   );
 }
@@ -19,6 +17,7 @@ function Radios(props: { name: string; options: string[] }) {
     <div className="Course-Creation-radio">
       <p>{props.name + ':'}</p>
       <RadioGroup
+        row
         className="Question-Options"
         aria-labelledby="demo-radio-buttons-group-label"
         name="radio-buttons-group"
@@ -34,10 +33,10 @@ function Radios(props: { name: string; options: string[] }) {
 function QuizQuestions() {
   return (
     <div className="Course-Creation-Questions">
-      <div className="Course-Creation-Title-Container">
-        <p>Quiz Questions</p>
-        <p>Fill in the questions and select the correct answers.</p>
-      </div>
+      <p className="Course-Creation-Questions-Title">Quiz Questions</p>
+      <p className="Course-Creation-Questions-Sub">
+        Fill in the questions and select the correct answers.
+      </p>
       <div className="Course-Creation-Question-Container">
         <QuizQuestion id={1}></QuizQuestion>
         <QuizQuestion id={2}></QuizQuestion>
@@ -53,18 +52,36 @@ function QuizQuestion(props: { id: number }) {
   // const [title, setTitle] = useState();
   return (
     <div className="Question-Container">
-      <input className="Question-Container-Title"></input>
+      <p className="Question-Container-id">{'Question ' + props.id}</p>
+      <input className="Question-Container-Title" placeholder="Enter Question"></input>
       <RadioGroup
         className="Answers-Options"
         aria-labelledby="demo-radio-buttons-group-label"
         name="radio-buttons-group"
       >
-        <FormControlLabel key={props.id + '-A'} value={'A'} control={<Radio />} label="" />
-        <input type="text" name={props.id + '-A'}></input>;
-        <FormControlLabel key={props.id + '-B'} value={'B'} control={<Radio />} label="" />
-        <FormControlLabel key={props.id + '-C'} value={'C'} control={<Radio />} label="" />
-        <FormControlLabel key={props.id + '-D'} value={'D'} control={<Radio />} label="" />
+        <QuestionChoice id={props.id} choice="A"></QuestionChoice>
+        <QuestionChoice id={props.id} choice="B"></QuestionChoice>
+        <QuestionChoice id={props.id} choice="C"></QuestionChoice>
+        <QuestionChoice id={props.id} choice="D"></QuestionChoice>
       </RadioGroup>
+    </div>
+  );
+}
+
+function QuestionChoice(props: { id: number; choice: string }) {
+  return (
+    <div className="Question-Choice">
+      <FormControlLabel
+        key={props.id + '-' + props.choice}
+        value={props.choice}
+        control={<Radio />}
+        label=""
+      />
+      <input
+        type="text"
+        name={props.id + '-' + props.choice}
+        placeholder={'Option ' + props.choice}
+      ></input>
     </div>
   );
 }
@@ -74,19 +91,37 @@ function CourseCreation() {
     <div className="Course-Creation">
       <h1>Create Course</h1>
       <div className="Course-Creation-Container">
-        <TextInput name="Course Name" placeholder="Enter CourseName"></TextInput>
-        <TextInput name="Course Description" placeholder="Enter CourseName"></TextInput>
+        <TextInput name="Course Name" placeholder="Enter Course Name" inputType="text"></TextInput>
+        <TextInput
+          name="Course Description"
+          placeholder="Enter Course Description"
+          inputType="text"
+        ></TextInput>
         <Radios name="Course Material Type" options={Object.values(type)}></Radios>
         <Radios name="Select Course Topic Category" options={Object.values(topic)}></Radios>
-        <TextInput name="URL to Course Material" placeholder="Enter Youtube URL"></TextInput>
-        <TextInput name="Reward Token Address" placeholder="Enter Token Address"></TextInput>
         <TextInput
-          name="Amount of reward token per certificate"
-          placeholder="Enter Amount of Reward Token Per Certificate"
+          name="URL to Course Material"
+          placeholder="Enter Youtube URL"
+          inputType="text"
         ></TextInput>
-        <TextInput name="Number of address" placeholder="Enter number of address"></TextInput>
+        <TextInput
+          name="Reward Token Address"
+          placeholder="Enter Token Address"
+          inputType="text"
+        ></TextInput>
+        <TextInput
+          name="Amount of Reward Token per Certificate"
+          placeholder="Enter Amount of Reward Token Per Certificate"
+          inputType="number"
+        ></TextInput>
+        <TextInput
+          name="Number of Reward"
+          placeholder="Enter number of reward"
+          inputType="number"
+        ></TextInput>
         <QuizQuestions></QuizQuestions>
       </div>
+      <div className="Course-Creation-Submit">Submit</div>
     </div>
   );
 }
