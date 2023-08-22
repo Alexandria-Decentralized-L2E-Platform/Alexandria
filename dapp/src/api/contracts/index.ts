@@ -334,13 +334,11 @@ export const createNewProgram = async (
     BigNumber.from(10).pow(18),
   );
   const amount = newProgram._reward.rewardPerAddress.mul(BigNumber.from(10).pow(18));
-  console.log(amount.toString());
   try {
     await (
       await approveToken(provider, newProgram._reward.rewardToken, alexAddresses.library, amount)
     ).wait();
     newProgram._reward.rewardDistributed = 0;
-    console.log(newProgram);
     const response = await lib.newProgram(
       newProgram._title,
       newProgram._cid,

@@ -56,10 +56,10 @@ function CertDetail(props: { cert: ICert }) {
       </div>
       <div className="certContent">
         <div className="certTags">
-          <div className="tag brownBg">{cert.topic}</div>
-          <div className="tag blueBg">{cert.type}</div>
+          <div className="tag brownBg">{cert.type}</div>
+          <div className="tag blueBg">{cert.topic}</div>
         </div>
-        <div>Completion Date: {cert.completionDate}</div>
+        {cert.completionDate !== '0' && <div>Completion Date: {cert.completionDate}</div>}
         <div>Link to Course Material: {cert.link}</div>
         <div>Certification Address: {cert.certificate}</div>
         <div>Publisher Address: {cert.owner}</div>

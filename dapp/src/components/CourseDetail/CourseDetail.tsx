@@ -33,6 +33,16 @@ function CourseDetail(props: {
     if (props.isConnect && props.provider) {
       const certs = await completedProgramByAddress(props.provider);
       setIsTaken(certs.includes(program.id.toNumber()));
+      console.log(
+        Number(program.reward.rewardDistributed) /
+          (Number(program.reward.rewardAddressCap) * Number(program.reward.rewardPerAddress)),
+      );
+      console.log(program.reward.rewardPerAddress);
+      console.log(
+        BigNumber.from(program.reward.rewardDistributed)
+          .div(BigNumber.from(program.reward.rewardAddressCap).mul(program.reward.rewardPerAddress))
+          .toNumber() * 100,
+      );
     }
   };
 
@@ -123,15 +133,11 @@ function CourseDetail(props: {
                 className="Progress-Bar-Filler"
                 style={{
                   width:
-                    Math.round(
-                      BigNumber.from(program.reward.rewardDistributed)
-                        .div(
-                          BigNumber.from(program.reward.rewardAddressCap).mul(
-                            program.reward.rewardPerAddress,
-                          ),
-                        )
-                        .toNumber() * 100,
-                    ) + '%',
+                    (Number(program.reward.rewardDistributed) /
+                      (Number(program.reward.rewardAddressCap) *
+                        Number(program.reward.rewardPerAddress))) *
+                      100 +
+                    '%',
                 }}
               ></div>
             </div>
@@ -170,7 +176,7 @@ function CourseDetail(props: {
             className="Quiz-Button"
             disabled={isTaken || isProcessingTrx}
             onClick={onClickHandler}
-            style={isProcessingTrx ? { opacity: 0.5 } : {}}
+            style={isTaken || isProcessingTrx ? { opacity: 0.5 } : {}}
           >
             {!isProcessingTrx
               ? props.isConnect

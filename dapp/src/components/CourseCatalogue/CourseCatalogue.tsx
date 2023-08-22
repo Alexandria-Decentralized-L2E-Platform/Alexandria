@@ -73,9 +73,12 @@ function CourseCatalogue() {
 
   const [courseCardsLoading, setCourseCardsLoading] = useState(true);
 
-  const applyFilters = (program) => {
-    console.log(program);
-    if (filters.status && program.status !== filters.status) return false;
+  const applyFilters = (program: IProgram) => {
+    const programStatus =
+      Number(program.reward.rewardRemaining) == 0
+        ? status.CertificateOnly
+        : status.RewardsCertificate;
+    if (filters.status && programStatus !== filters.status) return false;
     if (filters.rating && program.rating.avg < parseFloat(filters.rating.split(' ')[0]))
       return false;
     if (filters.topic && program.topic !== filters.topic) return false;
