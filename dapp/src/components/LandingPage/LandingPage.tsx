@@ -36,14 +36,14 @@ function LandingPage() {
         <div className="visitAlexandriabannerSubheading">
           <text>Earn, Learn and educate on this brand new decentralized education platform.</text>
         </div>
-        {/* <Button
+        <Button
           className="visitAlexandriabannerButton"
           onClick={() => window.scrollTo(0, 0)}
           component={Link}
-          to="/browse-courses"
+          to="https://docs.google.com/document/d/1Ku29MPevwI-rOn91gAfV9pn-2sTNYepVJ6UGmUMNX3g/edit#heading=h.7qg3z5ib8pmi" //to be changed
         >
-          <div className="visitAlexandriaBannerTextInButton">Visit Alexandria</div>
-        </Button> */}
+          <div className="visitAlexandriaBannerTextInButton">White Paper</div>
+        </Button>
         <div className="visitAlexandriabannerScroll">Scroll Down</div>
       </div>
 

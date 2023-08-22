@@ -32,7 +32,7 @@
 .visitAlexandriabannerHeading {
   color: #fff;
   font-family: 'New Order', sans-serif; /* Make sure the font name is correct */
-  font-size: 70px;
+  font-size: 60px;
   font-weight: 700;
   line-height: normal;
   display: flex;
@@ -45,7 +45,7 @@
 
 .visitAlexandriabannerSubheading {
   color: #fff;
-  /* font-size: 20px; */
+  font-size: 20px;
   line-height: normal;
   text-align: left; /* Align text to the left */
   width: 40%; /* Adjust as needed */
