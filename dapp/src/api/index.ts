@@ -62,6 +62,113 @@ enum type {
   Article = 'Article',
 }
 
+const createProgram = async (
+  provider: ethers.providers.Web3Provider,
+  ipfsProgram: ipfs.IProgramObjectIPFS,
+  contractProgram: contracts.INewProgram,
+): Promise<ethers.ContractReceipt> => {
+  // Pin to IPFS
+  const pinnedObject: ipfs.IpinJSONtoIPFSResponseData = await ipfs.pinProgramToIPFS(ipfsProgram);
+  // Wrtie into Smart Contracts
+  contractProgram._cid = pinnedObject.IpfsHash;
+  const response: ethers.ContractReceipt = await contracts.createNewProgram(
+    provider,
+    contractProgram,
+  );
+  return response;
+};
+
+const validateData = (
+  ipfsProgram: ipfs.IProgramObjectIPFS,
+  contractProgram: contracts.INewProgram,
+): { isValid: boolean; err: string } => {
+  let isValid = true;
+  let err = '';
+
+  // Check IPFS
+  Object.keys(ipfsProgram).every((k) => {
+    const value = ipfsProgram[k];
+    if (typeof value === 'string') {
+      if (value == '') {
+        isValid = false;
+        err = k + ' is missing.';
+        return false;
+      } else {
+        return true;
+      }
+    } else if (typeof value === 'number') {
+      if (value == 0) {
+        isValid = false;
+        err = k + ' is missing.';
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      // Check questions
+      const questions: { title: string; choices: string[] }[] = value;
+      let hasError = false;
+      questions.forEach((q, i) => {
+        if (hasError) return false;
+        let hasErrorInOption = false;
+        if (q.title === '') {
+          isValid = false;
+          hasError = true;
+          err = k + ' ' + (i + 1) + ' title is missing.';
+          return false;
+        }
+        q.choices.forEach((v, i2) => {
+          if (hasErrorInOption) return false;
+          if (v === '') {
+            hasErrorInOption = true;
+            hasError = true;
+            isValid = false;
+            err = k + ' ' + (i + 1) + ' option ' + (i2 + 1) + ' is missing.';
+            return false;
+          } else {
+            return true;
+          }
+        });
+        return !hasError;
+      });
+      return true;
+    }
+  });
+
+  // Check Contracts
+  if (isValid && contractProgram._title === '') {
+    return {
+      isValid: false,
+      err: 'Title is missing.',
+    };
+  }
+
+  if (isValid) {
+    Object.keys(contractProgram._reward).every((k) => {
+      if (contractProgram._reward[k] == '') {
+        isValid = false;
+        err = k + ' is missing.';
+        return false;
+      }
+    });
+  }
+
+  if (isValid) {
+    contractProgram._answers.every((v, i) => {
+      if (v == '') {
+        isValid = false;
+        err = 'Answer ' + (i + 1) + ' is missing.';
+        return false;
+      }
+    });
+  }
+
+  return {
+    isValid,
+    err,
+  };
+};
+
 export {
   blockchain,
   contracts,
@@ -69,6 +176,8 @@ export {
   getAllPrograms,
   getCertsByOwner,
   getProgramById,
+  createProgram,
+  validateData,
   topic,
   type,
 };

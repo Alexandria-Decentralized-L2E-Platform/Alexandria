@@ -317,3 +317,21 @@ export interface INewProgram {
   _reward: AlexLibrary.RewardStruct;
   _answers: string[];
 }
+
+export const createNewProgram = async (
+  provider: ethers.providers.Web3Provider,
+  newProgram: INewProgram,
+): Promise<ethers.ContractReceipt> => {
+  const lib = new ethers.Contract(
+    alexAddresses.library,
+    AlexLibrary__factory.abi,
+    provider,
+  ) as AlexLibrary;
+  const response = await lib.newProgram(
+    newProgram._title,
+    newProgram._cid,
+    newProgram._reward,
+    newProgram._answers,
+  );
+  return await response.wait();
+};

@@ -1,7 +1,15 @@
 import { useState } from 'react';
-import { topic, type, ipfs } from '../../api';
+import { topic, type, ipfs, contracts, validateData } from '../../api';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import './CourseCreation.css';
+
+const choices = ['A', 'B', 'C', 'D'];
+const defaultQuestion = Array.from({ length: 5 }, () => {
+  return {
+    title: '',
+    choices: Array.from({ length: 4 }, () => ''),
+  };
+});
 
 function TextInput(props: {
   name: string;
@@ -23,7 +31,12 @@ function TextInput(props: {
   );
 }
 
-function Radios(props: { name: string; options: string[] }) {
+function Radios(props: {
+  name: string;
+  options: string[];
+  programKey: string;
+  onChangeTextInput(key: string, value: string);
+}) {
   return (
     <div className="Course-Creation-radio">
       <p>{props.name + ':'}</p>
@@ -32,16 +45,34 @@ function Radios(props: { name: string; options: string[] }) {
         className="Question-Options"
         aria-labelledby="demo-radio-buttons-group-label"
         name="radio-buttons-group"
+        onChange={(event) => props.onChangeTextInput(props.programKey, event.target.value)}
       >
         {props.options.map((v) => {
-          return <FormControlLabel key={v} value={v} control={<Radio />} label={v} />;
+          if (v == 'Article') {
+            // Hard Code to disable article
+            return (
+              <FormControlLabel
+                key={v}
+                value={v}
+                control={<Radio />}
+                label={v + '(Coming Soon)'}
+                disabled={true}
+              />
+            );
+          } else {
+            return <FormControlLabel key={v} value={v} control={<Radio />} label={v} />;
+          }
         })}
       </RadioGroup>
     </div>
   );
 }
 
-function QuizQuestions() {
+function QuizQuestions(props: {
+  onUpdateQuestionTitle(key: number, value: string);
+  onUpdateChoices(questionNumber: number, choiceNumber: number, value: string);
+  onSelectAnswer(questionNumber: number, value: string);
+}) {
   return (
     <div className="Course-Creation-Questions">
       <p className="Course-Creation-Questions-Title">Quiz Questions</p>
@@ -49,36 +80,64 @@ function QuizQuestions() {
         Fill in the questions and select the correct answers.
       </p>
       <div className="Course-Creation-Question-Container">
-        <QuizQuestion id={1}></QuizQuestion>
-        <QuizQuestion id={2}></QuizQuestion>
-        <QuizQuestion id={3}></QuizQuestion>
-        <QuizQuestion id={4}></QuizQuestion>
-        <QuizQuestion id={5}></QuizQuestion>
+        {defaultQuestion.map((v, i) => {
+          return (
+            <QuizQuestion
+              key={'question-' + i}
+              id={i + 1}
+              onUpdateQuestionTitle={props.onUpdateQuestionTitle}
+              onUpdateChoices={props.onUpdateChoices}
+              onSelectAnswer={props.onSelectAnswer}
+            ></QuizQuestion>
+          );
+        })}
       </div>
     </div>
   );
 }
 
-function QuizQuestion(props: { id: number }) {
+function QuizQuestion(props: {
+  id: number;
+  onUpdateQuestionTitle(key: number, value: string);
+  onUpdateChoices(questionNumber: number, choiceNumber: number, value: string);
+  onSelectAnswer(questionNumber: number, value: string);
+}) {
   return (
     <div className="Question-Container">
       <p className="Question-Container-id">{'Question ' + props.id}</p>
-      <input className="Question-Container-Title" placeholder="Enter Question"></input>
+      <input
+        className="Question-Container-Title"
+        placeholder="Enter Question"
+        onChange={(event) => props.onUpdateQuestionTitle(props.id - 1, event.target.value)}
+      ></input>
       <RadioGroup
         className="Answers-Options"
         aria-labelledby="demo-radio-buttons-group-label"
         name="radio-buttons-group"
+        onChange={(event) => props.onSelectAnswer(props.id - 1, event.target.value)}
       >
-        <QuestionChoice id={props.id} choice="A"></QuestionChoice>
-        <QuestionChoice id={props.id} choice="B"></QuestionChoice>
-        <QuestionChoice id={props.id} choice="C"></QuestionChoice>
-        <QuestionChoice id={props.id} choice="D"></QuestionChoice>
+        {choices.map((v, i) => {
+          return (
+            <QuestionChoice
+              id={props.id}
+              choice={v}
+              answerKey={i}
+              key={'choices-' + i + v}
+              onUpdateChoices={props.onUpdateChoices}
+            ></QuestionChoice>
+          );
+        })}
       </RadioGroup>
     </div>
   );
 }
 
-function QuestionChoice(props: { id: number; choice: string }) {
+function QuestionChoice(props: {
+  id: number;
+  choice: string;
+  answerKey: number;
+  onUpdateChoices(questionNumber: number, choiceNumber: number, value: string);
+}) {
   return (
     <div className="Question-Choice">
       <FormControlLabel
@@ -91,6 +150,9 @@ function QuestionChoice(props: { id: number; choice: string }) {
         type="text"
         name={props.id + '-' + props.choice}
         placeholder={'Option ' + props.choice}
+        onChange={(event) =>
+          props.onUpdateChoices(props.id - 1, props.answerKey, event.target.value)
+        }
       ></input>
     </div>
   );
@@ -103,17 +165,62 @@ function CourseCreation() {
     link: '',
     topic: '',
     type: '',
-    questions: [],
+    questions: defaultQuestion,
+  });
+
+  const [contractProgram, setContractProgram] = useState<contracts.INewProgram>({
+    _title: '',
+    _cid: '',
+    _reward: {
+      rewardToken: '',
+      rewardPerAddress: '',
+      rewardAddressCap: '',
+      rewardDistributed: '',
+    },
+    _answers: ['', '', '', ''],
   });
 
   const onSubmitHandler = () => {
     console.log(ipfsProgram);
+    console.log(contractProgram);
+    const { isValid, err } = validateData(ipfsProgram, contractProgram);
+    console.log(isValid, err);
   };
 
   const onChangeIpfsTextInput = (key: string, value: string) => {
     const tempIpfsProgram = ipfsProgram;
     tempIpfsProgram[key] = value;
     setIpfsProgram(tempIpfsProgram);
+  };
+
+  const onChangeContractTextInput = (key: string, value: string) => {
+    const tempContractProgram = contractProgram;
+    tempContractProgram[key] = value;
+    setContractProgram(tempContractProgram);
+  };
+
+  const onUpdateReward = (key: string, value: string) => {
+    const tempReward = contractProgram;
+    tempReward._reward[key] = value;
+    setContractProgram(tempReward);
+  };
+
+  const onUpdateQuestionTitle = (key: number, value: string) => {
+    const tempIpfsProgram = ipfsProgram;
+    tempIpfsProgram.questions[key].title = value;
+    setIpfsProgram(tempIpfsProgram);
+  };
+
+  const onUpdateChoices = (questionNumber: number, choiceNumber: number, value: string) => {
+    const tempIpfsProgram = ipfsProgram;
+    tempIpfsProgram.questions[questionNumber].choices[choiceNumber] = value;
+    setIpfsProgram(tempIpfsProgram);
+  };
+
+  const onSelectAnswer = (questionNumber: number, value: string) => {
+    const tempContractProgram = contractProgram;
+    tempContractProgram._answers[questionNumber] = value;
+    setContractProgram(tempContractProgram);
   };
 
   return (
@@ -124,8 +231,8 @@ function CourseCreation() {
           name="Course Name"
           placeholder="Enter Course Name"
           inputType="text"
-          programKey="title"
-          onChangeTextInput={onChangeIpfsTextInput}
+          programKey="_title"
+          onChangeTextInput={onChangeContractTextInput}
         ></TextInput>
         <TextInput
           name="Course Description"
@@ -134,8 +241,18 @@ function CourseCreation() {
           programKey="description"
           onChangeTextInput={onChangeIpfsTextInput}
         ></TextInput>
-        <Radios name="Course Material Type" options={Object.values(type)}></Radios>
-        <Radios name="Select Course Topic Category" options={Object.values(topic)}></Radios>
+        <Radios
+          name="Course Material Type"
+          options={Object.values(type)}
+          programKey="type"
+          onChangeTextInput={onChangeIpfsTextInput}
+        ></Radios>
+        <Radios
+          name="Select Course Topic Category"
+          options={Object.values(topic)}
+          programKey="topic"
+          onChangeTextInput={onChangeIpfsTextInput}
+        ></Radios>
         <TextInput
           name="URL to Course Material"
           placeholder="Enter Youtube URL"
@@ -148,23 +265,27 @@ function CourseCreation() {
           placeholder="Enter Token Address"
           inputType="text"
           programKey="rewardToken"
-          onChangeTextInput={onChangeIpfsTextInput}
+          onChangeTextInput={onUpdateReward}
         ></TextInput>
         <TextInput
           name="Amount of Reward Token per Certificate"
           placeholder="Enter Amount of Reward Token Per Certificate"
           inputType="number"
-          programKey="amount"
-          onChangeTextInput={onChangeIpfsTextInput}
+          programKey="rewardPerAddress"
+          onChangeTextInput={onUpdateReward}
         ></TextInput>
         <TextInput
           name="Number of Reward"
           placeholder="Enter number of reward"
           inputType="number"
-          programKey="cap"
-          onChangeTextInput={onChangeIpfsTextInput}
+          programKey="rewardAddressCap"
+          onChangeTextInput={onUpdateReward}
         ></TextInput>
-        <QuizQuestions></QuizQuestions>
+        <QuizQuestions
+          onUpdateQuestionTitle={onUpdateQuestionTitle}
+          onUpdateChoices={onUpdateChoices}
+          onSelectAnswer={onSelectAnswer}
+        ></QuizQuestions>
       </div>
       <div className="Course-Creation-Submit" onClick={onSubmitHandler}>
         Submit
