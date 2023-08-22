@@ -21,7 +21,7 @@ const dummyCert: ICert = {
   title: 'Metamask 101',
   cid: 'cid',
   certificate: '0x4ecaba5870353805a9f068101a40e0f32ed605c6',
-  rating: { avg: 1, count: 1 },
+  rating: { avg: 3.89, count: 1 },
   reward: {
     rewardToken: 'token',
     rewardAddressCap: 'addCap',
@@ -68,7 +68,7 @@ function Certificate() {
       {certList.length == 0 ? (
         <EmptyCert />
       ) : (
-        <Grid marginTop={3} container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid marginTop={2} container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {certList.map((cert) => {
             return (
               <Grid item md={3} xs={4} key={'cert-' + cert.cid}>

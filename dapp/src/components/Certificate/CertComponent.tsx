@@ -2,13 +2,13 @@ import React from 'react';
 import { ICert } from '../../api';
 
 //full
-// import starFull from '../../logo/star1.svg';
+import starFullWhite from '../../logo/starFullWhite.svg';
 // // //half
-// import starHalf from '../../logo/star2.svg';
+import starHalfWhite from '../../logo/starHalfWhite.svg';
 // // //empty
-// import starEmpty from '../../logo/star3.svg';
+import starEmptyWhite from '../../logo/starEmptyWhite.svg';
 
-import dummy from '../../logo/nft.svg';
+// import dummy from '../../logo/nft.svg';
 import { Tooltip, TooltipProps, styled, tooltipClasses } from '@mui/material';
 
 const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -25,8 +25,19 @@ const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
 });
 
 function Stars(props: { avg: number }) {
-  const avg = props.avg;
-  return <>{avg}</>;
+  let avg = Math.round(props.avg * 2) / 2;
+  const arr: JSX.Element[] = [];
+  for (let i = 0; i < 5; i++) {
+    if (avg > 0.5) {
+      arr.push(<img src={starFullWhite} />);
+    } else if (avg > 0) {
+      arr.push(<img src={starHalfWhite} />);
+    } else {
+      arr.push(<img src={starEmptyWhite} />);
+    }
+    avg -= 1;
+  }
+  return <div style={{ display: 'flex', justifyContent: 'center' }}>{arr}</div>;
 }
 
 function CertDetail(props: { cert: ICert }) {
@@ -38,8 +49,8 @@ function CertDetail(props: { cert: ICert }) {
         <div>
           <Stars avg={cert.rating.avg} />
         </div>
-        <div>{cert.duration}</div>
-        <div>By {cert.authorName}</div>
+        <div style={{ fontSize: 12 }}>{cert.duration}</div>
+        <div style={{ fontSize: 12 }}>By {cert.authorName}</div>
       </div>
       <div className="certContent">
         <div className="certTags">
@@ -57,19 +68,25 @@ function CertDetail(props: { cert: ICert }) {
 
 function CertComponent(props: { cert: ICert }) {
   const cert = props.cert;
+  const imgLink =
+    'https://img.youtube.com/vi/' +
+    cert.link.substring(cert.link.indexOf('watch?v=') + 8) +
+    '/sddefault.jpg';
   return (
-    <div>
+    <div className="certComponentConatiner">
       {/* Image */}
-      <CustomTooltip
-        className="certDetail"
-        title={
-          <React.Fragment>
-            <CertDetail cert={cert} />
-          </React.Fragment>
-        }
-      >
-        <img className="certLogo" src={dummy}></img>
-      </CustomTooltip>
+      <div className="certLogoContainer">
+        <CustomTooltip
+          className="certDetail"
+          title={
+            <React.Fragment>
+              <CertDetail cert={cert} />
+            </React.Fragment>
+          }
+        >
+          <img className="certLogo" src={imgLink}></img>
+        </CustomTooltip>
+      </div>
       <div style={{ fontSize: 20, marginTop: 5 }}>{cert.title}</div>
     </div>
   );
