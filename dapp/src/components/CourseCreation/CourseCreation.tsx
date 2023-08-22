@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { topic, type, ipfs, contracts, validateData } from '../../api';
+import { topic, type, duration, ipfs, contracts, validateData } from '../../api';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import './CourseCreation.css';
 
@@ -161,7 +161,7 @@ function QuestionChoice(props: {
 function CourseCreation() {
   const [ipfsProgram, setIpfsProgram] = useState<ipfs.IProgramObjectIPFS>({
     description: '',
-    duration: 0,
+    duration: '0',
     link: '',
     topic: '',
     type: '',
@@ -282,6 +282,12 @@ function CourseCreation() {
             />
           </div>
         )}
+        <Radios
+          name="Select Course Duration"
+          options={Object.values(duration)}
+          programKey="duration"
+          onChangeTextInput={onChangeIpfsTextInput}
+        ></Radios>
         <TextInput
           name="Reward Token Address"
           placeholder="Enter Token Address"

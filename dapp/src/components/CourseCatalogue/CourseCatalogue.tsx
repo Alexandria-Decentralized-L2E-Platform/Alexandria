@@ -1,22 +1,8 @@
 import { useEffect, useState } from 'react';
-import { IProgram, getAllPrograms, topic, type } from '../../api';
+import { IProgram, getAllPrograms, topic, type, duration } from '../../api';
 import CourseCard from '../common/CourseCard';
 import './CourseCatalogue.css';
 import CourseFilter from './CourseFilter';
-
-enum duration {
-  From0To30 = '0 - 30 mins',
-  From30To60 = '30 - 60 mins',
-  From60To120 = '1 - 2 hrs',
-  Above120 = 'Above 2 hrs',
-}
-
-const durationMin = {
-  [duration.From0To30]: 0,
-  [duration.From30To60]: 30,
-  [duration.From60To120]: 60,
-  [duration.Above120]: 120,
-};
 
 enum status {
   RewardsCertificate = 'Rewards & Certificate',
@@ -41,22 +27,15 @@ const courseFilters = [
   },
   {
     title: 'topic',
-    options: [
-      topic.DAOCommunity,
-      topic.Metaverse,
-      topic.Defi,
-      topic.Infrastructure,
-      topic.Blockchain,
-      topic.Other,
-    ],
+    options: Object.values(topic),
   },
   {
     title: 'type',
-    options: [type.Video, type.Article],
+    options: Object.values(type),
   },
   {
     title: 'duration',
-    options: [duration.From0To30, duration.From30To60, duration.From60To120, duration.Above120],
+    options: Object.values(duration),
   },
 ];
 function CourseCatalogue() {
@@ -95,10 +74,7 @@ function CourseCatalogue() {
     )
       return false;
     if (filters.type && program.type !== filters.type) return false;
-    if (filters.duration) {
-      const durationMinValue = durationMin[filters.duration];
-      if (program.duration < durationMinValue) return false;
-    }
+    if (filters.duration && program.duration !== filters.duration) return false;
     return true;
   };
 

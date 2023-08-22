@@ -10,7 +10,7 @@ export interface IpinJSONtoIPFSResponseData {
 
 export interface IProgramObjectIPFS {
   description: string;
-  duration: number;
+  duration: string;
   link: string;
   topic: string;
   type: string;

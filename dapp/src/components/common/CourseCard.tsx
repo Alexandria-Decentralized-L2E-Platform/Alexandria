@@ -31,14 +31,7 @@ function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
       : program.description.substring(0, 200) + '...';
   let rating = program.rating.avg;
   // Covert duration from number (mins) to string
-  let courseDuration: string;
-  if (program.duration < 60) {
-    courseDuration = program.duration + ' min(s)';
-  } else {
-    const hour = Math.floor(program.duration / 60);
-    const min = program.duration - hour * 60;
-    courseDuration = hour + ' hr(s) ' + min + ' min(s)';
-  }
+  const courseDuration: string = program.duration;
   const coursePublisher = props.isDetail
     ? 'By ' + program.authorName + ' (' + program.owner + ')'
     : 'By ' +

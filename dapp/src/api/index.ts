@@ -62,6 +62,13 @@ enum type {
   Article = 'Article',
 }
 
+enum duration {
+  From0To30 = '0 - 30 mins',
+  From30To60 = '30 - 60 mins',
+  From60To120 = '1 - 2 hrs',
+  Above120 = 'Above 2 hrs',
+}
+
 const createProgram = async (
   provider: ethers.providers.Web3Provider,
   ipfsProgram: ipfs.IProgramObjectIPFS,
@@ -180,4 +187,5 @@ export {
   validateData,
   topic,
   type,
+  duration,
 };
