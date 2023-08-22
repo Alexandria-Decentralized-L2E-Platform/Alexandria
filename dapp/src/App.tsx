@@ -12,7 +12,6 @@ import {
   isUserIsAuthor,
 } from './api/contracts';
 
-import CourseCatalogue from './components/CourseCatalogue/CourseCatalogue';
 // CSS
 import './App.css';
 
@@ -22,6 +21,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import CourseCompleted from './components/CourseDetail/CourseCompleted';
 import CourseCreation from './components/CourseCreation/CourseCreation';
 import Certificate from './components/Certificate/Certificate';
+import CourseCatalogue from './components/CourseCatalogue/CourseCatalogue';
 
 // Image
 import alexandriaLogo from './logo/alexandriaLogo.svg';
@@ -139,6 +139,22 @@ function App() {
                     className="alexandria-header-tab"
                     color="inherit"
                     component={Link}
+                    to="/my-certificates"
+                  >
+                    My Certificates
+                  </Button>
+                  <Button
+                    className="alexandria-header-tab"
+                    color="inherit"
+                    component={Link}
+                    to="/course-creation"
+                  >
+                    New Course
+                  </Button>
+                  <Button
+                    className="alexandria-header-tab"
+                    color="inherit"
+                    component={Link}
                     to="/symposium"
                   >
                     Symposium
@@ -150,14 +166,6 @@ function App() {
                     to="/governance"
                   >
                     Governance
-                  </Button>
-                  <Button
-                    className="alexandria-header-tab"
-                    color="inherit"
-                    component={Link}
-                    to="/my-certificates"
-                  >
-                    My Certificates
                   </Button>
                 </div>
                 <Button
