@@ -63,10 +63,10 @@ function LandingPage() {
               propelling learners and educators alike toward a shared journey of growth and
               collaboration.
             </div>
-            <div className="ourVisionContent">
+            {/* <div className="ourVisionContent">
               Our goal is to revolutionize education, making it inclusive, engaging, and rewarding,
               while propelling learners and educators alike toward a shared journey of growth and
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
