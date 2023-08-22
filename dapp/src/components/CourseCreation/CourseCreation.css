@@ -139,3 +139,15 @@
   background: var(--main-brown, #9e7c5e);
   cursor: pointer;
 }
+
+.Course-Creation .video-responsive {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  margin: 20px 0;
+}
+
+.Course-Creation .video-responsive iframe {
+  border-radius: 30px;
+}

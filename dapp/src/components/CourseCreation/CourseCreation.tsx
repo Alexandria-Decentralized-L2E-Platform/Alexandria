@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { topic, type, ipfs, contracts, validateData } from '../../api';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import './CourseCreation.css';
@@ -180,6 +180,12 @@ function CourseCreation() {
     _answers: ['', '', '', ''],
   });
 
+  const [link, setLink] = useState('');
+
+  useEffect(() => {
+    console.log(link);
+  }, [link]);
+
   const onSubmitHandler = () => {
     console.log(ipfsProgram);
     console.log(contractProgram);
@@ -190,6 +196,7 @@ function CourseCreation() {
   const onChangeIpfsTextInput = (key: string, value: string) => {
     const tempIpfsProgram = ipfsProgram;
     tempIpfsProgram[key] = value;
+    setLink(tempIpfsProgram.link);
     setIpfsProgram(tempIpfsProgram);
   };
 
@@ -260,6 +267,21 @@ function CourseCreation() {
           programKey="link"
           onChangeTextInput={onChangeIpfsTextInput}
         ></TextInput>
+        {ipfsProgram.link !== '' && (
+          <div className="video-responsive">
+            <iframe
+              width="50%"
+              height="300"
+              src={
+                'https://www.youtube.com/embed/' +
+                ipfsProgram.link.substring(ipfsProgram.link.indexOf('watch?v=') + 8)
+              }
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Embedded youtube"
+            />
+          </div>
+        )}
         <TextInput
           name="Reward Token Address"
           placeholder="Enter Token Address"
