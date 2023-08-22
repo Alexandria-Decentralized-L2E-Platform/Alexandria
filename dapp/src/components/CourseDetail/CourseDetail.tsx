@@ -1,6 +1,7 @@
 import { BigNumber, ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import { IProgram, contracts, getProgramById } from '../../api';
+import { CircularProgress } from '@mui/material';
 
 import CourseCard from '../common/CourseCard';
 import Question from './Question';
@@ -168,7 +169,7 @@ function CourseDetail(props: {
           </p>
         </div>
       ) : (
-        <div className="Course-Detail-Wrapper"></div>
+        <CircularProgress style={{ marginTop: '50px' }}></CircularProgress>
       )}
     </div>
   );

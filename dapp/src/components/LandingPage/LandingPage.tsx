@@ -1,4 +1,4 @@
-import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Button, ToggleButton, ToggleButtonGroup, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllPrograms, IProgram } from '../../api';
@@ -14,10 +14,13 @@ import CourseCard from '../common/CourseCard';
 import './LandingPage.css';
 
 function LandingPage() {
+  const [courseCardsLoading, setCourseCardsLoading] = useState(true);
   const [programs, setPrograms] = useState<IProgram[]>([]);
   const loadProgram = async () => {
+    setCourseCardsLoading(true);
     const programs = await getAllPrograms();
     setPrograms(programs.splice(0, 3));
+    setCourseCardsLoading(false);
   };
 
   useEffect(() => {
@@ -95,10 +98,20 @@ function LandingPage() {
           </text>
         </div>
         <div className="courseCards">
-          {programs &&
+          {courseCardsLoading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+              <CircularProgress />
+            </div>
+          ) : programs.length === 0 ? (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+              No courses found
+            </div>
+          ) : (
+            programs.length !== 0 &&
             programs.map((p) => {
-              return <CourseCard key={'card-' + p.cid} program={p} />;
-            })}
+              return <CourseCard key={'catalogue-' + p.cid} program={p}></CourseCard>;
+            })
+          )}
         </div>
       </div>
       <Button

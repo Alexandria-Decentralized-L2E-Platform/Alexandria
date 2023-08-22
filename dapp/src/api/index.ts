@@ -23,9 +23,9 @@ const getProgramById = async (id: number): Promise<IProgram> => {
 const getAllPrograms = async (): Promise<IProgram[]> => {
   if (!window.ethereum) return [];
   const counter = await contracts.getNumberOfPrograms();
-  const programs: IProgram[] = [];
+  const programs: Promise<IProgram>[] = [];
   for (let i = 1; i < counter + 1; i++) {
-    programs.push(await getProgramById(i));
+    programs.push(getProgramById(i));
   }
   const result = await Promise.all(programs);
   return result;
