@@ -71,7 +71,7 @@ function Certificate() {
         <Grid marginTop={2} container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {certList.map((cert) => {
             return (
-              <Grid item md={3} xs={4} key={'cert-' + cert.cid}>
+              <Grid item md={2.4} xs={4} key={'cert-' + cert.cid}>
                 <CertComponent cert={cert}></CertComponent>
               </Grid>
             );

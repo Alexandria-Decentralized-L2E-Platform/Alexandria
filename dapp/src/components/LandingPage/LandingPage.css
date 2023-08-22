@@ -68,7 +68,8 @@
 
 .visitAlexandriabannerHeading,
 .visitAlexandriabannerSubheading,
-.visitAlexandriabannerScroll {
+.visitAlexandriabannerScroll,
+.visitAlexandriabannerButton {
   position: absolute !important; /* Positioning relative to .visitAlexandriaBanner */
   left: 96px; /* Adjust as needed */
 }
@@ -78,14 +79,18 @@
 }
 
 .visitAlexandriabannerSubheading {
-  top: 370px; /* Adjust as needed */
+  top: 350px; /* Adjust as needed */
+}
+
+.visitAlexandriabannerButton {
+  top: 430px; /* Adjust as needed */
 }
 
 .visitAlexandriabannerScroll {
   color: #fff;
   font-size: 20px;
   font-weight: 600;
-  top: 600px; /* Adjust as needed */
+  top: 520px; /* Adjust as needed */
   left: 50%;
   transform: translate(-50%, -50%);
 }
