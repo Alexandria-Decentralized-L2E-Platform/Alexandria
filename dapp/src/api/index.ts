@@ -37,15 +37,26 @@ export interface ICert extends IProgram {
 
 const getCertsByOwner = async (provider: ethers.providers.Web3Provider): Promise<ICert[]> => {
   const certs = await contracts.completedProgramByAddress(provider);
-  const programs: ICert[] = [];
-  await Promise.all(
-    certs.map(async (c) => {
-      const program = await getProgramById(c);
-      const completionDate = await contracts.getCertCompletionDate(provider, program.certificate);
-      programs.push({ ...program, completionDate });
-    }),
-  );
-  return programs;
+  const programs: Promise<IProgram>[] = [];
+
+  certs.map((c) => {
+    const program = getProgramById(c);
+    programs.push(program);
+  });
+  const response = await Promise.all(programs);
+
+  const completionDates: Promise<string>[] = [];
+  response.map((p) => {
+    const completionDate = contracts.getCertCompletionDate(provider, p.certificate);
+    completionDates.push(completionDate);
+  });
+  const response2 = await Promise.all(completionDates);
+
+  const result: ICert[] = response.map((p, i) => {
+    return { ...p, completionDate: response2[i] };
+  });
+
+  return result;
 };
 
 enum topic {

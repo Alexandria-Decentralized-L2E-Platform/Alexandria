@@ -4,7 +4,7 @@ import { IProgram, duration, getAllPrograms, topic, type } from '../../api';
 import CourseCard from '../common/CourseCard';
 import './CourseCatalogue.css';
 import CourseFilter from './CourseFilter';
-import React from 'react';
+
 enum status {
   RewardsCertificate = 'Rewards & Certificate',
   CertificateOnly = 'Certificate Only',

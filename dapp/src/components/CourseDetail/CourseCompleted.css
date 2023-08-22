@@ -40,9 +40,10 @@
 
 .Course-Completed-Button {
   border-radius: 5px;
-  background: var(--main-brown, #9e7c5e) !important;
-  color: var(--white, #fff) !important;
-  font-family: Josh !important;
+  background: var(--main-brown, #9e7c5e);
+  color: var(--white, #fff);
   text-align: center;
   font-size: 16px;
+  cursor: pointer;
+  padding: 10px 20px;
 }

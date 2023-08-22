@@ -1,42 +1,15 @@
 import '../common/Common.css';
-
 import './Certificate.css';
 
-import React, { useEffect, useState } from 'react';
-import { ICert } from '../../api';
-
+import { useEffect, useState } from 'react';
+import { ICert, getCertsByOwner } from '../../api';
+import { ethers } from 'ethers';
 import CertComponent from './CertComponent';
-import { BigNumber } from 'ethers';
 import { Button, Grid } from '@mui/material';
 
-// const [certList, setCertList] = useState<ICert[]>([]);
 import alexandriaLogo from '../../logo/alexandriaLogo.svg';
 import { Link } from 'react-router-dom';
-
-const dummyCert: ICert = {
-  completionDate: '13 Jan 2023',
-  id: BigNumber.from('1'),
-  owner: '0x4ecaba5870353805a9f068101a40e0f32ed605c6',
-  authorName: 'Frank',
-  title: 'Metamask 101',
-  cid: 'cid',
-  certificate: '0x4ecaba5870353805a9f068101a40e0f32ed605c6',
-  rating: { avg: 3.89, count: 1 },
-  reward: {
-    rewardToken: 'token',
-    rewardAddressCap: 'addCap',
-    rewardPerAddress: 'PerAdd',
-    rewardDistributed: 'rewardD',
-    rewardRemaining: 'remain',
-    tokenSymbol: 'symbol',
-  },
-  description: 'des',
-  duration: '100 minutes',
-  link: ' https://www.youtube.com/watch?v=YVgfHZMFFFQ',
-  topic: 'topic',
-  type: 'type',
-  questions: [],
-};
+import { CircularProgress } from '@mui/material';
 
 function EmptyCert() {
   return (
@@ -52,11 +25,20 @@ function EmptyCert() {
   );
 }
 
-function Certificate() {
+function Certificate(props: { provider: ethers.providers.Web3Provider | undefined }) {
   const [certList, setCertList] = useState<ICert[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const loadCert = async () => {
+    setIsLoading(true);
+    if (!props.provider) return;
+    const certs = await getCertsByOwner(props.provider);
+    setCertList(certs);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    setCertList(Array(10).fill(dummyCert));
+    loadCert();
   }, []);
 
   return (
@@ -65,7 +47,9 @@ function Certificate() {
       {/* <div className="Search-Bar">
         <input placeholder="Search by Course Name or Course Sponsor"></input>
       </div> */}
-      {certList.length == 0 ? (
+      {isLoading ? (
+        <CircularProgress style={{ marginTop: '50px' }}></CircularProgress>
+      ) : certList.length == 0 ? (
         <EmptyCert />
       ) : (
         <Grid marginTop={2} container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

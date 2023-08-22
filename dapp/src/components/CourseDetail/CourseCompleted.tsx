@@ -1,7 +1,5 @@
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
 import alexandriaLogo from '../../logo/alexandriaLogo.svg';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { getProgramById, IProgram } from '../../api';
@@ -10,6 +8,7 @@ import './CourseCompleted.css';
 function CourseCompleted(props: { provider: ethers.providers.Web3Provider | undefined }) {
   const { id } = useParams();
   const [program, setProgram] = useState<IProgram | undefined>(undefined);
+  const navigate = useNavigate();
 
   const setupPage = async () => {
     if (!id) return;
@@ -32,14 +31,15 @@ function CourseCompleted(props: { provider: ethers.providers.Web3Provider | unde
         </p>
       )}
       <p>View your certificate below:</p>
-      <Button
-        onClick={() => window.scrollTo(0, 0)}
-        component={Link}
-        to={'/certificates'}
+      <div
+        onClick={() => {
+          window.scrollTo(0, 0);
+          navigate('/my-certificates');
+        }}
         className="Course-Completed-Button"
       >
         View Your Certificate
-      </Button>
+      </div>
     </div>
   );
 }

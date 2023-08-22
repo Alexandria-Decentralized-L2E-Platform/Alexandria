@@ -50,7 +50,9 @@ function CertDetail(props: { cert: ICert }) {
           <Stars avg={cert.rating.avg} />
         </div>
         <div style={{ fontSize: 12 }}>{cert.duration}</div>
-        <div style={{ fontSize: 12 }}>By {cert.authorName}</div>
+        <div style={{ fontSize: 12 }}>
+          {'By ' + cert.owner.substring(0, 4) + '...' + cert.owner.substring(cert.owner.length - 4)}
+        </div>
       </div>
       <div className="certContent">
         <div className="certTags">

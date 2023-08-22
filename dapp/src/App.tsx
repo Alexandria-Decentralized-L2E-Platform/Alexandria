@@ -132,6 +132,7 @@ function App() {
                     color="inherit"
                     component={Link}
                     to="/browse-courses"
+                    onClick={() => window.scrollTo(0, 0)}
                   >
                     Browse Courses
                   </Button>
@@ -140,6 +141,7 @@ function App() {
                     color="inherit"
                     component={Link}
                     to="/my-certificates"
+                    onClick={() => window.scrollTo(0, 0)}
                   >
                     My Certificates
                   </Button>
@@ -148,6 +150,7 @@ function App() {
                     color="inherit"
                     component={Link}
                     to="/course-creation"
+                    onClick={() => window.scrollTo(0, 0)}
                   >
                     New Course
                   </Button>
@@ -156,6 +159,7 @@ function App() {
                     color="inherit"
                     component={Link}
                     to="/symposium"
+                    onClick={() => window.scrollTo(0, 0)}
                   >
                     Symposium
                   </Button>
@@ -164,6 +168,7 @@ function App() {
                     color="inherit"
                     component={Link}
                     to="/governance"
+                    onClick={() => window.scrollTo(0, 0)}
                   >
                     Governance
                   </Button>
@@ -284,7 +289,7 @@ function App() {
               />
             }
           />
-          <Route path="/my-certificates" element={<Certificate />} />
+          <Route path="/my-certificates" element={<Certificate provider={provider} />} />
           <Route path="/governance" element={<Governance />} />
           <Route path="/symposium" element={<Symposium />} />
           <Route path="/" element={<LandingPage />} />
