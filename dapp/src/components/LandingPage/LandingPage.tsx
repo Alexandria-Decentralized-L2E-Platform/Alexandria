@@ -121,7 +121,7 @@ function LandingPage() {
         to="/browse-courses"
         style={{ textTransform: 'none' }}
       >
-        <div className="takeCourseText">Browse Course</div>
+        <div className="takeCourseText">Catalog</div>
       </Button>
     </div>
   );

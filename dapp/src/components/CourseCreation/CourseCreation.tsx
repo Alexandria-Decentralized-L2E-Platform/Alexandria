@@ -272,7 +272,7 @@ function CourseCreation(props: {
           )}
         </div>
       )}
-      <h1>Create Course</h1>
+      <h1>Creating a Course</h1>
       <div className="Course-Creation-Container">
         <TextInput
           name="Course Name"

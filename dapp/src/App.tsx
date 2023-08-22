@@ -134,16 +134,7 @@ function App() {
                     to="/browse-courses"
                     onClick={() => window.scrollTo(0, 0)}
                   >
-                    Browse Courses
-                  </Button>
-                  <Button
-                    className="alexandria-header-tab"
-                    color="inherit"
-                    component={Link}
-                    to="/my-certificates"
-                    onClick={() => window.scrollTo(0, 0)}
-                  >
-                    My Certificates
+                    Catalog
                   </Button>
                   <Button
                     className="alexandria-header-tab"
@@ -153,6 +144,15 @@ function App() {
                     onClick={() => window.scrollTo(0, 0)}
                   >
                     New Course
+                  </Button>
+                  <Button
+                    className="alexandria-header-tab"
+                    color="inherit"
+                    component={Link}
+                    to="/my-certificates"
+                    onClick={() => window.scrollTo(0, 0)}
+                  >
+                    My Certificate
                   </Button>
                   <Button
                     className="alexandria-header-tab"

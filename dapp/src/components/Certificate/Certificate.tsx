@@ -43,7 +43,7 @@ function Certificate(props: { provider: ethers.providers.Web3Provider | undefine
 
   return (
     <div className="Container">
-      <h1>My Certificates</h1>
+      <h1>My Certificate</h1>
       {/* <div className="Search-Bar">
         <input placeholder="Search by Course Name or Course Sponsor"></input>
       </div> */}

@@ -97,7 +97,7 @@ function CourseCatalogue() {
 
   return (
     <div className="Course-Catalogue">
-      <h1>Browse Courses</h1>
+      <h1>Catalog</h1>
       <div className="Search-Bar">
         <input
           onChange={(searchText) => {

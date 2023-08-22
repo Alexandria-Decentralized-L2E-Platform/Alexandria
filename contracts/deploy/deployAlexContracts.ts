@@ -137,8 +137,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     console.log(addresses)
 
     const sponsor = accounts[1];
-    await createProgram(hre, "QmSdcaVEKU35n4jkXjzSH9NFMf8LeoYLv4gbuuN6y3yww8", addresses, sponsor);
-
+    // await createProgram(hre, "QmSdcaVEKU35n4jkXjzSH9NFMf8LeoYLv4gbuuN6y3yww8", addresses, sponsor);
     return;
 };
 

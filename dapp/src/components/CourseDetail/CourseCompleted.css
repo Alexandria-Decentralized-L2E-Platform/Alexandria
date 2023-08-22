@@ -47,3 +47,22 @@
   cursor: pointer;
   padding: 10px 20px;
 }
+
+.Course-Rate-Button {
+  border-radius: 5px;
+  background: var(--main-brown, #9e7c5e);
+  color: var(--white, #fff);
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+.Rate-Container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
