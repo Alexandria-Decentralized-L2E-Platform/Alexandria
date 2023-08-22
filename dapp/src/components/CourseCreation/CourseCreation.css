@@ -137,4 +137,5 @@
   font-weight: 700;
   border-radius: 5px;
   background: var(--main-brown, #9e7c5e);
+  cursor: pointer;
 }

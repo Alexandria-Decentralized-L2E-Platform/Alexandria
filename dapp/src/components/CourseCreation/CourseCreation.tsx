@@ -1,13 +1,24 @@
-// import { useEffect, useState } from 'react';
-import { topic, type } from '../../api';
+import { useState } from 'react';
+import { topic, type, ipfs } from '../../api';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import './CourseCreation.css';
 
-function TextInput(props: { name: string; placeholder: string; inputType: string }) {
+function TextInput(props: {
+  name: string;
+  programKey: string;
+  placeholder: string;
+  inputType: string;
+  onChangeTextInput(key: string, value: string);
+}) {
   return (
     <div className="Course-Creation-txt">
       <p>{props.name + ':'}</p>
-      <input type={props.inputType} placeholder={props.placeholder} />
+      <input
+        type={props.inputType}
+        placeholder={props.placeholder}
+        id={props.programKey}
+        onChange={(event) => props.onChangeTextInput(props.programKey, event.target.value)}
+      />
     </div>
   );
 }
@@ -49,7 +60,6 @@ function QuizQuestions() {
 }
 
 function QuizQuestion(props: { id: number }) {
-  // const [title, setTitle] = useState();
   return (
     <div className="Question-Container">
       <p className="Question-Container-id">{'Question ' + props.id}</p>
@@ -87,15 +97,42 @@ function QuestionChoice(props: { id: number; choice: string }) {
 }
 
 function CourseCreation() {
+  const [ipfsProgram, setIpfsProgram] = useState<ipfs.IProgramObjectIPFS>({
+    description: '',
+    duration: 0,
+    link: '',
+    topic: '',
+    type: '',
+    questions: [],
+  });
+
+  const onSubmitHandler = () => {
+    console.log(ipfsProgram);
+  };
+
+  const onChangeIpfsTextInput = (key: string, value: string) => {
+    const tempIpfsProgram = ipfsProgram;
+    tempIpfsProgram[key] = value;
+    setIpfsProgram(tempIpfsProgram);
+  };
+
   return (
     <div className="Course-Creation">
       <h1>Create Course</h1>
       <div className="Course-Creation-Container">
-        <TextInput name="Course Name" placeholder="Enter Course Name" inputType="text"></TextInput>
+        <TextInput
+          name="Course Name"
+          placeholder="Enter Course Name"
+          inputType="text"
+          programKey="title"
+          onChangeTextInput={onChangeIpfsTextInput}
+        ></TextInput>
         <TextInput
           name="Course Description"
           placeholder="Enter Course Description"
           inputType="text"
+          programKey="description"
+          onChangeTextInput={onChangeIpfsTextInput}
         ></TextInput>
         <Radios name="Course Material Type" options={Object.values(type)}></Radios>
         <Radios name="Select Course Topic Category" options={Object.values(topic)}></Radios>
@@ -103,25 +140,35 @@ function CourseCreation() {
           name="URL to Course Material"
           placeholder="Enter Youtube URL"
           inputType="text"
+          programKey="link"
+          onChangeTextInput={onChangeIpfsTextInput}
         ></TextInput>
         <TextInput
           name="Reward Token Address"
           placeholder="Enter Token Address"
           inputType="text"
+          programKey="rewardToken"
+          onChangeTextInput={onChangeIpfsTextInput}
         ></TextInput>
         <TextInput
           name="Amount of Reward Token per Certificate"
           placeholder="Enter Amount of Reward Token Per Certificate"
           inputType="number"
+          programKey="amount"
+          onChangeTextInput={onChangeIpfsTextInput}
         ></TextInput>
         <TextInput
           name="Number of Reward"
           placeholder="Enter number of reward"
           inputType="number"
+          programKey="cap"
+          onChangeTextInput={onChangeIpfsTextInput}
         ></TextInput>
         <QuizQuestions></QuizQuestions>
       </div>
-      <div className="Course-Creation-Submit">Submit</div>
+      <div className="Course-Creation-Submit" onClick={onSubmitHandler}>
+        Submit
+      </div>
     </div>
   );
 }

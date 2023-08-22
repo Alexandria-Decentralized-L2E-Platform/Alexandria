@@ -310,3 +310,10 @@ export const getCertCompletionDate = async (
   ).toString();
   return completionDate;
 };
+
+export interface INewProgram {
+  _title: string;
+  _cid: string;
+  _reward: AlexLibrary.RewardStruct;
+  _answers: string[];
+}
