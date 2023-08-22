@@ -24,6 +24,7 @@ function CourseDetail(props: {
   const [isTakingQuiz, setIsTakingQuiz] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [isTaken, setIsTaken] = useState<boolean>(false);
+  const [isProcessingTrx, setIsProcessingTrx] = useState(false);
 
   const setupPage = async () => {
     if (!id) return;
@@ -53,9 +54,11 @@ function CourseDetail(props: {
       return;
     }
     if (!props.hasCard) {
+      setIsProcessingTrx(true);
       await doMint(props.provider);
       const hasCard = await hasLibraryCard(props.provider);
       props.setHasCard(hasCard);
+      setIsProcessingTrx(false);
     }
     if (isTakingQuiz && program) {
       // Convert answer object to answer[]
@@ -67,9 +70,11 @@ function CourseDetail(props: {
         (await contracts.checkAnswer(props.provider, program.id.toNumber(), answerArr));
 
       if (isCorrect) {
+        setIsProcessingTrx(true);
         setIsCorrect(true);
         const trx = await contracts.learnProgram(props.provider, program.id.toNumber(), answerArr);
         await trx.wait();
+        setIsProcessingTrx(false);
         navigate('../course-completed/' + id);
       } else {
         setIsCorrect(false);
@@ -153,16 +158,23 @@ function CourseDetail(props: {
           ) : (
             <div></div>
           )}
-          <button className="Quiz-Button" disabled={isTaken} onClick={onClickHandler}>
-            {props.isConnect
-              ? props.hasCard
-                ? !isTaken
-                  ? isTakingQuiz
-                    ? 'Submit Quiz'
-                    : 'Take Quiz'
-                  : 'Completed'
-                : 'Get Library Card'
-              : 'Connect Wallet'}
+          <button
+            className="Quiz-Button"
+            disabled={isTaken || isProcessingTrx}
+            onClick={onClickHandler}
+            style={isProcessingTrx ? { opacity: 0.5 } : {}}
+          >
+            {!isProcessingTrx
+              ? props.isConnect
+                ? props.hasCard
+                  ? !isTaken
+                    ? isTakingQuiz
+                      ? 'Submit Quiz'
+                      : 'Take Quiz'
+                    : 'Completed'
+                  : 'Get Library Card'
+                : 'Connect Wallet'
+              : 'Processing...'}
           </button>
           <p className="Question-Reward">
             {'Reward ' + program.reward.rewardPerAddress + ' ' + program.reward.tokenSymbol}

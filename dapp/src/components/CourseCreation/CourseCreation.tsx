@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { topic, type, duration, ipfs, contracts, validateData, createProgram } from '../../api';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { ethers } from 'ethers';
+import { useNavigate } from 'react-router-dom';
+import { getNumberOfPrograms } from '../../api/contracts';
 import './CourseCreation.css';
 
 const choices = ['A', 'B', 'C', 'D'];
@@ -188,6 +190,8 @@ function CourseCreation(props: {
 
   const [link, setLink] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [isProcessingTrx, setIsProcessingTrx] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {}, [link]);
 
@@ -198,7 +202,11 @@ function CourseCreation(props: {
     } else {
       setErrorMsg(err);
       if (!props.provider) return;
+      setIsProcessingTrx(true);
       await createProgram(props.provider, ipfsProgram, contractProgram);
+      const id = await getNumberOfPrograms();
+      setIsProcessingTrx(false);
+      navigate('../course-detail/' + id);
     }
   };
 
@@ -342,8 +350,12 @@ function CourseCreation(props: {
           onSelectAnswer={onSelectAnswer}
         ></QuizQuestions>
       </div>
-      <div className="Course-Creation-Submit" onClick={onSubmitHandler}>
-        Submit
+      <div
+        className="Course-Creation-Submit"
+        onClick={onSubmitHandler}
+        style={isProcessingTrx ? { opacity: 0.5 } : {}}
+      >
+        {isProcessingTrx ? 'Processing...' : 'Submit'}
       </div>
       {errorMsg !== '' && <p className="Error-Message">{errorMsg}</p>}
     </div>
