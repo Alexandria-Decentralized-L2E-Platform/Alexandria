@@ -151,3 +151,28 @@
 .Course-Creation .video-responsive iframe {
   border-radius: 30px;
 }
+
+.Course-Creation-Banner {
+  border-radius: 5px;
+  background: var(--main-brown, #9e7c5e);
+  box-shadow: 0px 5px 10px 0px rgba(90, 77, 68, 0.25);
+  width: 100%;
+  margin: 20px 0;
+  padding: 20px 0;
+  font-size: 20px;
+  color: white;
+}
+
+.Mint-Author {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.Mint-Author div {
+  border-radius: 5px;
+  width: 5%;
+  border: #fff 1px solid;
+  cursor: pointer;
+}

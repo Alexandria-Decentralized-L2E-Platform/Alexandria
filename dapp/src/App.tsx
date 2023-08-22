@@ -4,7 +4,13 @@ import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { connect } from './api/blockchain';
-import { ICard, doMint, getLibraryCardDetail, hasLibraryCard } from './api/contracts';
+import {
+  ICard,
+  doMint,
+  getLibraryCardDetail,
+  hasLibraryCard,
+  isUserIsAuthor,
+} from './api/contracts';
 
 import CourseCatalogue from './components/CourseCatalogue/CourseCatalogue';
 // CSS
@@ -34,6 +40,7 @@ function App() {
   const [userAddress, setUserAddress] = useState('');
   const [hasCard, setHasCard] = useState(false);
   const [isConnect, setIsConnect] = useState(false);
+  const [isAuthor, setIsAuthor] = useState(false);
   const [isCardShown, setIsCardShown] = useState(false);
   const [card, setCard] = useState<ICard | undefined>(undefined);
   function shortenAddress(address: string) {
@@ -57,6 +64,8 @@ function App() {
       const hasLibCard = await hasLibraryCard(provider);
       setHasCard(hasLibCard);
       if (hasCard) setCard(await getLibraryCardDetail(provider));
+      const isAuthor = await isUserIsAuthor(provider);
+      setIsAuthor(isAuthor);
     }
   }
 
@@ -74,6 +83,8 @@ function App() {
         const hasLibCard = await hasLibraryCard(provider);
         setHasCard(hasLibCard);
         if (hasCard) setCard(await getLibraryCardDetail(provider));
+        const isAuthor = await isUserIsAuthor(provider);
+        setIsAuthor(isAuthor);
       }
     }
   }
@@ -235,7 +246,18 @@ function App() {
             }
           />
           <Route path="/course-completed/:id" element={<CourseCompleted provider={provider} />} />
-          <Route path="/course-creation" element={<CourseCreation />} />
+          <Route
+            path="/course-creation"
+            element={
+              <CourseCreation
+                key={'CourseCreation'}
+                provider={provider}
+                isConnect={isConnect}
+                isAuthor={isAuthor}
+                setIsAuthor={setIsAuthor}
+              />
+            }
+          />
           <Route path="/" element={<LandingPage />} />
         </Routes>
         <div className="Footer">

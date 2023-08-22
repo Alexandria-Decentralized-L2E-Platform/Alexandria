@@ -63,7 +63,8 @@ export const approveToken = async (
   spenderAddress: string,
   amount: number,
 ): Promise<ethers.ContractTransaction> => {
-  const token = new ethers.Contract(tokenAddress, ERC20__factory.abi, provider) as ERC20;
+  const signer = provider.getSigner();
+  const token = new ethers.Contract(tokenAddress, ERC20__factory.abi, signer) as ERC20;
   const decimals = await token.decimals();
   const trx = await token.approve(spenderAddress, ethers.utils.formatUnits(amount, decimals));
   return trx;
@@ -275,10 +276,11 @@ export const rateProgram = async (
   id: number,
   rate: number,
 ): Promise<ethers.ContractTransaction> => {
+  const signer = provider.getSigner();
   const lib = new ethers.Contract(
     alexAddresses.library,
     AlexLibrary__factory.abi,
-    provider,
+    signer,
   ) as AlexLibrary;
   const trx = await lib.rateProgram(id, rate);
   return trx;
@@ -322,11 +324,20 @@ export const createNewProgram = async (
   provider: ethers.providers.Web3Provider,
   newProgram: INewProgram,
 ): Promise<ethers.ContractReceipt> => {
+  const signer = provider.getSigner();
   const lib = new ethers.Contract(
     alexAddresses.library,
     AlexLibrary__factory.abi,
-    provider,
+    signer,
   ) as AlexLibrary;
+  // approve reward token spending
+  const amount = BigNumber.from(newProgram._reward.rewardPerAddress)
+    .mul(newProgram._reward.rewardAddressCap)
+    .mul(18)
+    .toNumber();
+  await (
+    await approveToken(provider, newProgram._reward.rewardToken, alexAddresses.library, amount)
+  ).wait();
   const response = await lib.newProgram(
     newProgram._title,
     newProgram._cid,
@@ -334,4 +345,27 @@ export const createNewProgram = async (
     newProgram._answers,
   );
   return await response.wait();
+};
+
+export const isUserIsAuthor = async (provider: ethers.providers.Web3Provider): Promise<boolean> => {
+  const author = new ethers.Contract(
+    alexAddresses.author,
+    AlexAuthor__factory.abi,
+    provider,
+  ) as AlexAuthor;
+  const balance = await author.balanceOf(await provider.getSigner().getAddress());
+  return balance.gt(0);
+};
+
+export const mintAuthor = async (
+  provider: ethers.providers.Web3Provider,
+): Promise<ethers.ContractReceipt> => {
+  const signer = provider.getSigner();
+  const author = new ethers.Contract(
+    alexAddresses.author,
+    AlexAuthor__factory.abi,
+    signer,
+  ) as AlexAuthor;
+  const receipt = await author.safeMint(await provider.getSigner().getAddress(), 'No Name');
+  return await receipt.wait();
 };

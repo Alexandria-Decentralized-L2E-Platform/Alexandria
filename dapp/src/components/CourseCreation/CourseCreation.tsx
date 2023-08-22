@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { topic, type, duration, ipfs, contracts, validateData } from '../../api';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { ethers } from 'ethers';
 import './CourseCreation.css';
 
 const choices = ['A', 'B', 'C', 'D'];
@@ -158,7 +159,12 @@ function QuestionChoice(props: {
   );
 }
 
-function CourseCreation() {
+function CourseCreation(props: {
+  provider: ethers.providers.Web3Provider | undefined;
+  isConnect: boolean;
+  isAuthor: boolean;
+  setIsAuthor(isAuthor: boolean): void;
+}) {
   const [ipfsProgram, setIpfsProgram] = useState<ipfs.IProgramObjectIPFS>({
     description: '',
     duration: '0',
@@ -183,7 +189,7 @@ function CourseCreation() {
   const [link, setLink] = useState('');
 
   useEffect(() => {
-    console.log(link);
+    console.log(props.isConnect, props.isAuthor);
   }, [link]);
 
   const onSubmitHandler = () => {
@@ -230,8 +236,26 @@ function CourseCreation() {
     setContractProgram(tempContractProgram);
   };
 
+  const onMint = async (provider: ethers.providers.Web3Provider | undefined) => {
+    if (!provider) return;
+    await contracts.mintAuthor(provider);
+    props.setIsAuthor(await contracts.isUserIsAuthor(provider));
+  };
+
   return (
     <div className="Course-Creation">
+      {(!props.isConnect || !props.isAuthor) && (
+        <div className="Course-Creation-Banner">
+          {!props.isConnect ? (
+            <div>Please Connect Your Wallet.</div>
+          ) : (
+            <div className="Mint-Author">
+              <p>Please get an Author NFT by clikcing the below button:</p>
+              <div onClick={() => onMint(props.provider)}>Mint</div>
+            </div>
+          )}
+        </div>
+      )}
       <h1>Create Course</h1>
       <div className="Course-Creation-Container">
         <TextInput

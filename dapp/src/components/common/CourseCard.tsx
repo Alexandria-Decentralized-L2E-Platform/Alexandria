@@ -33,12 +33,8 @@ function CourseCard(props: { program: IProgram; isDetail?: boolean }) {
   // Covert duration from number (mins) to string
   const courseDuration: string = program.duration;
   const coursePublisher = props.isDetail
-    ? 'By ' + program.authorName + ' (' + program.owner + ')'
-    : 'By ' +
-      program.authorName +
-      ' (...' +
-      program.owner.substring(program.owner.length - 4) +
-      ')';
+    ? 'By ' + program.owner + ''
+    : 'By ...' + program.owner.substring(program.owner.length - 4);
   const type = program.type;
   const tag = program.topic;
   const imgLink =
