@@ -73,17 +73,21 @@ const createProgram = async (
   provider: ethers.providers.Web3Provider,
   ipfsProgram: ipfs.IProgramObjectIPFS,
   contractProgram: contracts.INewProgram,
-): Promise<ethers.ContractReceipt> => {
+): Promise<string> => {
   // Pin to IPFS
   const pinnedObject: ipfs.IpinJSONtoIPFSResponseData = await ipfs.pinProgramToIPFS(ipfsProgram);
   if (pinnedObject.IpfsHash) console.log(pinnedObject);
   // Wrtie into Smart Contracts
   contractProgram._cid = pinnedObject.IpfsHash;
-  const response: ethers.ContractReceipt = await contracts.createNewProgram(
+  const response: ethers.ContractReceipt | string = await contracts.createNewProgram(
     provider,
     contractProgram,
   );
-  return response;
+  if (typeof response == 'string') {
+    return response;
+  } else {
+    return response.transactionHash;
+  }
 };
 
 const validateData = (

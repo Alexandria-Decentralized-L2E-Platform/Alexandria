@@ -17,7 +17,7 @@ function LandingPage() {
   const [programs, setPrograms] = useState<IProgram[]>([]);
   const loadProgram = async () => {
     const programs = await getAllPrograms();
-    setPrograms(programs);
+    setPrograms(programs.splice(0, 3));
   };
 
   useEffect(() => {

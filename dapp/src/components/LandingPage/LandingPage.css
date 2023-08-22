@@ -257,7 +257,7 @@
 }
 
 .ourCoursesSection {
-  width: 90%;
+  width: 100%;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -326,11 +326,12 @@
 }
 
 .courseCards {
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  gap: 20px;
 }
 
 .functionContainer {

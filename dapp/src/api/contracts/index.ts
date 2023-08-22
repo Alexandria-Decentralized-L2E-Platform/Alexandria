@@ -322,7 +322,7 @@ export interface INewProgram {
 export const createNewProgram = async (
   provider: ethers.providers.Web3Provider,
   newProgram: INewProgram,
-): Promise<ethers.ContractReceipt> => {
+): Promise<ethers.ContractReceipt | string> => {
   const signer = provider.getSigner();
   const lib = new ethers.Contract(
     alexAddresses.library,
@@ -330,21 +330,28 @@ export const createNewProgram = async (
     signer,
   ) as AlexLibrary;
   // approve reward token spending
-  const amount = BigNumber.from(newProgram._reward.rewardPerAddress)
-    .mul(newProgram._reward.rewardAddressCap)
-    .mul(BigNumber.from(10).pow(18));
-  console.log(amount.toString());
-  await (
-    await approveToken(provider, newProgram._reward.rewardToken, alexAddresses.library, amount)
-  ).wait();
-  newProgram._reward.rewardPerAddress = amount;
-  const response = await lib.newProgram(
-    newProgram._title,
-    newProgram._cid,
-    newProgram._reward,
-    newProgram._answers,
+  newProgram._reward.rewardPerAddress = BigNumber.from(newProgram._reward.rewardPerAddress).mul(
+    BigNumber.from(10).pow(18),
   );
-  return await response.wait();
+  const amount = newProgram._reward.rewardPerAddress.mul(BigNumber.from(10).pow(18));
+  console.log(amount.toString());
+  try {
+    await (
+      await approveToken(provider, newProgram._reward.rewardToken, alexAddresses.library, amount)
+    ).wait();
+    newProgram._reward.rewardDistributed = 0;
+    console.log(newProgram);
+    const response = await lib.newProgram(
+      newProgram._title,
+      newProgram._cid,
+      newProgram._reward,
+      newProgram._answers,
+    );
+    return await response.wait();
+  } catch (err) {
+    const errorMsg = 'Error: ' + err;
+    return errorMsg;
+  }
 };
 
 export const isUserIsAuthor = async (provider: ethers.providers.Web3Provider): Promise<boolean> => {

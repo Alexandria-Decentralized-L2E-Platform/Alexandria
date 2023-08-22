@@ -51,6 +51,9 @@
 
 .Courses {
   width: 70%;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 20px;
 }
 
 /* Course Card on Catalogue */
