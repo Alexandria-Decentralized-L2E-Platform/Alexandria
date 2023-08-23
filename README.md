@@ -17,7 +17,7 @@ A decentralized, community driven, self-serviced, <strong>Learn-to-Earn</striong
 
 ### Dapp Architecture
 
-![Logo](images/protocolArchitecture.png)
+![Logo](images/dappArchitecture.png)
 
 The provided diagram illustrates the architecture of the protocol, with React.js as the chosen frontend development framework. Data storage, including course descriptions, content URLs, questions, multiple-choice options, and additional metadata, is securely stored on IPFS through the Pinata gateway. The resulting Content Identifier (CID) is then registered within our core smart contracts. Data extraction from the blockchain is facilitated by a dedicated RPC endpoint provider, diverging from Metamask's provider. Metamask exclusively handles user address retrieval and the submission of signed transactions to the blockchain.
 
