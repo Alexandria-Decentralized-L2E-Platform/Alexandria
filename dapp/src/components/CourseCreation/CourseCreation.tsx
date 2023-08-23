@@ -266,7 +266,7 @@ function CourseCreation(props: {
             <div>Please Connect Your Wallet.</div>
           ) : (
             <div className="Mint-Author">
-              <p>Please get an Author NFT by clikcing the below button:</p>
+              <p>Please get an Author NFT by clicking the below button:</p>
               <div onClick={() => onMint(props.provider)}>Mint</div>
             </div>
           )}
