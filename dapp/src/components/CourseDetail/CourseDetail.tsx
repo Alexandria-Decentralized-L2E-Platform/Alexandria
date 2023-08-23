@@ -33,16 +33,6 @@ function CourseDetail(props: {
     if (props.isConnect && props.provider) {
       const certs = await completedProgramByAddress(props.provider);
       setIsTaken(certs.includes(program.id.toNumber()));
-      console.log(
-        Number(program.reward.rewardDistributed) /
-          (Number(program.reward.rewardAddressCap) * Number(program.reward.rewardPerAddress)),
-      );
-      console.log(program.reward.rewardPerAddress);
-      console.log(
-        BigNumber.from(program.reward.rewardDistributed)
-          .div(BigNumber.from(program.reward.rewardAddressCap).mul(program.reward.rewardPerAddress))
-          .toNumber() * 100,
-      );
     }
   };
 

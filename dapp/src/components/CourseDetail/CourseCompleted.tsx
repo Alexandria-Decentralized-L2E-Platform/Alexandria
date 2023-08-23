@@ -50,7 +50,6 @@ function CourseCompleted(props: { provider: ethers.providers.Web3Provider | unde
             value={value}
             onChange={(event, newValue) => {
               if (newValue) setValue(newValue);
-              console.log(value);
             }}
           />
           <div
