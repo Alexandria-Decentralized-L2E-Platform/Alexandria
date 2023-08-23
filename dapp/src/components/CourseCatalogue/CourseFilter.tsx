@@ -26,7 +26,7 @@ function CourseFilter(props: {
   return (
     <div className="Course-Filter">
       <div className="Filter-Name">
-        <h2>{props.data.title}</h2>
+        <h2>{props.data.title.toUpperCase()}</h2>
         {isExpanded ? (
           <svg
             onClick={() => {

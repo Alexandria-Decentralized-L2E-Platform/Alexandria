@@ -3,7 +3,7 @@ import alexandriaLogo from '../../logo/alexandriaLogo.svg';
 
 function Symposium() {
   return (
-    <div className="Container">
+    <div className="Container Main">
       <h1>Symposium</h1>
       <div className="emptyCert">
         <img src={alexandriaLogo} width={200}></img>
