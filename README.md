@@ -13,6 +13,18 @@ A decentralized, community driven, self-serviced, <strong>Learn-to-Earn</striong
   </p>
 </div>
 
+## Smart Contracts
+
+Below are the core smart contracts that constitute the foundation of the Alexandria platform:
+
+1. [AlexLibrary.sol](https://github.com/Alexandria-Decentralized-L2E-Platform/Alexandria/blob/main/contracts/contracts/AlexLibrary.sol)
+2. [AlexLibraryCard.sol](https://github.com/Alexandria-Decentralized-L2E-Platform/Alexandria/blob/main/contracts/contracts/AlexLibraryCard.sol)
+3. [AlexAuthor.sol](https://github.com/Alexandria-Decentralized-L2E-Platform/Alexandria/blob/main/contracts/contracts/AlexAuthor.sol)
+4. [AlexCertificate.sol](https://github.com/Alexandria-Decentralized-L2E-Platform/Alexandria/blob/main/contracts/contracts/AlexCertificate.sol)
+5. [AlexAdmin.sol](https://github.com/Alexandria-Decentralized-L2E-Platform/Alexandria/blob/main/contracts/contracts/AlexAdmin.sol)
+
+These contracts play a pivotal role in shaping the functionality and features of the Alexandria protocol, facilitating everything from course creation to rewards distribution.
+
 ## Getting Started
 
 ### Prerequisites
