@@ -281,13 +281,13 @@ function CourseCreation(props: {
           programKey="_title"
           onChangeTextInput={onChangeContractTextInput}
         ></TextInput>
-        <TextInput
-          name="Course Description"
-          placeholder="Enter Course Description"
-          inputType="text"
-          programKey="description"
-          onChangeTextInput={onChangeIpfsTextInput}
-        ></TextInput>
+        <div className="Course-Creation-txt">
+          <p>{'Course Description'}</p>
+          <textarea
+            placeholder="Enter Course Description"
+            onChange={(event) => onChangeIpfsTextInput('description', event.target.value)}
+          />
+        </div>
         <Radios
           name="Course Material Type"
           options={Object.values(type)}

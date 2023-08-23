@@ -26,23 +26,23 @@ const durationMin = {
 
 const courseFilters = [
   {
-    title: 'status',
+    title: 'Status',
     options: Object.values(status),
   },
   {
-    title: 'rating',
+    title: 'Rating',
     options: Object.values(rating),
   },
   {
-    title: 'topic',
+    title: 'Topic',
     options: Object.values(topic),
   },
   {
-    title: 'type',
+    title: 'Type',
     options: Object.values(type),
   },
   {
-    title: 'duration',
+    title: 'Duration',
     options: Object.values(duration),
   },
 ];

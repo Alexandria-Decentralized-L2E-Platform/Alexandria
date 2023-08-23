@@ -336,3 +336,7 @@
 .css-ahj2mt-MuiTypography-root {
   font-family: Jost !important;
 }
+
+.Mui-checked {
+  color: #9E7C5E !important;
+}

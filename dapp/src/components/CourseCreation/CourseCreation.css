@@ -39,7 +39,8 @@
   font-weight: 600;
 }
 
-.Course-Creation-txt input {
+.Course-Creation-txt input,
+.Course-Creation-txt textarea {
   width: 100%;
   height: 40px;
   border-radius: 10px;
@@ -47,6 +48,13 @@
   box-shadow: 0px 0px 20px 0px rgba(141, 133, 126, 0.5);
   padding-left: 40px;
   font-size: 16px;
+}
+
+.Course-Creation-txt textarea {
+  padding-top: 10px;
+  min-height: 40px;
+  min-width: 100%;
+  max-width: 100%;
 }
 
 ::placeholder {

@@ -34,7 +34,7 @@ function LandingPage() {
         <div className="visitAlexandriabannerHeading">
           <text>Rewarding.</text>
           <text>Accessible.</text>
-          <text>Decentralised.</text>
+          <text>Decentralized.</text>
         </div>
         <div className="visitAlexandriabannerSubheading">
           <text>Earn, Learn and educate on this brand new decentralized education platform.</text>
@@ -80,7 +80,7 @@ function LandingPage() {
         </div>
         <div className="shortIntroAlexandria">
           Alexandria is a decentralized community driven, self-serviced learning platform operating
-          on the principles of accessibility, incentivzation and decentralization.
+          on the principles of accessibility, incentivization and decentralization.
         </div>
         <div style={{ marginTop: '49px' }}>
           <FunctionIntroductionBar />
@@ -94,7 +94,7 @@ function LandingPage() {
           </div>
           <text className="ourCoursesLongText">
             Alexandria is a decentralized community driven, self-serviced learning platform
-            operating on the principles of accessibility, incentivzation and decentralization.
+            operating on the principles of accessibility, incentivization and decentralization.
           </text>
         </div>
         <div className="courseCards">
@@ -159,7 +159,7 @@ function FunctionIntroductionBar() {
           transition between the roles of both learner and educator, creating a dynamic ecosystem
           where knowledge flows freely. This unique approach ensures that education transcends
           barriers, welcoming all to partake in a transformative journey that fosters growth,
-          collaboration, and equal opportunity for everyone
+          collaboration, and equal opportunity for everyone.
         </div>
       </div>
     </div>
@@ -271,7 +271,7 @@ function FunctionIntroductionBar() {
                 : 'SectionButtonText'
             }
           >
-            Incentivzation
+            Incentivization
           </div>{' '}
         </ToggleButton>
         <ToggleButton
