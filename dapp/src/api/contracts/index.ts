@@ -87,7 +87,7 @@ export const getLibraryCardDetail = async (
     provider,
   ) as AlexLibraryCard;
   const userAddress = await provider.getSigner().getAddress();
-  const tokenId = await card.tokenOfOwnerByIndex('0xDe55169E415e0f6363B753B22482e45Ef47eE46a', 0);
+  const tokenId = await card.tokenOfOwnerByIndex(userAddress, 0);
   const mintedAt = (await card.mintedAt(tokenId)).toString();
   return {
     contractAddress: alexAddresses.card,

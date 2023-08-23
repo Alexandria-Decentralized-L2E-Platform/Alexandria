@@ -91,7 +91,7 @@ const createProgram = async function (hre:HardhatRuntimeEnvironment, cid: string
         sponsor
     )) as RewardToken__factory;
 
-    const rewardContract = await rewardFactory.deploy("Wrapped XDC", "WXDC", tokenSupply);
+    const rewardContract = await rewardFactory.deploy("Tether USD", "USDT", tokenSupply);
     await rewardContract.deployTransaction.wait();
     console.log(rewardContract.address);
 
@@ -134,7 +134,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     accounts = await hre.ethers.getSigners();
     const deployer = accounts[0];
 
-    const addresses = await deploy(hre, deployer);
+    const addresses: any = {};
     console.log(addresses)
 
     const sponsor = accounts[1];
