@@ -30,6 +30,7 @@
 }
 
 .visitAlexandriabannerHeading {
+  position: relative;
   color: #fff;
   font-family: 'New Order', sans-serif; /* Make sure the font name is correct */
   font-size: 60px;
@@ -88,10 +89,11 @@
 }
 
 .visitAlexandriabannerScroll {
+  position: absolute;
   color: #fff;
   font-size: 20px;
   font-weight: 600;
-  top: 520px; /* Adjust as needed */
+  bottom: 0;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -161,7 +163,7 @@
 .ourVisionContainer {
   position: absolute !important;
   left: 96px;
-  top: 9em;
+  top: 5em;
   width: 50%;
   display: inline-flex;
   flex-direction: column;
