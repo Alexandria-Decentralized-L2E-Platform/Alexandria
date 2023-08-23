@@ -6,7 +6,7 @@
   <h3 align="center">Alexandria</h3>
 
   <p align="center">
-A decentralized community driven, self-service platform operation on the principles of accessibility and transparency    <br />
+A decentralized, community driven, self-serviced educational platform operation on the principles of accessibility, incentivzation, decentralization    <br />
     <a href="https://alexandria-orcin.vercel.app"><strong>View Demo »</strong></a>
   </p>
 </div>
