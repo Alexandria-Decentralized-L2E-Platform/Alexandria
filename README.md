@@ -6,7 +6,7 @@
   <h3 align="center">Alexandria</h3>
 
   <p align="center">
-A decentralized community driven, self-service platform operation on the principles of accessibility and transparency    <br />
+A decentralized, community driven, self-serviced educational platform operation on the principles of accessibility, incentivzation, decentralization    <br />
     <a href="https://alexandria-orcin.vercel.app"><strong>View Demo »</strong></a>
   </p>
 </div>
@@ -45,26 +45,6 @@ A decentralized community driven, self-service platform operation on the princip
    ```sh
    yarn start
    ```
-
-\*\*\* Items needed:
-
-1. Problem
-2. Solution
-3. Vision
-4. Team
-5. MVP
-6. Showcase video
-7. Github
-8. User journey
-9. Use case
-
-\*\*Team:
-
-1. Name
-2. Intro
-3. Role
-4. Responsibility
-5. Link
 
 ```
 
