@@ -24,9 +24,9 @@ contract AlexCertificate is ERC721, ERC721URIStorage {
         require(msg.sender == alexLibrary, "Can only be minted by program");
         require(balanceOf(to) == 0, "Already owned this certificate.");
         uint256 tokenId = tokenIdCounter.current();
-        tokenIdCounter.increment();
         certifiedAt[tokenId] = block.timestamp;
         _safeMint(to, tokenId);
+        tokenIdCounter.increment();
     }
 
     function burn(uint256 tokenId) external {

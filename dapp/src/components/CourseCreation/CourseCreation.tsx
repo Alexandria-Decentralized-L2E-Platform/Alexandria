@@ -207,7 +207,7 @@ function CourseCreation(props: {
         await createProgram(props.provider, ipfsProgram, contractProgram);
         const id = await getNumberOfPrograms();
         setIsProcessingTrx(false);
-        navigate('../course-detail/' + id);
+        navigate('../browse-detail/' + id);
       } catch (error) {
         setErrorMsg(error as string);
         setIsProcessingTrx(false);

@@ -93,37 +93,38 @@ const createProgram = async function (hre:HardhatRuntimeEnvironment, cid: string
 
     const rewardContract = await rewardFactory.deploy("Wrapped XDC", "WXDC", tokenSupply);
     await rewardContract.deployTransaction.wait();
+    console.log(rewardContract.address);
 
-    // card approve token spending
-    const token = new ethers.Contract(addresses.token, ERC20__factory.abi, sponsor) as ERC20;
-    await(await token.approve(addresses.author, sponsorStakeAmount)).wait();
-    await(await rewardContract.approve(addresses.library, tokenTotal)).wait();
+    // // card approve token spending
+    // const token = new ethers.Contract(addresses.token, ERC20__factory.abi, sponsor) as ERC20;
+    // await(await token.approve(addresses.author, sponsorStakeAmount)).wait();
+    // await(await rewardContract.approve(addresses.library, tokenTotal)).wait();
 
-    // Mint
-    const author = new ethers.Contract(addresses.author, AlexAuthor__factory.abi, sponsor) as AlexAuthor;
-    await(await author.safeMint(await sponsor.getAddress(), "Handsome Bear")).wait();
+    // // Mint
+    // const author = new ethers.Contract(addresses.author, AlexAuthor__factory.abi, sponsor) as AlexAuthor;
+    // await(await author.safeMint(await sponsor.getAddress(), "Handsome Bear")).wait();
 
-    let reward: AlexLibrary.RewardStruct = {
-        rewardToken: rewardContract.address ,
-        rewardAddressCap: BigNumber.from(1000),
-        rewardPerAddress: BigNumber.from(10).mul(BigNumber.from(10).pow(18)),
-        rewardDistributed: BigNumber.from(0)
-    }
+    // let reward: AlexLibrary.RewardStruct = {
+    //     rewardToken: rewardContract.address ,
+    //     rewardAddressCap: BigNumber.from(1000),
+    //     rewardPerAddress: BigNumber.from(10).mul(BigNumber.from(10).pow(18)),
+    //     rewardDistributed: BigNumber.from(0)
+    // }
 
-    let program: any = {
-        title: "An Introduction to Xin Fin",
-        answers: ["D", "A", "D", "D", "B"],
-        cid
-    }
+    // let program: any = {
+    //     title: "An Introduction to Xin Fin",
+    //     answers: ["D", "A", "D", "D", "B"],
+    //     cid
+    // }
 
-    const lib = new ethers.Contract(addresses.library, AlexLibrary__factory.abi, sponsor) as AlexLibrary;
+    // const lib = new ethers.Contract(addresses.library, AlexLibrary__factory.abi, sponsor) as AlexLibrary;
 
-    await lib.newProgram(
-        program.title,
-        program.cid,
-        reward,
-        program.answers
-    )
+    // await lib.newProgram(
+    //     program.title,
+    //     program.cid,
+    //     reward,
+    //     program.answers
+    // )
 }
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
@@ -137,7 +138,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     console.log(addresses)
 
     const sponsor = accounts[1];
-    // await createProgram(hre, "QmSdcaVEKU35n4jkXjzSH9NFMf8LeoYLv4gbuuN6y3yww8", addresses, sponsor);
+    await createProgram(hre, "QmSdcaVEKU35n4jkXjzSH9NFMf8LeoYLv4gbuuN6y3yww8", addresses, sponsor);
     return;
 };
 

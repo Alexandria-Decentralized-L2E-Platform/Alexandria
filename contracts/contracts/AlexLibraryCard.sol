@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
@@ -26,8 +25,8 @@ contract AlexLibraryCard is ERC721, ERC721URIStorage, ERC721Enumerable {
         ERC20(admin.feeToken()).transferFrom(msg.sender, address(admin), admin.cardFee());
         uint256 tokenId = tokenIdCounter.current();
         mintedAt[tokenId] = block.timestamp;
-        tokenIdCounter.increment();
         _safeMint(to, tokenId);
+        tokenIdCounter.increment();
     }
 
     function burn(uint256 tokenId) external {

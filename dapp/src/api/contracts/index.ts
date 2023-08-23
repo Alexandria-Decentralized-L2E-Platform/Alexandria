@@ -27,11 +27,11 @@ export interface AlexAddresses {
 }
 
 export const alexAddresses: AlexAddresses = {
-  token: '0x1ACfE3aE4bD19A0cb93BA955523F455FBd82127C',
-  admin: '0x2aa4465aF5db82AdF07795Be850e4CbC28493DEb',
-  author: '0x4c1dAD8f068203174A79dFb533B6B93e757080bb',
-  card: '0xd9ECd74F8779B6AE77b2FA715572302D82DBed2f',
-  library: '0xcFda440f35138382682120aA58989fbA4e4bf26d',
+  token: '0x82721AC787B661Bf2e1fe3c39154825E44145194',
+  admin: '0x2cBCd63dA737d020Ea9Ab6e931D78d3fb9fEadC5',
+  author: '0x1EfA37fc22332B82e12Be7CdB552ca42372fAB94',
+  card: '0x783174D9D99cdC01E01CCB57546F6b64cd6eb1fC',
+  library: '0x49756645Af61b5d2D71a883227356bd7BE9A51b4',
 };
 
 // Tokens
@@ -87,13 +87,14 @@ export const getLibraryCardDetail = async (
     provider,
   ) as AlexLibraryCard;
   const userAddress = await provider.getSigner().getAddress();
-  const tokenId = await card.tokenOfOwnerByIndex(userAddress, 0);
+  const tokenId = await card.tokenOfOwnerByIndex('0xDe55169E415e0f6363B753B22482e45Ef47eE46a', 0);
   const mintedAt = (await card.mintedAt(tokenId)).toString();
+  console.log(tokenId);
   return {
     contractAddress: alexAddresses.card,
     userAddress,
     mintedAt: new Date(Number(mintedAt) * 1000).toLocaleDateString(),
-    tokenId: 0,
+    tokenId: tokenId.toNumber(),
   };
 };
 

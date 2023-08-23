@@ -46,6 +46,8 @@ function App() {
   const [isAuthor, setIsAuthor] = useState(false);
   const [isCardShown, setIsCardShown] = useState(false);
   const [card, setCard] = useState<ICard | undefined>(undefined);
+  const [isProcessingTrx, setIsProcessingTrx] = useState(false);
+
   function shortenAddress(address: string) {
     if (!address || address.length < 10) return '';
     return address.substring(0, 6) + '...' + address.substring(address.length - 4);
@@ -82,7 +84,7 @@ function App() {
         setIsConnect(true);
       }
       if (isConnect) {
-        setUserAddress(accounts[0]);
+        setUserAddress(await provider.getSigner().getAddress());
         const hasLibCard = await hasLibraryCard(provider);
         setHasCard(hasLibCard);
         if (hasCard) setCard(await getLibraryCardDetail(provider));
@@ -102,6 +104,16 @@ function App() {
     } else {
       setIsCardShown((prevState) => !prevState);
     }
+  };
+
+  const onMintHandler = async () => {
+    if (!provider) return;
+    setIsProcessingTrx(true);
+    await doMint(provider);
+    const hasLibCard = await hasLibraryCard(provider);
+    setHasCard(hasLibCard);
+    if (hasCard) setCard(await getLibraryCardDetail(provider));
+    setIsProcessingTrx(false);
   };
 
   return (
@@ -208,13 +220,12 @@ function App() {
                               </div>
                             </div>
                             <div className="library-card-main-right">
-                              <div className="library-card-main-right-data">
+                              {/* <div className="library-card-main-right-data">
                                 <p className="library-card-main-right-data-title">Card ID:</p>
                                 <p className="library-card-main-right-data-entity">
                                   {card.tokenId}
                                 </p>
-                              </div>
-
+                              </div> */}
                               <div className="library-card-main-right-data">
                                 <p className="library-card-main-right-data-title">Address:</p>
                                 <p className="library-card-main-right-data-entity">
@@ -241,14 +252,13 @@ function App() {
                           <div className="library-card-main">
                             <h2 className="library-card-main-text"> Get Your Library Card</h2>
                             <div
-                              onClick={() => {
-                                if (provider) doMint(provider);
-                              }}
+                              onClick={onMintHandler}
                               className="library-card-main-button"
+                              style={isProcessingTrx ? { opacity: '0.5' } : {}}
                             >
                               <img src={iconsWallet}></img>
                               <text className="library-card-main-button-text">
-                                Mint Your Library Card
+                                {isProcessingTrx ? 'Minting' : 'Mint Your Library Card'}
                               </text>
                             </div>
                           </div>

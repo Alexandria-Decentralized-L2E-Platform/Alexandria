@@ -12,10 +12,10 @@ export const loadNetwork = async (provider: ethers.providers.Web3Provider) => {
 
 // Connect wallet to metamask
 export const connect = async (provider: ethers.providers.Web3Provider): Promise<string> => {
-  const accounts = await provider.send('eth_requestAccounts', []);
+  await provider.send('eth_requestAccounts', []);
   // if (await isSupportedChain()) return accounts[0];
   await addNetwork(provider, DEFAULT_NETWORK);
-  return accounts[0];
+  return await provider.getSigner().getAddress();
 };
 
 // Return true if the chain is supported
