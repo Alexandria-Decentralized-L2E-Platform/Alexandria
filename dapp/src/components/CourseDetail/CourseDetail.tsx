@@ -101,7 +101,7 @@ function CourseDetail(props: {
       {program ? (
         <div className="Course-Detail-Wrapper">
           <div className="info-bar">
-            <p className="info-bar-browse">{'Browse Courses >'}</p>
+            <p className="info-bar-browse">{'Catalog >'}</p>
             <p className="info-bar-title">{program.title}</p>
           </div>
           <CourseCard key={'detail-' + program.cid} program={program} isDetail={true}></CourseCard>
