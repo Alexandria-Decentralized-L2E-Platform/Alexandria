@@ -343,6 +343,11 @@
   gap: 100px;
 }
 
+.functionContainer img {
+  width: 200px;
+  height: 200px;
+}
+
 .functionTitle {
   color: #2a2927;
   font-size: 40px;

@@ -48,6 +48,7 @@
   box-shadow: 0px 0px 20px 0px rgba(141, 133, 126, 0.5);
   padding-left: 40px;
   font-size: 16px;
+  font-family: Jost;
 }
 
 .Course-Creation-txt textarea {

@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllPrograms, IProgram } from '../../api';
 
-// import communityDescription from '../../logo/communityDescription.svg';
-// import innovationDescription from '../../logo/innovationDescription.svg';
-// import learningDescripton from '../../logo/learningDescription.svg';
 import ourVisionBanner from '../../logo/ourVisionBanner.svg';
-// import securityDescription from '../../logo/securityDescription.svg';
 import visitAlexandriaBanner from '../../logo/visitAlexandriaBanner.svg';
-import nftLogo from '../../logo/nft.svg';
+import Access from '../../logo/Accessibility.svg';
+import Incen from '../../logo/Incentive.svg';
+import Decen from '../../logo/Decentralization.svg';
+
 import CourseCard from '../common/CourseCard';
 import './LandingPage.css';
 
@@ -148,7 +147,7 @@ function FunctionIntroductionBar() {
 
   const learningSection = (
     <div className="functionContainer">
-      <img src={nftLogo} />
+      <img src={Access} />
       <div className="functionContentContainer">
         <div className="functionTitle">
           New <text className="brownColor">Paradigm</text>
@@ -167,7 +166,7 @@ function FunctionIntroductionBar() {
 
   const communitySection = (
     <div className="functionContainer">
-      <img src={nftLogo} />
+      <img src={Incen} />
       <div className="functionContentContainer">
         <div className="functionTitle">
           Catalyzing <text className="brownColor">Progress</text>
@@ -185,7 +184,7 @@ function FunctionIntroductionBar() {
 
   const securitySection = (
     <div className="functionContainer">
-      <img src={nftLogo} />
+      <img src={Decen} />
       <div className="functionContentContainer">
         <div className="functionTitle">
           Decentralizing <text className="brownColor">Education</text>
