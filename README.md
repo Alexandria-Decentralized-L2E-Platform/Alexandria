@@ -46,26 +46,6 @@ A decentralized, community driven, self-serviced educational platform operation 
    yarn start
    ```
 
-\*\*\* Items needed:
-
-1. Problem
-2. Solution
-3. Vision
-4. Team
-5. MVP
-6. Showcase video
-7. Github
-8. User journey
-9. Use case
-
-\*\*Team:
-
-1. Name
-2. Intro
-3. Role
-4. Responsibility
-5. Link
-
 ```
 
 ```
