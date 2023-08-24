@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "New Order";
+  src: url('../../fonts/NewOrderBold.otf');
+  src: url('../../fonts/NewOrderBold.otf')
+}
+
 @keyframes moveToggle {
   0% {
     transform: translateX(0);
@@ -32,7 +38,7 @@
 .visitAlexandriabannerHeading {
   position: relative;
   color: #fff;
-  font-family: 'New Order', sans-serif; /* Make sure the font name is correct */
+  font-family: 'New Order'; /* Make sure the font name is correct */
   font-size: 60px;
   font-weight: 700;
   line-height: normal;
